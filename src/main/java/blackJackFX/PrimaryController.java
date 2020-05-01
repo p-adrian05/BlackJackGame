@@ -14,14 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
-public class Controller implements Initializable {
-
-    @FXML
-    private TextField userNameInput;
-    @FXML
-    private PasswordField passwordInput;
-    @FXML
-    private Label loginLabel;
+public class PrimaryController implements Initializable {
     @FXML
     private Label betLabel;
     @FXML
@@ -42,15 +35,7 @@ public class Controller implements Initializable {
     private VBox warningPopUpContainer;
     @FXML
     private AnchorPane mainContainer;
-    @FXML
-    private Menu statisticMenu;
-    
 
-    public void loginBtnClicked(ActionEvent actionEvent) {
-    }
-
-    public void registerBtnClicked(ActionEvent actionEvent) {
-    }
 
     public void okBtnClicked(ActionEvent actionEvent) {
     }
@@ -80,9 +65,6 @@ public class Controller implements Initializable {
     }
 
     public void imgLoad(ActionEvent actionEvent) {
-    }
-
-    public void backGameBtnClicked(ActionEvent actionEvent) {
     }
 
     public void coin80Clicked(MouseEvent mouseEvent) {
