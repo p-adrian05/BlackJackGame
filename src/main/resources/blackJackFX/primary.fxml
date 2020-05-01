@@ -120,7 +120,7 @@
                         <Group layoutX="94.0" layoutY="626.0" />
                         <HBox alignment="CENTER" layoutX="162.0" layoutY="660.0" prefHeight="100.0" prefWidth="796.0">
                            <children>
-                              <Pane prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                              <Pane onMouseClicked="#coin10Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <HBox.margin>
                                     <Insets right="100.0" />
                                  </HBox.margin>
@@ -131,7 +131,7 @@
                                     <Button fx:id="coin10" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="10" textFill="WHITE" />
                                  </children>
                               </Pane>
-                              <Pane prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                              <Pane onMouseClicked="#coin20Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
                                     <Button fx:id="coin20" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="20" textFill="WHITE" />
                                  </children>
@@ -139,7 +139,7 @@
                                     <Insets right="100.0" />
                                  </HBox.margin>
                               </Pane>
-                              <Pane layoutX="190.0" layoutY="10.0" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                              <Pane layoutX="190.0" layoutY="10.0" onMouseClicked="#coin40Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
                                     <Button fx:id="coin40" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="40" textFill="WHITE" />
                                  </children>
@@ -147,7 +147,7 @@
                                     <Insets right="100.0" />
                                  </HBox.margin>
                               </Pane>
-                              <Pane layoutX="543.0" layoutY="10.0" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                              <Pane layoutX="543.0" layoutY="10.0" onMouseClicked="#coin80Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
                                     <Button fx:id="coin80" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="80" textFill="WHITE" />
                                  </children>
@@ -166,7 +166,7 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="betLabel" layoutX="110.0" layoutY="16.0" prefHeight="40.0" prefWidth="61.0" text="0" textFill="WHITE">
+                                    <Label id="betLabel" fx:id="betLabel" layoutX="110.0" layoutY="16.0" prefHeight="40.0" prefWidth="61.0" text="0" textFill="WHITE">
                                        <font>
                                           <Font size="21.0" />
                                        </font>

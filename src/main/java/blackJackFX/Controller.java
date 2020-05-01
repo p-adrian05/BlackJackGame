@@ -7,10 +7,44 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Group;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 public class Controller implements Initializable {
 
+    @FXML
+    private TextField userNameInput;
+    @FXML
+    private PasswordField passwordInput;
+    @FXML
+    private Label loginLabel;
+    @FXML
+    private Label betLabel;
+    @FXML
+    private TextField fundInput;
+    @FXML
+    private Pane imgContainerDealer;
+    @FXML
+    private Pane imgContainerPlayer;
+    @FXML
+    private Group playerGroup;
+    @FXML
+    private Group playerSplitGroup1;
+    @FXML
+    private Group playerSplitGroup2;
+    @FXML
+    private VBox popUpContainer;
+    @FXML
+    private VBox warningPopUpContainer;
+    @FXML
+    private AnchorPane mainContainer;
+    @FXML
+    private Menu statisticMenu;
+    
 
     public void loginBtnClicked(ActionEvent actionEvent) {
     }
@@ -51,8 +85,20 @@ public class Controller implements Initializable {
     public void backGameBtnClicked(ActionEvent actionEvent) {
     }
 
+    public void coin80Clicked(MouseEvent mouseEvent) {
+    }
+
+    public void coin40Clicked(MouseEvent mouseEvent) {
+    }
+
+    public void coin20Clicked(MouseEvent mouseEvent) {
+    }
+    public void coin10Clicked(MouseEvent mouseEvent) {
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+
     }
+
 }
