@@ -10,6 +10,7 @@
         <maven.compiler.target>14</maven.compiler.target>
         <maven.compiler.release>14</maven.compiler.release>
         <javafx.version>14</javafx.version>
+        <mainClass>blackJackFX.Main</mainClass>
     </properties>
     <dependencies>
         <dependency>
@@ -21,6 +22,11 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
         </dependency>
     </dependencies>
     <build>
@@ -38,8 +44,20 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.3</version>
                 <configuration>
-                    <mainClass>blackJackFX.Main</mainClass>
+                    <mainClass>${mainClass}</mainClass>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok-maven-plugin</artifactId>
+                <version>1.18.12.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>delombok</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
