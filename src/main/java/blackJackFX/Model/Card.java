@@ -23,4 +23,44 @@ public class Card {
            return Integer.parseInt(value);
        }
     }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    public void setSuit(String suit) {
+        this.suit = suit;
+    }
+
+    public URL getImage() {
+        return image;
+    }
+
+    public void setImage(URL image) {
+        this.image = image;
+    }
+
+    public Map<String, URL> getImages() {
+        return images;
+    }
+
+    public void setImages(Map<String, URL> images) {
+        this.images = images;
+    }
 }

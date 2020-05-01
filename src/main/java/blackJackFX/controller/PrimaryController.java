@@ -1,8 +1,11 @@
 package blackJackFX.controller;
 
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import blackJackFX.Model.CardApi;
+import blackJackFX.Model.Deck;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
