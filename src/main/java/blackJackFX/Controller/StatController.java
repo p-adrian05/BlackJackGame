@@ -1,5 +1,6 @@
-package blackJackFX;
+package blackJackFX.Controller;
 
+import blackJackFX.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;

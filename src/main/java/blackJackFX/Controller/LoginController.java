@@ -1,4 +1,4 @@
-package blackJackFX;
+package blackJackFX.Controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package blackJackFX;
+package blackJackFX.Controller;
 
 import java.io.IOException;
 import java.net.URL;
