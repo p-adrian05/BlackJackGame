@@ -1,4 +1,4 @@
-package BlackJackFX;
+package blackJackFX;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

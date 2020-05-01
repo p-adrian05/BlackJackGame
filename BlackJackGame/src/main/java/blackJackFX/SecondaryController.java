@@ -1,4 +1,4 @@
-package BlackJackFX;
+package blackJackFX;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
