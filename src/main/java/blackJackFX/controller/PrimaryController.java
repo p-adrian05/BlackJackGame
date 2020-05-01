@@ -48,6 +48,7 @@ public class PrimaryController implements Initializable {
     public Player player = new Player();
     public Dealer dealer = new Dealer();
     private int fund = 0;
+    private int bet = 0;
 
     public void okBtnClicked(ActionEvent actionEvent) {
     }
@@ -92,6 +93,9 @@ public class PrimaryController implements Initializable {
     public void coin20Clicked(MouseEvent mouseEvent) {
     }
     public void coin10Clicked(MouseEvent mouseEvent) {
+        bet+=10;
+        setLabelText(bet);
+
     }
     private void madeFundInputEventListener(){
         fundInput.textProperty().addListener((obs, oldText, newText) -> {
@@ -103,6 +107,18 @@ public class PrimaryController implements Initializable {
             }
         });
     }
+
+    private void setLabelText(int value){
+        if(GameUtils.validateBet(value,fund)){
+            betLabel.setText(String.valueOf(value));
+            player.setBet(value);
+        }
+        else{
+            //TODO warning
+        }
+
+    }
+
 
 
     @Override
