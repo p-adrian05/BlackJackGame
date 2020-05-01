@@ -1,7 +1,5 @@
 package blackJackFX.Model;
 
-import javafx.beans.NamedArg;
-
 import java.net.URL;
 import java.util.Map;
 import lombok.*;
