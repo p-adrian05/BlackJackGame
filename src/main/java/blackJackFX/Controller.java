@@ -44,4 +44,7 @@ public class Controller {
 
     public void imgLoad(ActionEvent actionEvent) {
     }
+
+    public void backGameBtnClicked(ActionEvent actionEvent) {
+    }
 }
