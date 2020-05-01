@@ -183,7 +183,7 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Label>
-                                    <TextField id="fundInput" fx:id="fundInput" layoutX="130.0" layoutY="20.0" prefHeight="32.0" prefWidth="115.0" text="0" />
+                                    <TextField id="fundInput" fx:id="fundInput" layoutX="130.0" layoutY="20.0" onAction="#fundInputAction" prefHeight="32.0" prefWidth="115.0" text="0" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -232,7 +232,7 @@
                   </VBox>
                   <VBox id="warningPopUpContainer" fx:id="warningPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="440.0" layoutY="365.0" prefHeight="206.0" prefWidth="386.0" visible="false">
                      <children>
-                        <Label id="warningLabel" fx:id="resultLabel1" alignment="CENTER" contentDisplay="CENTER" prefHeight="108.0" prefWidth="383.0" text="WARNING" textFill="#ee2020">
+                        <Label id="warningLabel" fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="108.0" prefWidth="383.0" text="TEXT" textFill="#ee2020">
                            <font>
                               <Font size="32.0" />
                            </font>

@@ -1,11 +1,12 @@
 package blackJackFX.controller;
 
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
-import blackJackFX.Model.CardApi;
-import blackJackFX.Model.Deck;
+import blackJackFX.Game.Dealer;
+import blackJackFX.Game.GameUtils;
+import blackJackFX.Game.Player;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,10 +16,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import lombok.extern.log4j.Log4j2;
 
+import javax.swing.event.ChangeListener;
+
+@Log4j2
 public class PrimaryController implements Initializable {
     @FXML
     private Label betLabel;
+    @FXML
+    public Label warningLabel;
     @FXML
     private TextField fundInput;
     @FXML
@@ -38,11 +45,18 @@ public class PrimaryController implements Initializable {
     @FXML
     private AnchorPane mainContainer;
 
+    public Player player = new Player();
+    public Dealer dealer = new Dealer();
+    private int fund = 0;
 
     public void okBtnClicked(ActionEvent actionEvent) {
     }
 
     public void okWarningBtnClicked(ActionEvent actionEvent) {
+        mainContainer.setDisable(false);
+        warningPopUpContainer.setDisable(true);
+        warningPopUpContainer.setVisible(false);
+
     }
 
     public void logOutClick(ActionEvent actionEvent) {
@@ -79,10 +93,21 @@ public class PrimaryController implements Initializable {
     }
     public void coin10Clicked(MouseEvent mouseEvent) {
     }
+    private void madeFundInputEventListener(){
+        fundInput.textProperty().addListener((obs, oldText, newText) -> {
+            if (!newText.matches("\\d*")) {
+                fundInput.setText(newText.replaceAll("[^\\d]", ""));
+            }else {
+                fund = Integer.parseInt(fundInput.textProperty().toString());
+                player.setFunds(fund);
+            }
+        });
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        madeFundInputEventListener();
     }
 
 }

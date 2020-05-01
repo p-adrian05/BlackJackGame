@@ -1,4 +1,4 @@
-package blackJackFX.Model;
+package blackJackFX.Game;
 
 import java.util.List;
 
@@ -56,4 +56,17 @@ public class GameUtils {
         }
         return sum;
     }
+
+    public static boolean isNumeric(String string) {
+        if (string == null) {
+            return false;
+        }
+        try {
+            int num = Integer.parseInt(string);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+    }
+
 }

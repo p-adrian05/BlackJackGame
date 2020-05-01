@@ -1,4 +1,4 @@
-package blackJackFX.Model;
+package blackJackFX.Game;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

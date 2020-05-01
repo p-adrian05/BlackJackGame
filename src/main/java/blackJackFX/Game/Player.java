@@ -1,4 +1,4 @@
-package blackJackFX.Model;
+package blackJackFX.Game;
 
 import java.util.List;
 import lombok.*;
