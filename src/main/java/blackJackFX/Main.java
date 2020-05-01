@@ -17,7 +17,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("login"));
+        scene.getStylesheets().add("main.css");
         stage.setScene(scene);
         stage.setHeight(1000);
         stage.setWidth(1300);

@@ -15,7 +15,7 @@
                <children>
                   <AnchorPane id="mainContainer" fx:id="mainContainer" layoutX="71.0" layoutY="20.0" prefHeight="906.0" prefWidth="1120.0" style="-fx-background-color: lightgreen;" styleClass="container">
                      <children>
-                        <Pane layoutX="48.0" layoutY="39.0" prefHeight="538.0" prefWidth="1025.0" style="-fx-background-color: green;" styleClass="mainPane">
+                        <Pane id="mainPane" layoutX="48.0" layoutY="39.0" prefHeight="538.0" prefWidth="1025.0" style="-fx-background-color: green;">
                            <children>
                               <Group layoutX="470.0" layoutY="28.0">
                                  <children>
@@ -159,7 +159,7 @@
                         </HBox>
                         <HBox alignment="CENTER" layoutX="143.0" layoutY="796.0" prefHeight="71.0" prefWidth="834.0">
                            <children>
-                              <Pane prefHeight="71.0" prefWidth="174.0" styleClass="moneyContainer">
+                              <Pane id="moneyContainer" prefHeight="71.0" prefWidth="174.0" styleClass="container">
                                  <children>
                                     <Label layoutX="37.0" layoutY="20.0" prefHeight="32.0" prefWidth="61.0" text="Bet" textFill="WHITE">
                                        <font>
@@ -176,7 +176,7 @@
                                     <Insets />
                                  </opaqueInsets>
                               </Pane>
-                              <Pane layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="260.0" styleClass="moneyContainer">
+                              <Pane id="moneyContainer" layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="260.0" styleClass="container">
                                  <children>
                                     <Label layoutX="37.0" layoutY="20.0" prefHeight="32.0" prefWidth="61.0" text="Funds" textFill="WHITE">
                                        <font>
