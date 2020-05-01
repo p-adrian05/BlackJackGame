@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="CENTER" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openjfx.PrimaryController">
+<HBox alignment="CENTER" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackJackFX.LoginController">
     <children>
         <VBox alignment="CENTER" prefHeight="629.0" prefWidth="1002.0" spacing="20.0">
          <children>
