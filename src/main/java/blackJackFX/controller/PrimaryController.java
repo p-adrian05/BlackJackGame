@@ -3,10 +3,7 @@ package blackJackFX.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import blackJackFX.Model.Game.Dealer;
 import blackJackFX.Model.Game.GameUtils;
-import blackJackFX.Model.Game.Person;
-import blackJackFX.Model.Game.Player;
 import blackJackFX.Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -57,6 +54,11 @@ public class PrimaryController implements Initializable {
         warningPopUpContainer.setVisible(false);
 
     }
+    private void showWarningPopUp(String message){
+        warningPopUpContainer.setVisible(true);
+        warningPopUpContainer.setDisable(false);
+        warningLabel.setText(message);
+    }
 
     public void logOutClick(ActionEvent actionEvent) {
     }
@@ -83,17 +85,18 @@ public class PrimaryController implements Initializable {
     }
 
     public void coin80Clicked(MouseEvent mouseEvent) {
+        manageBetValue(80);
     }
 
     public void coin40Clicked(MouseEvent mouseEvent) {
+        manageBetValue(40);
     }
 
     public void coin20Clicked(MouseEvent mouseEvent) {
+        manageBetValue(20);
     }
     public void coin10Clicked(MouseEvent mouseEvent) {
-        bet+=10;
-        setBetLabelValue(bet);
-
+        manageBetValue(10);
     }
     private void readInFundInputListener(){
         fundInput.textProperty().addListener((obs, oldText, newText) -> {
@@ -109,25 +112,17 @@ public class PrimaryController implements Initializable {
         });
     }
 
-    private void setBetLabelValue(int value){
+    private void manageBetValue(int value){
         if(GameUtils.validateBet(value,model.getPlayer().getFunds())){
-            betLabel.setText(String.valueOf(value));
-            model.getPlayer().setBet(value);
+            betLabel.setText(String.valueOf(bet+=value));
+            fundInput.textProperty().setValue(String.valueOf(fund-=value));
+            model.getPlayer().setBet(bet);
+            model.getPlayer().setFunds(fund);
         }
         else{
-            showWarningPopUp("Not have enough fund!");
+            showWarningPopUp("Not have enough funds!");
         }
-
     }
-
-    private void showWarningPopUp(String message){
-        warningPopUpContainer.setVisible(true);
-        warningPopUpContainer.setDisable(false);
-        warningLabel.setText(message);
-    }
-
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
