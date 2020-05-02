@@ -1,5 +1,6 @@
 package blackJackFX;
 
+import blackJackFX.Model.Model;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
