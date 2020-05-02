@@ -102,7 +102,7 @@ public class PrimaryController implements Initializable {
             if (!newText.matches("\\d*")) {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
             }else {
-                fund = Integer.parseInt(fundInput.textProperty().toString());
+                fund = Integer.parseInt(fundInput.textProperty().getValue());
                 player.setFunds(fund);
             }
         });
