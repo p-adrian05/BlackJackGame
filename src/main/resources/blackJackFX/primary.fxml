@@ -118,7 +118,7 @@
                            </children>
                         </HBox>
                         <Group layoutX="94.0" layoutY="626.0" />
-                        <HBox alignment="CENTER" layoutX="162.0" layoutY="660.0" prefHeight="100.0" prefWidth="796.0">
+                        <HBox fx:id="betCoinsContainer" alignment="CENTER" layoutX="162.0" layoutY="660.0" prefHeight="100.0" prefWidth="796.0">
                            <children>
                               <Pane onMouseClicked="#coin10Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <HBox.margin>

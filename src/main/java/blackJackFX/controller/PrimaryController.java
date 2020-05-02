@@ -12,6 +12,7 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lombok.extern.log4j.Log4j2;
@@ -22,6 +23,8 @@ public class PrimaryController implements Initializable {
     private Label betLabel;
     @FXML
     private Label warningLabel;
+    @FXML
+    private HBox betCoinsContainer;
     @FXML
     private TextField fundInput;
     @FXML
@@ -63,6 +66,7 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
+        disableFundAndBetInput(true);
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
@@ -81,6 +85,7 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
+        disableFundAndBetInput(false);
     }
     @FXML
     public void split(ActionEvent actionEvent) {
@@ -127,6 +132,10 @@ public class PrimaryController implements Initializable {
         else{
             showWarningPopUp("Not have enough funds!");
         }
+    }
+    private void disableFundAndBetInput(boolean bool){
+        fundInput.setDisable(bool);
+        betCoinsContainer.setDisable(bool);
     }
 
     @Override
