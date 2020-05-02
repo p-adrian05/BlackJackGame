@@ -3,11 +3,14 @@ package blackJackFX.Model;
 import blackJackFX.Model.Game.*;
 
 public class Model {
+
+    private static Model model = new Model();
+
     private Player player;
     private Person dealer;
     private CardApi cardApi;
 
-    public Model() {
+    private Model() {
         this.player = new Player();
         this.dealer = new Dealer();
         this.cardApi = new FranceCardApi();
@@ -23,6 +26,10 @@ public class Model {
 
     public CardApi getCardApi() {
         return cardApi;
+    }
+
+    public static Model getInstance(){
+        return model;
     }
 
 }
