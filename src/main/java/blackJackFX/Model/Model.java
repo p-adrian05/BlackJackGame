@@ -4,11 +4,11 @@ import blackJackFX.Model.Game.*;
 
 public class Model {
 
-    private static Model model = new Model();
+    private static final Model model = new Model();
 
-    private Player player;
-    private Person dealer;
-    private CardApi cardApi;
+    private final Player player;
+    private final Person dealer;
+    private final CardApi cardApi;
 
     private Model() {
         this.player = new Player();

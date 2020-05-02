@@ -46,7 +46,7 @@ public class PrimaryController implements Initializable {
 
     private int fund = 0;
     private int bet = 0;
-    Model model = new Model();
+    Model model = Model.getInstance();
 
     public void okBtnClicked(ActionEvent actionEvent) {
     }
@@ -92,10 +92,10 @@ public class PrimaryController implements Initializable {
     }
     public void coin10Clicked(MouseEvent mouseEvent) {
         bet+=10;
-        setLabelText(bet);
+        setBetLabelValue(bet);
 
     }
-    private void madeFundInputEventListener(){
+    private void readInFundInputListener(){
         fundInput.textProperty().addListener((obs, oldText, newText) -> {
             if (!newText.matches("\\d*")) {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
@@ -109,22 +109,29 @@ public class PrimaryController implements Initializable {
         });
     }
 
-    private void setLabelText(int value){
-        if(GameUtils.validateBet(value,fund)){
+    private void setBetLabelValue(int value){
+        if(GameUtils.validateBet(value,model.getPlayer().getFunds())){
             betLabel.setText(String.valueOf(value));
             model.getPlayer().setBet(value);
         }
         else{
-            //TODO warning
+            showWarningPopUp("Not have enough fund!");
         }
 
     }
+
+    private void showWarningPopUp(String message){
+        warningPopUpContainer.setVisible(true);
+        warningPopUpContainer.setDisable(false);
+        warningLabel.setText(message);
+    }
+
 
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        madeFundInputEventListener();
+        readInFundInputListener();
     }
 
 }
