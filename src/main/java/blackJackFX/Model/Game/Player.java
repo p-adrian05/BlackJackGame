@@ -1,4 +1,4 @@
-package blackJackFX.Game;
+package blackJackFX.Model.Game;
 
 import java.util.List;
 
