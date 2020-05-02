@@ -3,7 +3,11 @@ package blackJackFX.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import blackJackFX.Game.GameUtils;
+import blackJackFX.Model.Game.Dealer;
+import blackJackFX.Model.Game.GameUtils;
+import blackJackFX.Model.Game.Person;
+import blackJackFX.Model.Game.Player;
+import blackJackFX.Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,10 +44,9 @@ public class PrimaryController implements Initializable {
     @FXML
     private AnchorPane mainContainer;
 
-    public Player player = new Player();
-    public Dealer dealer = new Dealer();
     private int fund = 0;
     private int bet = 0;
+    Model model = new Model();
 
     public void okBtnClicked(ActionEvent actionEvent) {
     }
@@ -97,8 +100,11 @@ public class PrimaryController implements Initializable {
             if (!newText.matches("\\d*")) {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
             }else {
-                fund = Integer.parseInt(fundInput.textProperty().getValue());
-                player.setFunds(fund);
+                if(!fundInput.textProperty().getValue().equals("")){
+                    fund = Integer.parseInt(fundInput.textProperty().getValue());
+                    model.getPlayer().setFunds(fund);
+                }
+
             }
         });
     }
@@ -106,7 +112,7 @@ public class PrimaryController implements Initializable {
     private void setLabelText(int value){
         if(GameUtils.validateBet(value,fund)){
             betLabel.setText(String.valueOf(value));
-            player.setBet(value);
+            model.getPlayer().setBet(value);
         }
         else{
             //TODO warning
