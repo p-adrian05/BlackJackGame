@@ -3,7 +3,6 @@ package blackJackFX.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import blackJackFX.Game.Dealer;
 import blackJackFX.Game.GameUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
