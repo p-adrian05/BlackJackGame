@@ -45,56 +45,59 @@ public class PrimaryController implements Initializable {
     private int bet = 0;
     Model model = Model.getInstance();
 
+    @FXML
     public void okBtnClicked(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
         mainContainer.setDisable(false);
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
 
     }
+    @FXML
     private void showWarningPopUp(String message){
         warningPopUpContainer.setVisible(true);
         warningPopUpContainer.setDisable(false);
         warningLabel.setText(message);
     }
-
+    @FXML
     public void logOutClick(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void helpClick(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void gameStatisticClick(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void editNameClicked(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void MenuBarClicked(MouseEvent mouseEvent) {
     }
-
+    @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void split(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void imgLoad(ActionEvent actionEvent) {
     }
-
+    @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
         manageBetValue(80);
     }
-
+    @FXML
     public void coin40Clicked(MouseEvent mouseEvent) {
         manageBetValue(40);
     }
-
+    @FXML
     public void coin20Clicked(MouseEvent mouseEvent) {
         manageBetValue(20);
     }
+    @FXML
     public void coin10Clicked(MouseEvent mouseEvent) {
         manageBetValue(10);
     }
