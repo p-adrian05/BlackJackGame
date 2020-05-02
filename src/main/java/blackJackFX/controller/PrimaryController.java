@@ -5,8 +5,6 @@ import java.util.ResourceBundle;
 
 import blackJackFX.Game.Dealer;
 import blackJackFX.Game.GameUtils;
-import blackJackFX.Game.Player;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,8 +15,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import lombok.extern.log4j.Log4j2;
-
-import javax.swing.event.ChangeListener;
 
 @Log4j2
 public class PrimaryController implements Initializable {
