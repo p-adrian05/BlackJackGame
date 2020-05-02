@@ -183,7 +183,7 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Label>
-                                    <TextField id="fundInput" fx:id="fundInput" layoutX="130.0" layoutY="20.0" onAction="#fundInputAction" prefHeight="32.0" prefWidth="115.0" text="0" />
+                                    <TextField id="fundInput" fx:id="fundInput" layoutX="130.0" layoutY="20.0" prefHeight="32.0" prefWidth="115.0" text="0" />
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -232,14 +232,10 @@
                   </VBox>
                   <VBox id="warningPopUpContainer" fx:id="warningPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="440.0" layoutY="365.0" prefHeight="206.0" prefWidth="386.0" visible="false">
                      <children>
-                        <Label id="warningLabel" fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="108.0" prefWidth="383.0" text="TEXT" textFill="#ee2020">
+                        <Label id="warningLabel" fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="385.0" text="TEXT" textAlignment="CENTER" textFill="#510000">
                            <font>
-                              <Font size="32.0" />
-                           </font>
-                           <VBox.margin>
-                              <Insets bottom="5.0" />
-                           </VBox.margin>
-                        </Label>
+                              <Font size="29.0" />
+                           </font></Label>
                         <Button id="okWarningBtn" fx:id="okWarningBtn" mnemonicParsing="false" onAction="#okWarningBtnClicked" prefHeight="40.0" prefWidth="86.0" styleClass="btn" text="OK">
                            <VBox.margin>
                               <Insets top="40.0" />

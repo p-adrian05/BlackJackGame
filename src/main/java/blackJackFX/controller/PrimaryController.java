@@ -24,7 +24,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private Label betLabel;
     @FXML
-    public Label warningLabel;
+    private Label warningLabel;
     @FXML
     private TextField fundInput;
     @FXML
