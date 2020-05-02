@@ -53,13 +53,16 @@ public class PrimaryController implements Initializable {
         mainContainer.setDisable(false);
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
-
     }
     @FXML
     private void showWarningPopUp(String message){
+        mainContainer.setDisable(true);
         warningPopUpContainer.setVisible(true);
         warningPopUpContainer.setDisable(false);
         warningLabel.setText(message);
+    }
+    @FXML
+    public void dealBtnClicked(ActionEvent actionEvent) {
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
@@ -114,7 +117,6 @@ public class PrimaryController implements Initializable {
             }
         });
     }
-
     private void manageBetValue(int value){
         if(GameUtils.validateBet(value,model.getPlayer().getFunds())){
             betLabel.setText(String.valueOf(bet+=value));

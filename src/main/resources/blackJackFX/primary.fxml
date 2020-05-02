@@ -90,7 +90,7 @@
                         </Pane>
                         <HBox alignment="TOP_CENTER" layoutX="151.0" layoutY="590.0" prefHeight="48.0" prefWidth="818.0">
                            <children>
-                              <Button fx:id="dealBtn" alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="DEAL">
+                              <Button fx:id="dealBtn" alignment="CENTER" mnemonicParsing="false" onAction="#dealBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="DEAL">
                                  <HBox.margin>
                                     <Insets left="30.0" right="30.0" />
                                  </HBox.margin>
