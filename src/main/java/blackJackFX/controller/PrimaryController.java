@@ -31,6 +31,8 @@ public class PrimaryController implements Initializable {
     @FXML
     private Label dealerScore;
     @FXML
+    private Button dealBtn;
+    @FXML
     private HBox betCoinsContainer;
     @FXML
     private TextField fundInput;
@@ -74,9 +76,9 @@ public class PrimaryController implements Initializable {
         disableFundAndBetInput(true);
         loadCardAndScoreToPerson(2,imgContainerPlayer,model.getPlayer());
         loadCardAndScoreToPerson(2,imgContainerDealer,model.getDealer());
-        setScoreLabelDealerr();
+        setScoreLabelDealer();
         setScoreLabelPlayer();
-
+        dealBtn.setDisable(true);
     }
 
     @FXML
@@ -97,15 +99,23 @@ public class PrimaryController implements Initializable {
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(false);
+        dealBtn.setDisable(false);
     }
     @FXML
     public void split(ActionEvent actionEvent) {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
+        if(!model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())){
+            loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
+            setScoreLabelPlayer();
+        }else{
+            //TODO dealer get cards
+        }
 
     }
+    
+
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
         manageBet(80);
@@ -182,6 +192,7 @@ public class PrimaryController implements Initializable {
     private void setScoreLabelDealer(){
         dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
     }
+
 
 
     @Override

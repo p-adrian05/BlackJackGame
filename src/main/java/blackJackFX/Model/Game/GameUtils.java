@@ -4,16 +4,16 @@ import java.util.List;
 
 public class GameUtils {
 
-    public int calculateResult(int player, int dealer){
+    public int calculateResult(int playerScore, int dealerScore){
         //1 is win
         //0 is push
         //-1 is bust
         final int gameValue = 21;
 
-        if(player<=gameValue && dealer<=gameValue){
-            return Integer.compare(player,dealer);
+        if(playerScore<=gameValue && dealerScore<=gameValue){
+            return Integer.compare(playerScore,dealerScore);
         }
-        else if(player<=gameValue && dealer>gameValue){
+        else if(playerScore<=gameValue && dealerScore>gameValue){
             return 1;
         }
         return -1;
@@ -32,4 +32,7 @@ public class GameUtils {
         return funds - bet >= 0;
     }
 
+    public boolean isPlayerScorePass21(int score){
+        return score > 21;
+    }
 }
