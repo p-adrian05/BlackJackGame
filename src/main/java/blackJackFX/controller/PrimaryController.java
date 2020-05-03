@@ -33,6 +33,8 @@ public class PrimaryController implements Initializable {
     @FXML
     private Button dealBtn;
     @FXML
+    private Button hitBtn;
+    @FXML
     private HBox betCoinsContainer;
     @FXML
     private TextField fundInput;
@@ -106,15 +108,24 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        if(!model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())){
-            loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
-            setScoreLabelPlayer();
-        }else{
-            //TODO dealer get cards
-        }
-
+        checkGameOver();
+        loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
+        checkGameOver();
     }
-    
+    private void loadDealerCards(){
+        while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
+            loadCardAndScoreToPerson(1,imgContainerDealer,model.getDealer());
+            setScoreLabelDealer();
+            System.out.println(model.getDealer().getCards());
+        }
+    }
+    private void checkGameOver(){
+        if(model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())) {
+            loadDealerCards();
+            hitBtn.setDisable(true);
+        }
+    }
+
 
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
