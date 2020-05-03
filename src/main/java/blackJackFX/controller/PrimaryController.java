@@ -115,19 +115,16 @@ public class PrimaryController implements Initializable {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
             }else {
                 if(!fundInput.textProperty().getValue().equals("")){
-                    fund = Integer.parseInt(fundInput.textProperty().getValue());
-                    model.getPlayer().setFunds(fund);
+                    model.getPlayer().setFund(Integer.parseInt(fundInput.textProperty().getValue()));
                 }
-
             }
         });
     }
     private void manageBetValue(int value){
-        if(GameUtils.validateBet(value,model.getPlayer().getFunds())){
-            betLabel.setText(String.valueOf(bet+=value));
-            fundInput.textProperty().setValue(String.valueOf(fund-=value));
-            model.getPlayer().setBet(bet);
-            model.getPlayer().setFunds(fund);
+        if(GameUtils.validateBet(value,model.getPlayer().getFund())){
+            model.getPlayer().addBetFromFund(value);
+            betLabel.setText(String.valueOf(model.getPlayer().getBet()));
+            fundInput.textProperty().setValue(String.valueOf(model.getPlayer().getFund()));
         }
         else{
             showWarningPopUp("Not have enough funds!");
