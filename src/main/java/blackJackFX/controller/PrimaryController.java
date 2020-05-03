@@ -72,11 +72,13 @@ public class PrimaryController implements Initializable {
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
-        loadCardToPersonAndValues(2,imgContainerPlayer,model.getPlayer());
-        loadCardToPersonAndValues(2,imgContainerDealer,model.getDealer());
-        playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
-        dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
+        loadCardAndScoreToPerson(2,imgContainerPlayer,model.getPlayer());
+        loadCardAndScoreToPerson(2,imgContainerDealer,model.getDealer());
+        setScoreLabelDealerr();
+        setScoreLabelPlayer();
+
     }
+
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
     }
@@ -101,7 +103,7 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        loadCardToPersonAndValues(1,imgContainerPlayer,model.getPlayer());
+        loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
 
     }
     @FXML
@@ -145,7 +147,7 @@ public class PrimaryController implements Initializable {
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
     }
-    private void loadCardToPersonAndValues(int amount, Pane placetoLoad, Person person){
+    private void loadCardAndScoreToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
         for(int i = 0; i<amount;i++){
@@ -174,6 +176,13 @@ public class PrimaryController implements Initializable {
         imageView.setImage(new Image(url));
         return imageView;
     }
+    private void setScoreLabelPlayer(){
+        playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+    }
+    private void setScoreLabelDealer(){
+        dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
