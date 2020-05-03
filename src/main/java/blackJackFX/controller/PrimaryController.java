@@ -95,19 +95,19 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
-        manageBetValue(80);
+        manageBet(80);
     }
     @FXML
     public void coin40Clicked(MouseEvent mouseEvent) {
-        manageBetValue(40);
+        manageBet(40);
     }
     @FXML
     public void coin20Clicked(MouseEvent mouseEvent) {
-        manageBetValue(20);
+        manageBet(20);
     }
     @FXML
     public void coin10Clicked(MouseEvent mouseEvent) {
-        manageBetValue(10);
+        manageBet(10);
     }
     private void readInFundInputListener(){
         fundInput.textProperty().addListener((obs, oldText, newText) -> {
@@ -120,7 +120,7 @@ public class PrimaryController implements Initializable {
             }
         });
     }
-    private void manageBetValue(int value){
+    private void manageBet(int value){
         if(GameUtils.validateBet(value,model.getPlayer().getFund())){
             model.getPlayer().addBetFromFund(value);
             betLabel.setText(String.valueOf(model.getPlayer().getBet()));
