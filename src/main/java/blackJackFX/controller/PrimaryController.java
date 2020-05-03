@@ -3,13 +3,15 @@ package blackJackFX.controller;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import blackJackFX.Model.Game.GameUtils;
+import blackJackFX.Model.Game.Card;
 import blackJackFX.Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -131,6 +133,21 @@ public class PrimaryController implements Initializable {
     private void disableFundAndBetInput(boolean bool){
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
+    }
+
+    private void loadCardToPlayer(Card card){
+        ImageView imageView = madeImageViewFromUrl(card.getImageUrl().toString(),card.hashCode());
+        imgContainerPlayer.getChildren().add(imageView);
+        model.getPlayer().addCard(card);
+    }
+
+    private ImageView madeImageViewFromUrl(String url,int imgXLayout){
+        ImageView imageView = new ImageView();
+        imageView.setFitHeight(139);
+        imageView.setFitWidth(100);
+        imageView.setLayoutX(imgXLayout);
+        imageView.setImage(new Image(url));
+        return imageView;
     }
 
     @Override

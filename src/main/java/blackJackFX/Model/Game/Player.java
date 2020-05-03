@@ -32,6 +32,9 @@ public class Player extends Person{
     public void setBet(int bet) {
         this.bet = bet;
     }
+    public void addCard(Card card) {
+        getCards().add(card);
+    }
     public List<Card> getSplitCards() {
         return splitCards;
     }

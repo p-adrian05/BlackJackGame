@@ -7,6 +7,6 @@ public interface Card {
     int getIntValue();
     String getValue();
     String getCode();
-    URL getImage();
+    URL getImageUrl();
 
 }

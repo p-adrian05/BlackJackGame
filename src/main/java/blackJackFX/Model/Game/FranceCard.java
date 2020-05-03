@@ -56,7 +56,7 @@ public class FranceCard implements Card {
     }
 
     @Override
-    public URL getImage() {
+    public URL getImageUrl() {
         return image;
     }
 
