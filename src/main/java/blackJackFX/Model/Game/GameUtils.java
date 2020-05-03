@@ -45,18 +45,6 @@ public class GameUtils {
             return false;
         }
     }
-    public static int calcCardsSumValues(List<Card> cards) {
-        int sum = 0;
-        for(int i = 0; i<cards.size();i++){
-            if(cards.get(i).getValue().equals("ACE") && sum>10){
-                sum++;
-            }else{
-                sum+=cards.get(i).getIntValue();
-            }
-        }
-        return sum;
-    }
-
     public static boolean isNumeric(String string) {
         if (string == null) {
             return false;

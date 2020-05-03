@@ -6,7 +6,7 @@ import java.util.List;
 public interface Deck {
 
     List<Card> getDeckCards();
-
+    int calcCardsSumValue(List<Card> cards);
     default void shuffle(){
         Collections.shuffle(getDeckCards());
     }
