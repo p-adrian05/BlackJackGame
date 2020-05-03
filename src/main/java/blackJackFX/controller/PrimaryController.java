@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import blackJackFX.Model.Game.Card;
 import blackJackFX.Model.Game.Deck;
+import blackJackFX.Model.Game.Person;
 import blackJackFX.Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,9 +49,6 @@ public class PrimaryController implements Initializable {
     private AnchorPane mainContainer;
 
     Model model = Model.getInstance();
-    int imgXLayoutPlayer = 0;
-    int imgXLayoutDealer = 0;
-
 
     @FXML
     public void okBtnClicked(ActionEvent actionEvent) {
@@ -71,8 +69,9 @@ public class PrimaryController implements Initializable {
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
-        loadCardToPerson(model.getDeck(),2,imgContainerPlayer);
-        loadCardToPerson(model.getDeck(),2,imgContainerDealer);
+        loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
+        loadCardToPerson(2,imgContainerDealer,model.getDealer());
+
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
@@ -98,6 +97,8 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
+        loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
+
     }
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
@@ -140,18 +141,17 @@ public class PrimaryController implements Initializable {
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
     }
-
-    private void loadCardToPerson(Deck deck, int amount,Pane placetoLoad){
+    private void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
         for(int i = 0; i<amount;i++){
-            card = deck.getCard();
+            card = model.getDeck().getCard();
             imageView = madeImageViewFromUrl(card.getImageUrl().toString(),getLastChildXLayout(placetoLoad)+25);
             placetoLoad.getChildren().add(imageView);
-            model.getPlayer().addCard(card);
+            person.addCard(card);
+
         }
     }
-
     private double getLastChildXLayout(Pane pane){
         double xLayout;
         int lastChildIndex = pane.getChildren().size()-1;
@@ -162,9 +162,6 @@ public class PrimaryController implements Initializable {
         }
         return xLayout;
     }
-
-
-
     private ImageView madeImageViewFromUrl(String url,double imgXLayout){
         ImageView imageView = new ImageView();
         imageView.setFitHeight(139);
