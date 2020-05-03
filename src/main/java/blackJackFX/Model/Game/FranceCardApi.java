@@ -20,7 +20,7 @@ public class FranceCardApi implements CardApi{
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @Override
-    public Optional<Deck> getDeck(){
+    public Deck getDeck(){
         DeckFranceCards deck = null;
         String cardsRes;
         try {
@@ -34,7 +34,7 @@ public class FranceCardApi implements CardApi{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Optional.ofNullable(deck);
+        return deck;
     }
 
     private String getDeckID(){

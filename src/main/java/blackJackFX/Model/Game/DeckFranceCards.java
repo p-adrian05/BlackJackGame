@@ -5,11 +5,16 @@ import java.util.List;
 
 public class DeckFranceCards implements Deck{
 
-    private List<FranceCard> cards;
+    private LinkedList<FranceCard> cards;
 
     @Override
     public List<Card> getDeckCards() {
         return new LinkedList<>(this.cards);
+    }
+
+    @Override
+    public Card getCard() {
+        return this.cards.removeFirst();
     }
 
     @Override

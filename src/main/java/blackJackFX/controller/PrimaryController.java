@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import blackJackFX.Model.Game.Card;
+import blackJackFX.Model.Game.Deck;
 import blackJackFX.Model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,6 +48,9 @@ public class PrimaryController implements Initializable {
     private AnchorPane mainContainer;
 
     Model model = Model.getInstance();
+    int imgXLayoutPlayer = 0;
+    int imgXLayoutDealer = 0;
+
 
     @FXML
     public void okBtnClicked(ActionEvent actionEvent) {
@@ -67,6 +71,8 @@ public class PrimaryController implements Initializable {
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
+        loadCardToPerson(model.getDeck(),2,imgContainerPlayer);
+        loadCardToPerson(model.getDeck(),2,imgContainerDealer);
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
@@ -135,10 +141,15 @@ public class PrimaryController implements Initializable {
         betCoinsContainer.setDisable(bool);
     }
 
-    private void loadCardToPlayer(Card card){
-        ImageView imageView = madeImageViewFromUrl(card.getImageUrl().toString(),card.hashCode());
-        imgContainerPlayer.getChildren().add(imageView);
-        model.getPlayer().addCard(card);
+    private void loadCardToPerson(Deck deck, int amount,Pane placetoLoad){
+        ImageView imageView;
+        Card card;
+        for(int i = 0; i<amount;i++){
+            card = deck.getCard();
+            imageView = madeImageViewFromUrl(card.getImageUrl().toString(),imgXLayoutPlayer+=30);
+            placetoLoad.getChildren().add(imageView);
+            model.getPlayer().addCard(card);
+        }
     }
 
     private ImageView madeImageViewFromUrl(String url,int imgXLayout){
