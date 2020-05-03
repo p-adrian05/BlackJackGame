@@ -208,7 +208,7 @@
                         </MenuBar>
                      </children>
                   </AnchorPane>
-                  <VBox id="popUpContainer" fx:id="popUpContainer" alignment="TOP_CENTER" disable="true" layoutX="440.0" layoutY="365.0" prefHeight="206.0" prefWidth="386.0" visible="false">
+                  <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="440.0" layoutY="365.0" prefHeight="206.0" prefWidth="386.0" visible="false">
                      <children>
                         <Label id="resultLabel" fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="383.0" text="RESULT" textFill="WHITE">
                            <font>

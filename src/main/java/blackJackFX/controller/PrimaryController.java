@@ -27,6 +27,10 @@ public class PrimaryController implements Initializable {
     @FXML
     private Label warningLabel;
     @FXML
+    private Label resultLabel;
+    @FXML
+    private Label prizeLabel;
+    @FXML
     private Label playerScore;
     @FXML
     private Label dealerScore;
@@ -49,7 +53,7 @@ public class PrimaryController implements Initializable {
     @FXML
     private Group playerSplitGroup2;
     @FXML
-    private VBox popUpContainer;
+    private VBox resultPopUpContainer;
     @FXML
     private VBox warningPopUpContainer;
     @FXML
@@ -66,13 +70,7 @@ public class PrimaryController implements Initializable {
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
     }
-    @FXML
-    private void showWarningPopUp(String message){
-        mainContainer.setDisable(true);
-        warningPopUpContainer.setVisible(true);
-        warningPopUpContainer.setDisable(false);
-        warningLabel.setText(message);
-    }
+
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
@@ -112,20 +110,12 @@ public class PrimaryController implements Initializable {
         loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
         checkGameOver();
     }
-    private void loadDealerCards(){
-        while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
-            loadCardAndScoreToPerson(1,imgContainerDealer,model.getDealer());
-            setScoreLabelDealer();
-            System.out.println(model.getDealer().getCards());
-        }
-    }
-    private void checkGameOver(){
-        if(model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())) {
-            loadDealerCards();
-            hitBtn.setDisable(true);
-        }
-    }
 
+    public void showResultPopUp(String result, String prize){
+        mainContainer.setDisable(true);
+        resultPopUpContainer.setDisable(false);
+        resultPopUpContainer.setVisible(true);
+    }
 
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
@@ -203,8 +193,25 @@ public class PrimaryController implements Initializable {
     private void setScoreLabelDealer(){
         dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
     }
-
-
+    private void loadDealerCards(){
+        while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
+            loadCardAndScoreToPerson(1,imgContainerDealer,model.getDealer());
+            setScoreLabelDealer();
+            System.out.println(model.getDealer().getCards());
+        }
+    }
+    private void checkGameOver(){
+        if(model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())) {
+            loadDealerCards();
+            hitBtn.setDisable(true);
+        }
+    }
+    private void showWarningPopUp(String message){
+        mainContainer.setDisable(true);
+        warningPopUpContainer.setVisible(true);
+        warningPopUpContainer.setDisable(false);
+        warningLabel.setText(message);
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
