@@ -24,7 +24,7 @@ public class GameUtils {
                 case 1 -> bet*2;
                 case 0 -> 0;
                 case 2 -> (int)(bet*1.5);
-                default -> bet;
+                default -> -bet;
             };
         }
 

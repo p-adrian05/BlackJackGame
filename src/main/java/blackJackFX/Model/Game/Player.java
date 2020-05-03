@@ -30,6 +30,9 @@ public class Player extends Person{
         this.bet += bet;
         this.fund -= bet;
     }
+    public void addFund(int fund) {
+        this.fund += bet;
+    }
     public void setBet(int bet) {
         this.bet = bet;
     }

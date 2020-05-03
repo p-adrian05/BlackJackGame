@@ -63,6 +63,9 @@ public class PrimaryController implements Initializable {
 
     @FXML
     public void okBtnClicked(ActionEvent actionEvent) {
+        mainContainer.setDisable(false);
+        resultPopUpContainer.setDisable(true);
+        resultPopUpContainer.setVisible(false);
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
@@ -100,6 +103,7 @@ public class PrimaryController implements Initializable {
     public void standBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(false);
         dealBtn.setDisable(false);
+        loadDealerCards();
         madeResult();
     }
     @FXML
@@ -109,6 +113,7 @@ public class PrimaryController implements Initializable {
     public void hitBtnClicked(ActionEvent actionEvent) {
         checkGameOver();
         loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
+        setScoreLabelPlayer();
         checkGameOver();
     }
 
@@ -124,6 +129,7 @@ public class PrimaryController implements Initializable {
         int dealerScore = model.getDealer().getCardsSumValues();
         int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
         int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
+        model.getPlayer().addFund(prize);
         showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
     }
 
