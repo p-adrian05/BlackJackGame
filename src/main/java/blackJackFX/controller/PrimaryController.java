@@ -62,10 +62,11 @@ public class PrimaryController implements Initializable {
     Model model = Model.getInstance();
 
     @FXML
-    public void okBtnClicked(ActionEvent actionEvent) {
+    public void okResultBtnClicked(ActionEvent actionEvent) {
         mainContainer.setDisable(false);
         resultPopUpContainer.setDisable(true);
         resultPopUpContainer.setVisible(false);
+        makeNewRound();
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
@@ -131,6 +132,12 @@ public class PrimaryController implements Initializable {
         int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
         model.getPlayer().addFund(prize);
         showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
+    }
+
+    public void makeNewRound(){
+        imgContainerDealer.getChildren().removeIf(child -> child.getClass().isInstance(ImageView.class));
+        imgContainerPlayer.getChildren().removeIf(child -> child.getClass().isInstance(ImageView.class));
+        //TODO new round
     }
 
     @FXML
