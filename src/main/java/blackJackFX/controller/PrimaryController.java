@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import blackJackFX.Model.Game.Card;
-import blackJackFX.Model.Game.Deck;
 import blackJackFX.Model.Game.Person;
 import blackJackFX.Model.Model;
 import javafx.event.ActionEvent;
@@ -27,6 +26,10 @@ public class PrimaryController implements Initializable {
     private Label betLabel;
     @FXML
     private Label warningLabel;
+    @FXML
+    private Label playerScore;
+    @FXML
+    private Label dealerScore;
     @FXML
     private HBox betCoinsContainer;
     @FXML
@@ -69,9 +72,10 @@ public class PrimaryController implements Initializable {
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
-        loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
-        loadCardToPerson(2,imgContainerDealer,model.getDealer());
-
+        loadCardToPersonAndValues(2,imgContainerPlayer,model.getPlayer());
+        loadCardToPersonAndValues(2,imgContainerDealer,model.getDealer());
+        playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+        dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
@@ -97,7 +101,7 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
+        loadCardToPersonAndValues(1,imgContainerPlayer,model.getPlayer());
 
     }
     @FXML
@@ -141,7 +145,7 @@ public class PrimaryController implements Initializable {
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
     }
-    private void loadCardToPerson(int amount, Pane placetoLoad, Person person){
+    private void loadCardToPersonAndValues(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
         for(int i = 0; i<amount;i++){
@@ -149,7 +153,7 @@ public class PrimaryController implements Initializable {
             imageView = madeImageViewFromUrl(card.getImageUrl().toString(),getLastChildXLayout(placetoLoad)+25);
             placetoLoad.getChildren().add(imageView);
             person.addCard(card);
-
+            person.setCardsSumValues(model.getDeck().calcCardsSumValue(person.getCards()));
         }
     }
     private double getLastChildXLayout(Pane pane){

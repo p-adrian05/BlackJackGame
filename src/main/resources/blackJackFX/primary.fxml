@@ -35,7 +35,7 @@
                                                 <Font name="System Bold" size="21.0" />
                                              </font>
                                           </Label>
-                                          <Label fx:id="cardValueDealer" layoutX="26.0" layoutY="31.0" text="0" textFill="WHITE">
+                                          <Label id="dealerScore" fx:id="dealerScore" layoutX="26.0" layoutY="31.0" text="0" textFill="WHITE">
                                              <font>
                                                 <Font size="22.0" />
                                              </font>
@@ -60,7 +60,7 @@
                                           <Font name="System Bold" size="21.0" />
                                        </font>
                                     </Label>
-                                    <Label fx:id="cardValuePlayer" layoutX="26.0" layoutY="31.0" text="0" textFill="WHITE">
+                                    <Label id="playerScore" fx:id="playerScore" layoutX="26.0" layoutY="31.0" text="0" textFill="WHITE">
                                        <font>
                                           <Font size="22.0" />
                                        </font>

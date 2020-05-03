@@ -12,6 +12,4 @@ public interface Deck {
         Collections.shuffle(getDeckCards());
     }
 
-
-
 }

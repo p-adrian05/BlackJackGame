@@ -28,7 +28,7 @@ public abstract class Person {
         this.cards = cards;
     }
 
-    private void setCardsSumValues(int cardsSumValues) {
+    public void setCardsSumValues(int cardsSumValues) {
         this.cardsSumValues = cardsSumValues;
     }
 
