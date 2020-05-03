@@ -32,5 +32,4 @@ public class GameUtils {
         return funds - bet >= 0;
     }
 
-
 }
