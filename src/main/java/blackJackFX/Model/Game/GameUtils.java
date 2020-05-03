@@ -38,4 +38,11 @@ public class GameUtils {
     public boolean isDealerScorePass16(int score){
         return score > 16;
     }
+    public String madeStringResult(int result){
+        return switch (result){
+              case 1 -> String.valueOf(Result.WON);
+              case 0 -> String.valueOf(Result.PUSH);
+              default -> String.valueOf(Result.LOST);
+          };
+    }
 }

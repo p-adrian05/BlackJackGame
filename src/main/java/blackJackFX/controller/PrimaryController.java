@@ -100,6 +100,7 @@ public class PrimaryController implements Initializable {
     public void standBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(false);
         dealBtn.setDisable(false);
+        madeResult();
     }
     @FXML
     public void split(ActionEvent actionEvent) {
@@ -117,6 +118,13 @@ public class PrimaryController implements Initializable {
         resultPopUpContainer.setVisible(true);
         resultLabel.setText(result);
         prizeLabel.setText(prize);
+    }
+    public void madeResult(){
+        int playerScore = model.getPlayer().getCardsSumValues();
+        int dealerScore = model.getDealer().getCardsSumValues();
+        int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
+        int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
+        showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
     }
 
     @FXML
