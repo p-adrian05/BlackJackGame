@@ -115,6 +115,8 @@ public class PrimaryController implements Initializable {
         mainContainer.setDisable(true);
         resultPopUpContainer.setDisable(false);
         resultPopUpContainer.setVisible(true);
+        resultLabel.setText(result);
+        prizeLabel.setText(prize);
     }
 
     @FXML
