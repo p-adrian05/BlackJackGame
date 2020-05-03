@@ -9,11 +9,13 @@ public class Model {
     private final Player player;
     private final Person dealer;
     private final CardApi cardApi;
+    private final GameUtils gameUtils;
 
     private Model() {
         this.player = new Player();
         this.dealer = new Dealer();
         this.cardApi = new FranceCardApi();
+        this.gameUtils = new GameUtils();
     }
 
     public Player getPlayer() {
@@ -32,4 +34,7 @@ public class Model {
         return model;
     }
 
+    public GameUtils getGameUtils() {
+        return gameUtils;
+    }
 }

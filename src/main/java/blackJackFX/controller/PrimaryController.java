@@ -121,7 +121,7 @@ public class PrimaryController implements Initializable {
         });
     }
     private void manageBet(int value){
-        if(GameUtils.validateBet(value,model.getPlayer().getFund())){
+        if(model.getGameUtils().validateBet(value,model.getPlayer().getFund())){
             model.getPlayer().addBetFromFund(value);
             betLabel.setText(String.valueOf(model.getPlayer().getBet()));
             fundInput.textProperty().setValue(String.valueOf(model.getPlayer().getFund()));

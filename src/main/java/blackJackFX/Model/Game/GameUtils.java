@@ -4,7 +4,7 @@ import java.util.List;
 
 public class GameUtils {
 
-    public static int calculateResult(int player, int dealer){
+    public int calculateResult(int player, int dealer){
         //1 is win
         //0 is push
         //-1 is bust
@@ -19,7 +19,7 @@ public class GameUtils {
         return -1;
     }
 
-        public int calculatePrize(int bet,int result){
+    public int calculatePrize(int bet,int result){
            return switch (result){
                 case 1 -> bet*2;
                 case 0 -> 0;
@@ -28,33 +28,7 @@ public class GameUtils {
             };
         }
 
-    public static boolean validateBet(int bet,int funds){
-        if(funds-bet>=0){
-            return true;
-        }
-        else if(funds==0){
-            System.out.println("Add funds first!");
-            return false;
-        }
-        else if(funds<0){
-            System.out.println("Funds must be positive!");
-            return false;
-        }
-        else{
-            System.out.println("Don't have enough funds!");
-            return false;
-        }
+    public boolean validateBet(int bet,int funds){
+        return funds - bet >= 0;
     }
-    public static boolean isNumeric(String string) {
-        if (string == null) {
-            return false;
-        }
-        try {
-            int num = Integer.parseInt(string);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
-    }
-
 }
