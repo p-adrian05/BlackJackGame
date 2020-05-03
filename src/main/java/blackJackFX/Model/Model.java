@@ -45,4 +45,5 @@ public class Model {
     public GameUtils getGameUtils() {
         return gameUtils;
     }
+
 }

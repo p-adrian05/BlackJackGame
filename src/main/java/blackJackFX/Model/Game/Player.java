@@ -12,7 +12,6 @@ public class Player extends Person{
     public Player() {
         this.fund = 0;
         this.bet = 0;
-        this.setCards(new LinkedList<>());
     }
 
     public int getFund() {
@@ -34,9 +33,7 @@ public class Player extends Person{
     public void setBet(int bet) {
         this.bet = bet;
     }
-    public void addCard(Card card) {
-        getCards().add(card);
-    }
+
     public List<Card> getSplitCards() {
         return splitCards;
     }

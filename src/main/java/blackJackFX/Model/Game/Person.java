@@ -8,6 +8,14 @@ public abstract class Person {
     private int cardsSumValues;
     private List<Card> cards;
 
+    protected Person(){
+        cards = new LinkedList<>();
+        cardsSumValues = 0;
+    }
+
+    public void addCard(Card card) {
+        cards.add(card);
+    }
     public int getCardsSumValues() {
         return this.cardsSumValues;
     }
@@ -20,7 +28,8 @@ public abstract class Person {
         this.cards = cards;
     }
 
-    public void setCardsSumValues(int cardsSumValues) {
+    private void setCardsSumValues(int cardsSumValues) {
         this.cardsSumValues = cardsSumValues;
     }
+
 }
