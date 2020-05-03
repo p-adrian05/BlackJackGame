@@ -31,4 +31,6 @@ public class GameUtils {
     public boolean validateBet(int bet,int funds){
         return funds - bet >= 0;
     }
+
+
 }

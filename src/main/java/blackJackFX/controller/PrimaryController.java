@@ -44,8 +44,6 @@ public class PrimaryController implements Initializable {
     @FXML
     private AnchorPane mainContainer;
 
-    private int fund = 0;
-    private int bet = 0;
     Model model = Model.getInstance();
 
     @FXML
@@ -91,7 +89,7 @@ public class PrimaryController implements Initializable {
     public void split(ActionEvent actionEvent) {
     }
     @FXML
-    public void imgLoad(ActionEvent actionEvent) {
+    public void hitBtnClicked(ActionEvent actionEvent) {
     }
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
@@ -139,5 +137,6 @@ public class PrimaryController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
     }
+
 
 }
