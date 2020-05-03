@@ -146,13 +146,26 @@ public class PrimaryController implements Initializable {
         Card card;
         for(int i = 0; i<amount;i++){
             card = deck.getCard();
-            imageView = madeImageViewFromUrl(card.getImageUrl().toString(),imgXLayoutPlayer+=30);
+            imageView = madeImageViewFromUrl(card.getImageUrl().toString(),getLastChildXLayout(placetoLoad)+25);
             placetoLoad.getChildren().add(imageView);
             model.getPlayer().addCard(card);
         }
     }
 
-    private ImageView madeImageViewFromUrl(String url,int imgXLayout){
+    private double getLastChildXLayout(Pane pane){
+        double xLayout;
+        int lastChildIndex = pane.getChildren().size()-1;
+        if(lastChildIndex==0){
+            xLayout = 0;
+        }else{
+            xLayout = pane.getChildren().get(lastChildIndex).getLayoutX();
+        }
+        return xLayout;
+    }
+
+
+
+    private ImageView madeImageViewFromUrl(String url,double imgXLayout){
         ImageView imageView = new ImageView();
         imageView.setFitHeight(139);
         imageView.setFitWidth(100);
