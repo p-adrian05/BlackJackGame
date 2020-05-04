@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import blackJackFX.Model.Game.Card;
 import blackJackFX.Model.Game.Person;
 import blackJackFX.Model.Model;
+import com.google.gson.internal.$Gson$Preconditions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,7 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class PrimaryController implements Initializable {
+
     @FXML
     private Label betLabel;
     @FXML
@@ -112,10 +114,10 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        model.checkGameOver();
+        checkGameOver();
         loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
         setScoreLabelPlayer();
-        model.checkGameOver();
+        checkGameOver();
     }
 
     public void showResultPopUp(String result, String prize){
@@ -184,7 +186,7 @@ public class PrimaryController implements Initializable {
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
     }
-    private void loadCardAndScoreToPerson(int amount, Pane placetoLoad, Person person){
+    public void loadCardAndScoreToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
         for(int i = 0; i<amount;i++){
@@ -193,6 +195,7 @@ public class PrimaryController implements Initializable {
             placetoLoad.getChildren().add(imageView);
             person.addCard(card);
             person.setCardsSumValues(model.getDeck().calcCardsSumValue(person.getCards()));
+
         }
     }
     private double getLastChildXLayout(Pane pane){
@@ -216,14 +219,13 @@ public class PrimaryController implements Initializable {
     private void setScoreLabelPlayer(){
         playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
     }
-    private void setScoreLabelDealer(){
+    public void setScoreLabelDealer(){
         dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
     }
     public void loadDealerCards(){
         while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
             loadCardAndScoreToPerson(1,imgContainerDealer,model.getDealer());
             setScoreLabelDealer();
-            System.out.println(model.getDealer().getCards());
         }
     }
     private void showWarningPopUp(String message){
@@ -232,11 +234,23 @@ public class PrimaryController implements Initializable {
         warningPopUpContainer.setDisable(false);
         warningLabel.setText(message);
     }
+    public void checkGameOver(){
+        if(model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())) {
+            disableHitBtn();
+            madeResult();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
     }
 
+    public Pane getImgContainerDealer() {
+        return imgContainerDealer;
+    }
 
+    public Pane getImgContainerPlayer() {
+        return imgContainerPlayer;
+    }
 }
