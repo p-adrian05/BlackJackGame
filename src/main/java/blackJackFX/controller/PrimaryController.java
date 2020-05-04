@@ -135,8 +135,8 @@ public class PrimaryController implements Initializable {
     }
 
     public void makeNewRound(){
-        imgContainerDealer.getChildren().removeIf(child -> child.getClass().isInstance(ImageView.class));
-        imgContainerPlayer.getChildren().removeIf(child -> child.getClass().isInstance(ImageView.class));
+        imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
+        imgContainerPlayer.getChildren().remove(1,imgContainerPlayer.getChildren().size());
         //TODO new round
     }
 

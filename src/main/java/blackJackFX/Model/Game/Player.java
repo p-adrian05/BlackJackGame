@@ -10,8 +10,11 @@ public class Player extends Person{
     private List<Card> splitCards;
 
     public Player() {
-        this.fund = 0;
-        this.bet = 0;
+        fund = 0;
+        bet = 0;
+        cards = new LinkedList<>();
+        cardsSumValues = 0;
+        splitCards = new LinkedList<>();
     }
 
     public int getFund() {

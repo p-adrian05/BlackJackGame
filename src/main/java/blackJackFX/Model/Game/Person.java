@@ -5,13 +5,8 @@ import java.util.List;
 
 public abstract class Person {
 
-    private int cardsSumValues;
-    private List<Card> cards;
-
-    protected Person(){
-        cards = new LinkedList<>();
-        cardsSumValues = 0;
-    }
+    protected int cardsSumValues;
+    protected List<Card> cards;
 
     public void addCard(Card card) {
         cards.add(card);
