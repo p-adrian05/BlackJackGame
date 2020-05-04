@@ -1,6 +1,7 @@
 package blackJackFX.Model;
 
 import blackJackFX.Model.Game.*;
+import blackJackFX.controller.PrimaryController;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +15,7 @@ public class Model {
     private final CardApi cardApi;
     private final GameUtils gameUtils;
     private final Deck deck;
+    private final PrimaryController primaryController;
 
     private Model() {
         this.player = new Player();
@@ -21,6 +23,7 @@ public class Model {
         this.cardApi = new FranceCardApi();
         this.gameUtils = new GameUtils();
         this.deck = cardApi.getDeck();
+        this.primaryController = new PrimaryController();
     }
 
     public Player getPlayer() {
@@ -44,6 +47,13 @@ public class Model {
 
     public GameUtils getGameUtils() {
         return gameUtils;
+    }
+
+    public void checkGameOver(){
+        if(gameUtils.isPlayerScorePass21(player.getCardsSumValues())) {
+            primaryController.loadDealerCards();
+            primaryController.disableHitBtn();
+        }
     }
 
 }
