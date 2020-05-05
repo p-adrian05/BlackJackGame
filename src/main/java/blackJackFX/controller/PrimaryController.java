@@ -8,7 +8,6 @@ import blackJackFX.Main;
 import blackJackFX.Model.Game.Card;
 import blackJackFX.Model.Game.Person;
 import blackJackFX.Model.Model;
-import com.google.gson.internal.$Gson$Preconditions;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
