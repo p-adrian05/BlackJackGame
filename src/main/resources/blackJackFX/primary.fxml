@@ -11,9 +11,9 @@
    <children>
       <VBox alignment="CENTER" prefHeight="819.0" prefWidth="1076.0" style="-fx-background-color: grey;">
          <children>
-            <AnchorPane prefHeight="642.0" prefWidth="283.0">
+            <AnchorPane prefHeight="878.0" prefWidth="1075.0">
                <children>
-                  <AnchorPane id="mainContainer" fx:id="mainContainer" layoutX="71.0" layoutY="20.0" prefHeight="906.0" prefWidth="1120.0" style="-fx-background-color: lightgreen;" styleClass="container" visible="false">
+                  <AnchorPane id="mainContainer" fx:id="mainContainer" prefHeight="902.0" prefWidth="1113.0" style="-fx-background-color: lightgreen;" styleClass="container">
                      <children>
                         <Pane id="mainPane" layoutX="48.0" layoutY="39.0" prefHeight="538.0" prefWidth="1025.0" style="-fx-background-color: green;">
                            <children>
@@ -208,7 +208,7 @@
                         </MenuBar>
                      </children>
                   </AnchorPane>
-                  <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="440.0" layoutY="365.0" prefHeight="206.0" prefWidth="386.0" visible="false">
+                  <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="364.0" layoutY="348.0" prefHeight="206.0" prefWidth="386.0" visible="false">
                      <children>
                         <Label id="resultLabel" fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="383.0" text="RESULT" textFill="WHITE">
                            <font>
@@ -230,7 +230,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox id="warningPopUpContainer" fx:id="warningPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="440.0" layoutY="365.0" prefHeight="206.0" prefWidth="386.0" visible="false">
+                  <VBox id="warningPopUpContainer" fx:id="warningPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="364.0" layoutY="348.0" prefHeight="206.0" prefWidth="386.0" visible="false">
                      <children>
                         <Label id="warningLabel" fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="385.0" text="TEXT" textAlignment="CENTER" textFill="#510000">
                            <font>
@@ -243,7 +243,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox id="newGamePopUpContainer" fx:id="newGamePopUp" alignment="TOP_CENTER" cacheShape="false" disable="true" layoutX="493.0" layoutY="533.0" prefHeight="156.0" prefWidth="280.0" visible="false">
+                  <VBox id="newGamePopUpContainer" fx:id="newGamePopUpContainer" alignment="TOP_CENTER" cacheShape="false" disable="true" layoutX="417.0" layoutY="545.0" prefHeight="156.0" prefWidth="280.0" visible="false">
                      <children>
                         <Label id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="385.0" text="New Game?" textAlignment="CENTER" textFill="#3a9406">
                            <font>

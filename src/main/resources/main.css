@@ -52,7 +52,7 @@
 #moneyContainer{
     -fx-background-color: green;
 }
-#popUpContainer{
+#popUpContainer, #newGamePopUpContainer{
     -fx-background-color: lightgreen;
     -fx-background-radius: 30px;
     -fx-text-fill: white;
@@ -74,7 +74,7 @@
     -fx-border-radius: 30px;
     -fx-border-width: 1px;
 }
-#okWarningBtn{
+#okWarningBtn {
     -fx-background-color: darkred;
     -fx-text-fill: white;
     -fx-border-color: red;

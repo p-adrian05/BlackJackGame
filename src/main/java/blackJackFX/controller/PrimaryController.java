@@ -1,8 +1,10 @@
 package blackJackFX.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import blackJackFX.Main;
 import blackJackFX.Model.Game.Card;
 import blackJackFX.Model.Game.Person;
 import blackJackFX.Model.Model;
@@ -59,6 +61,9 @@ public class PrimaryController implements Initializable {
     @FXML
     private VBox warningPopUpContainer;
     @FXML
+    private VBox newGamePopUpContainer;
+
+    @FXML
     private AnchorPane mainContainer;
 
     Model model = Model.getInstance();
@@ -68,6 +73,7 @@ public class PrimaryController implements Initializable {
         mainContainer.setDisable(false);
         resultPopUpContainer.setDisable(true);
         resultPopUpContainer.setVisible(false);
+        showNewGamePopUp();
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
@@ -237,7 +243,7 @@ public class PrimaryController implements Initializable {
              madeResult();
         }
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
@@ -250,10 +256,25 @@ public class PrimaryController implements Initializable {
     public Pane getImgContainerPlayer() {
         return imgContainerPlayer;
     }
-
-    public void newGameYesBtnClicked(ActionEvent actionEvent) {
+    public void showNewGamePopUp(){
+        mainContainer.setDisable(true);
+        newGamePopUpContainer.setVisible(true);
+        newGamePopUpContainer.setDisable(false);
+    }
+    public void disableNewGamePopUp(){
+        mainContainer.setDisable(false);
+        newGamePopUpContainer.setVisible(false);
+        newGamePopUpContainer.setDisable(true);
     }
 
-    public void newGameNoBtnClicked(ActionEvent actionEvent) {
+    public void newGameYesBtnClicked(ActionEvent actionEvent) {
+        disableNewGamePopUp();
+        makeNewRound();
+
+    }
+
+    public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
+        disableNewGamePopUp();
+        Main.setRoot("login");
     }
 }
