@@ -143,10 +143,13 @@ public class PrimaryController implements Initializable {
     public void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
         imgContainerPlayer.getChildren().remove(1,imgContainerPlayer.getChildren().size());
-        //TODO new round
+        model.resetValues();
     }
     public void disableHitBtn(){
         hitBtn.setDisable(true);
+    }
+    public void enableHitBtn(){
+        hitBtn.setDisable(false);
     }
 
     @FXML
@@ -247,14 +250,6 @@ public class PrimaryController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
-    }
-
-    public Pane getImgContainerDealer() {
-        return imgContainerDealer;
-    }
-
-    public Pane getImgContainerPlayer() {
-        return imgContainerPlayer;
     }
     public void showNewGamePopUp(){
         mainContainer.setDisable(true);

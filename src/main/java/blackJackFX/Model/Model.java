@@ -10,11 +10,11 @@ public class Model {
 
     private static final Model model = new Model();
 
-    private final Player player;
-    private final Person dealer;
-    private final CardApi cardApi;
-    private final GameUtils gameUtils;
-    private final Deck deck;
+    private Player player;
+    private Person dealer;
+    private CardApi cardApi;
+    private GameUtils gameUtils;
+    private Deck deck;
 
     private Model() {
         this.player = new Player();
@@ -46,6 +46,12 @@ public class Model {
     public GameUtils getGameUtils() {
         return gameUtils;
     }
+    public void resetValues(){
+       player = new Player();
+       dealer = new Dealer();
+       deck = cardApi.getDeck();
+    }
+
 
 
 
