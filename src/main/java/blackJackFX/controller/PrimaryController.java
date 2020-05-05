@@ -68,7 +68,6 @@ public class PrimaryController implements Initializable {
         mainContainer.setDisable(false);
         resultPopUpContainer.setDisable(true);
         resultPopUpContainer.setVisible(false);
-        makeNewRound();
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
@@ -114,7 +113,6 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        checkGameOver();
         loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
         setScoreLabelPlayer();
         checkGameOver();
@@ -189,13 +187,12 @@ public class PrimaryController implements Initializable {
     public void loadCardAndScoreToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
-        for(int i = 0; i<amount;i++){
+        for(int i = 0; i<amount;i++) {
             card = model.getDeck().getCard();
-            imageView = madeImageViewFromUrl(card.getImageUrl().toString(),getLastChildXLayout(placetoLoad)+25);
+            imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
             placetoLoad.getChildren().add(imageView);
             person.addCard(card);
             person.setCardsSumValues(model.getDeck().calcCardsSumValue(person.getCards()));
-
         }
     }
     private double getLastChildXLayout(Pane pane){
@@ -236,11 +233,11 @@ public class PrimaryController implements Initializable {
     }
     public void checkGameOver(){
         if(model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())) {
-            disableHitBtn();
-            madeResult();
+             disableHitBtn();
+             madeResult();
         }
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
@@ -252,5 +249,11 @@ public class PrimaryController implements Initializable {
 
     public Pane getImgContainerPlayer() {
         return imgContainerPlayer;
+    }
+
+    public void newGameYesBtnClicked(ActionEvent actionEvent) {
+    }
+
+    public void newGameNoBtnClicked(ActionEvent actionEvent) {
     }
 }
