@@ -74,12 +74,15 @@ public class PrimaryController implements Initializable {
         resultPopUpContainer.setDisable(true);
         resultPopUpContainer.setVisible(false);
         showNewGamePopUp();
+        enableHitBtn();
+
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
         mainContainer.setDisable(false);
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
+
     }
 
     @FXML
@@ -89,7 +92,6 @@ public class PrimaryController implements Initializable {
         loadCardAndScoreToPerson(2,imgContainerDealer,model.getDealer());
         setScoreLabelDealer();
         setScoreLabelPlayer();
-        dealBtn.setDisable(true);
     }
 
     @FXML
@@ -137,6 +139,7 @@ public class PrimaryController implements Initializable {
         int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
         int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
         model.getPlayer().addFund(prize);
+        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
         showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
     }
 
@@ -144,6 +147,10 @@ public class PrimaryController implements Initializable {
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
         imgContainerPlayer.getChildren().remove(1,imgContainerPlayer.getChildren().size());
         model.resetValues();
+        setScoreLabelDealer();
+        setScoreLabelPlayer();
+        betLabel.setText("0");
+
     }
     public void disableHitBtn(){
         hitBtn.setDisable(true);
