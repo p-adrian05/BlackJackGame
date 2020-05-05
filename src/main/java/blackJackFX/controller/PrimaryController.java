@@ -149,7 +149,8 @@ public class PrimaryController implements Initializable {
         setScoreLabelDealer();
         setScoreLabelPlayer();
         betLabel.setText("0");
-
+        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
+        mainContainer.setDisable(false);
     }
     public void disableHitBtn(){
         hitBtn.setDisable(true);

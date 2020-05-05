@@ -47,7 +47,9 @@ public class Model {
         return gameUtils;
     }
     public void resetValues(){
+       int oldPlayerFund = player.getFund();
        player = new Player();
+       player.setFund(oldPlayerFund);
        dealer = new Dealer();
        deck = cardApi.getDeck();
     }
