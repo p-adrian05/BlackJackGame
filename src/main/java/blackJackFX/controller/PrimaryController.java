@@ -61,7 +61,6 @@ public class PrimaryController implements Initializable {
     private VBox warningPopUpContainer;
     @FXML
     private VBox newGamePopUpContainer;
-
     @FXML
     private AnchorPane mainContainer;
 
@@ -74,14 +73,12 @@ public class PrimaryController implements Initializable {
         resultPopUpContainer.setVisible(false);
         showNewGamePopUp();
         enableHitBtn();
-
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
         mainContainer.setDisable(false);
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
-
     }
 
     @FXML
@@ -272,7 +269,7 @@ public class PrimaryController implements Initializable {
     public void newGameYesBtnClicked(ActionEvent actionEvent) {
         disableNewGamePopUp();
         makeNewRound();
-
+        disableFundAndBetInput(false);
     }
 
     public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
