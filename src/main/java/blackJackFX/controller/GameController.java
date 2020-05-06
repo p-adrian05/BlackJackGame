@@ -124,6 +124,9 @@ public class GameController implements Initializable {
         checkBlackJack();
     }
     @FXML
+    public void doubleBtnClicked(ActionEvent actionEvent) {
+    }
+    @FXML
     public void split(ActionEvent actionEvent) {
     }
     @FXML
@@ -299,4 +302,6 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
     }
+
+
 }

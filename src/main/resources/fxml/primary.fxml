@@ -95,7 +95,7 @@
                                     <Insets left="30.0" right="30.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="doubleBtn" alignment="CENTER" layoutX="85.0" layoutY="10.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="DOUBLE">
+                              <Button id="doubleBtn" fx:id="doubleBtn" alignment="CENTER" layoutX="85.0" layoutY="10.0" mnemonicParsing="false" onAction="#doubleBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="DOUBLE">
                                  <HBox.margin>
                                     <Insets left="30.0" right="30.0" />
                                  </HBox.margin>
