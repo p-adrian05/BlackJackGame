@@ -137,7 +137,9 @@ public class PrimaryController implements Initializable {
         int dealerScore = model.getDealer().getCardsSumValues();
         int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
         int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
-        model.getPlayer().addFund(prize);
+        if(prize>0){
+            model.getPlayer().addFund(prize);
+        }
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
         showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
     }
@@ -150,7 +152,6 @@ public class PrimaryController implements Initializable {
         setScoreLabelPlayer();
         betLabel.setText("0");
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
-        mainContainer.setDisable(false);
     }
     public void disableHitBtn(){
         hitBtn.setDisable(true);
