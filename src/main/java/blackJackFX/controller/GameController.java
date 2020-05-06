@@ -1,6 +1,10 @@
 package blackJackFX.controller;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -95,7 +99,12 @@ public class GameController implements Initializable {
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
         loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
-        loadCardToPerson(2,imgContainerDealer,model.getDealer());
+        loadCardToPerson(1,imgContainerDealer,model.getDealer());
+        try{
+            loadCardToPane(new File("card-back.png"),imgContainerDealer);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         setScoreLabelDealer();
         setScoreLabelPlayer();
     }
@@ -208,6 +217,7 @@ public class GameController implements Initializable {
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
     }
     public void loadDealerCards(){
+        imgContainerDealer.getChildren().remove(2);
         while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
             loadCardToPerson(1,imgContainerDealer,model.getDealer());
             setScoreLabelDealer();
@@ -244,6 +254,7 @@ public class GameController implements Initializable {
     public void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
+
         for(int i = 0; i<amount;i++) {
             card = model.getDeck().getCard();
             imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
@@ -268,6 +279,12 @@ public class GameController implements Initializable {
         imageView.setLayoutX(imgXLayout);
         imageView.setImage(new Image(url));
         return imageView;
+    }
+
+    public void loadCardToPane(File file, Pane placetoLoad){
+        ImageView imageView;
+            imageView = madeImageViewFromUrl(file.toString(), getLastChildXLayout(placetoLoad) + 25);
+            placetoLoad.getChildren().add(imageView);
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
