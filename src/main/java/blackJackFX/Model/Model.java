@@ -53,10 +53,9 @@ public class Model {
        player = new Player();
        player.setFund(oldPlayerFund);
        dealer = new Dealer();
-       deck = cardApi.getDeck();
+       if(deck.getDeckCards().size()<20){
+           deck = cardApi.getDeck();
+       }
     }
-
-
-
 
 }
