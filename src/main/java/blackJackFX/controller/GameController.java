@@ -80,7 +80,17 @@ public class GameController implements Initializable {
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
     }
-
+    @FXML
+    public void newGameYesBtnClicked(ActionEvent actionEvent) {
+        disableNewGamePopUp();
+        makeNewRound();
+        disableFundAndBetInput(false);
+    }
+    @FXML
+    public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
+        disableNewGamePopUp();
+        Main.setRoot("login");
+    }
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
@@ -89,7 +99,22 @@ public class GameController implements Initializable {
         setScoreLabelDealer();
         setScoreLabelPlayer();
     }
-
+    @FXML
+    public void standBtnClicked(ActionEvent actionEvent) {
+        disableFundAndBetInput(false);
+        dealBtn.setDisable(false);
+        loadDealerCards();
+        madeResult();
+    }
+    @FXML
+    public void hitBtnClicked(ActionEvent actionEvent) {
+        loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
+        setScoreLabelPlayer();
+        checkGameOver();
+    }
+    @FXML
+    public void split(ActionEvent actionEvent) {
+    }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
     }
@@ -106,58 +131,6 @@ public class GameController implements Initializable {
     public void MenuBarClicked(MouseEvent mouseEvent) {
     }
     @FXML
-    public void standBtnClicked(ActionEvent actionEvent) {
-        disableFundAndBetInput(false);
-        dealBtn.setDisable(false);
-        loadDealerCards();
-        madeResult();
-    }
-    @FXML
-    public void split(ActionEvent actionEvent) {
-    }
-    @FXML
-    public void hitBtnClicked(ActionEvent actionEvent) {
-        loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
-        setScoreLabelPlayer();
-        checkGameOver();
-    }
-
-    public void showResultPopUp(String result, String prize){
-        mainContainer.setDisable(true);
-        resultPopUpContainer.setDisable(false);
-        resultPopUpContainer.setVisible(true);
-        resultLabel.setText(result);
-        prizeLabel.setText(prize);
-    }
-    public void madeResult(){
-        int playerScore = model.getPlayer().getCardsSumValues();
-        int dealerScore = model.getDealer().getCardsSumValues();
-        int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
-        int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
-        if(prize>0){
-            model.getPlayer().addFund(prize);
-        }
-        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
-        showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
-    }
-
-    public void makeNewRound(){
-        imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
-        imgContainerPlayer.getChildren().remove(1,imgContainerPlayer.getChildren().size());
-        model.resetValues();
-        setScoreLabelDealer();
-        setScoreLabelPlayer();
-        betLabel.setText("0");
-        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
-    }
-    public void disableHitBtn(){
-        hitBtn.setDisable(true);
-    }
-    public void enableHitBtn(){
-        hitBtn.setDisable(false);
-    }
-
-    @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
         manageBet(80);
     }
@@ -172,6 +145,79 @@ public class GameController implements Initializable {
     @FXML
     public void coin10Clicked(MouseEvent mouseEvent) {
         manageBet(10);
+    }
+
+    public void showResultPopUp(String result, String prize){
+        mainContainer.setDisable(true);
+        resultPopUpContainer.setDisable(false);
+        resultPopUpContainer.setVisible(true);
+        resultLabel.setText(result);
+        prizeLabel.setText(prize);
+    }
+    private void showWarningPopUp(String message){
+        mainContainer.setDisable(true);
+        warningPopUpContainer.setVisible(true);
+        warningPopUpContainer.setDisable(false);
+        warningLabel.setText(message);
+    }
+    public void showNewGamePopUp(){
+        mainContainer.setDisable(true);
+        newGamePopUpContainer.setVisible(true);
+        newGamePopUpContainer.setDisable(false);
+    }
+    public void disableNewGamePopUp(){
+        mainContainer.setDisable(false);
+        newGamePopUpContainer.setVisible(false);
+        newGamePopUpContainer.setDisable(true);
+    }
+    private void setScoreLabelPlayer(){
+        playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+    }
+    public void setScoreLabelDealer(){
+        dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
+    }
+    private void disableFundAndBetInput(boolean bool){
+        fundInput.setDisable(bool);
+        betCoinsContainer.setDisable(bool);
+    }
+    public void disableHitBtn(){
+        hitBtn.setDisable(true);
+    }
+    public void enableHitBtn(){
+        hitBtn.setDisable(false);
+    }
+
+    public void madeResult(){
+        int playerScore = model.getPlayer().getCardsSumValues();
+        int dealerScore = model.getDealer().getCardsSumValues();
+        int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
+        int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
+        if(prize>0){
+            model.getPlayer().addFund(prize);
+        }
+        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
+        showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
+    }
+    public void makeNewRound(){
+        imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
+        imgContainerPlayer.getChildren().remove(1,imgContainerPlayer.getChildren().size());
+        model.resetValues();
+        setScoreLabelDealer();
+        setScoreLabelPlayer();
+        betLabel.setText("0");
+        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
+    }
+    public void loadDealerCards(){
+        while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
+            loadCardToPerson(1,imgContainerDealer,model.getDealer());
+            setScoreLabelDealer();
+        }
+    }
+    public void checkGameOver(){
+        if(model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())) {
+            disableHitBtn();
+            madeResult();
+        }
     }
     private void readInFundInputListener(){
         fundInput.textProperty().addListener((obs, oldText, newText) -> {
@@ -194,10 +240,7 @@ public class GameController implements Initializable {
             showWarningPopUp("Not have enough funds!");
         }
     }
-    private void disableFundAndBetInput(boolean bool){
-        fundInput.setDisable(bool);
-        betCoinsContainer.setDisable(bool);
-    }
+
     public void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
@@ -226,54 +269,8 @@ public class GameController implements Initializable {
         imageView.setImage(new Image(url));
         return imageView;
     }
-    private void setScoreLabelPlayer(){
-        playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
-    }
-    public void setScoreLabelDealer(){
-        dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
-    }
-    public void loadDealerCards(){
-        while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
-            loadCardToPerson(1,imgContainerDealer,model.getDealer());
-            setScoreLabelDealer();
-        }
-    }
-    private void showWarningPopUp(String message){
-        mainContainer.setDisable(true);
-        warningPopUpContainer.setVisible(true);
-        warningPopUpContainer.setDisable(false);
-        warningLabel.setText(message);
-    }
-    public void checkGameOver(){
-        if(model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues())) {
-             disableHitBtn();
-             madeResult();
-        }
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
-    }
-    public void showNewGamePopUp(){
-        mainContainer.setDisable(true);
-        newGamePopUpContainer.setVisible(true);
-        newGamePopUpContainer.setDisable(false);
-    }
-    public void disableNewGamePopUp(){
-        mainContainer.setDisable(false);
-        newGamePopUpContainer.setVisible(false);
-        newGamePopUpContainer.setDisable(true);
-    }
-
-    public void newGameYesBtnClicked(ActionEvent actionEvent) {
-        disableNewGamePopUp();
-        makeNewRound();
-        disableFundAndBetInput(false);
-    }
-
-    public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
-        disableNewGamePopUp();
-        Main.setRoot("login");
     }
 }
