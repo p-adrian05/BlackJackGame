@@ -107,6 +107,7 @@ public class GameController implements Initializable {
         }
         setScoreLabelDealer();
         setScoreLabelPlayer();
+        checkBlackJack();
     }
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
@@ -120,6 +121,7 @@ public class GameController implements Initializable {
         loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
         setScoreLabelPlayer();
         checkGameOver();
+        checkBlackJack();
     }
     @FXML
     public void split(ActionEvent actionEvent) {
@@ -229,6 +231,12 @@ public class GameController implements Initializable {
             madeResult();
         }
     }
+    public void checkBlackJack(){
+        if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
+            madeResult();
+            playerScore.setText("BLACKJACK");
+        }
+    }
     private void readInFundInputListener(){
         fundInput.textProperty().addListener((obs, oldText, newText) -> {
             if (!newText.matches("\\d*")) {
@@ -286,6 +294,7 @@ public class GameController implements Initializable {
             imageView = madeImageViewFromUrl(file.toString(), getLastChildXLayout(placetoLoad) + 25);
             placetoLoad.getChildren().add(imageView);
     }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();

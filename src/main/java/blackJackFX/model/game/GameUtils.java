@@ -8,6 +8,9 @@ public class GameUtils {
         //-1 is bust
         final int gameValue = 21;
 
+        if(playerScore==gameValue){
+            return 2;
+        }
         if(playerScore<=gameValue && dealerScore<=gameValue){
             return Integer.compare(playerScore,dealerScore);
         }
@@ -35,6 +38,9 @@ public class GameUtils {
     }
     public boolean isDealerScorePass16(int score){
         return score > 16;
+    }
+    public boolean isBlackJack(int score){
+        return score == 21;
     }
     public String madeStringResult(int result){
         return switch (result){
