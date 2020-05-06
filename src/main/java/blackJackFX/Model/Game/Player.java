@@ -1,5 +1,7 @@
 package blackJackFX.Model.Game;
 
+import blackJackFX.Model.Model;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +15,6 @@ public class Player extends Person{
         fund = 0;
         bet = 0;
         cards = new LinkedList<>();
-        cardsSumValues = 0;
         splitCards = new LinkedList<>();
     }
 
@@ -47,5 +48,4 @@ public class Player extends Person{
     public void setSplitCards(List<Card> splitCards) {
         this.splitCards = splitCards;
     }
-
 }

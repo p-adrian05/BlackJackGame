@@ -1,18 +1,19 @@
 package blackJackFX.Model.Game;
 
+import blackJackFX.Model.Model;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Person {
 
-    protected int cardsSumValues;
     protected List<Card> cards;
 
     public void addCard(Card card) {
         cards.add(card);
     }
-    public int getCardsSumValues() {
-        return this.cardsSumValues;
+    public int getCardsSumValues(){
+       return Model.getInstance().getDeck().calcCardsSumValue(this.cards);
     }
 
     public List<Card> getCards() {
@@ -22,9 +23,4 @@ public abstract class Person {
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
-
-    public void setCardsSumValues(int cardsSumValues) {
-        this.cardsSumValues = cardsSumValues;
-    }
-
 }

@@ -87,8 +87,8 @@ public class PrimaryController implements Initializable {
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
-        loadCardAndScoreToPerson(2,imgContainerPlayer,model.getPlayer());
-        loadCardAndScoreToPerson(2,imgContainerDealer,model.getDealer());
+        loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
+        loadCardToPerson(2,imgContainerDealer,model.getDealer());
         setScoreLabelDealer();
         setScoreLabelPlayer();
     }
@@ -120,7 +120,7 @@ public class PrimaryController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        loadCardAndScoreToPerson(1,imgContainerPlayer,model.getPlayer());
+        loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
         setScoreLabelPlayer();
         checkGameOver();
     }
@@ -201,7 +201,7 @@ public class PrimaryController implements Initializable {
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
     }
-    public void loadCardAndScoreToPerson(int amount, Pane placetoLoad, Person person){
+    public void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
         for(int i = 0; i<amount;i++) {
@@ -209,7 +209,6 @@ public class PrimaryController implements Initializable {
             imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
             placetoLoad.getChildren().add(imageView);
             person.addCard(card);
-            person.setCardsSumValues(model.getDeck().calcCardsSumValue(person.getCards()));
         }
     }
     private double getLastChildXLayout(Pane pane){
@@ -238,7 +237,7 @@ public class PrimaryController implements Initializable {
     }
     public void loadDealerCards(){
         while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
-            loadCardAndScoreToPerson(1,imgContainerDealer,model.getDealer());
+            loadCardToPerson(1,imgContainerDealer,model.getDealer());
             setScoreLabelDealer();
         }
     }

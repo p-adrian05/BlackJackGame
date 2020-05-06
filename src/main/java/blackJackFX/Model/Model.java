@@ -31,6 +31,7 @@ public class Model {
     public Person getDealer() {
         return dealer;
     }
+
     public Deck getDeck() {
         return deck;
     }
@@ -46,6 +47,7 @@ public class Model {
     public GameUtils getGameUtils() {
         return gameUtils;
     }
+
     public void resetValues(){
        int oldPlayerFund = player.getFund();
        player = new Player();
