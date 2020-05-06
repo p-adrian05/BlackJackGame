@@ -46,6 +46,8 @@ public class GameController implements Initializable {
     @FXML
     private Button hitBtn;
     @FXML
+    private Button doubleBtn;
+    @FXML
     private HBox betCoinsContainer;
     @FXML
     private TextField fundInput;
@@ -125,6 +127,7 @@ public class GameController implements Initializable {
     }
     @FXML
     public void doubleBtnClicked(ActionEvent actionEvent) {
+        manageBet(model.getPlayer().getBet());
     }
     @FXML
     public void split(ActionEvent actionEvent) {
