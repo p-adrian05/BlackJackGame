@@ -1,8 +1,7 @@
-package blackJackFX.Model.Game;
+package blackJackFX.model.game;
 
-import blackJackFX.Model.Model;
+import blackJackFX.model.Model;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public abstract class Person {

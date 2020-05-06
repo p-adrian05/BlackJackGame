@@ -1,4 +1,4 @@
-package blackJackFX.Model.Game;
+package blackJackFX.model.game;
 
 public enum Result {
     WON,

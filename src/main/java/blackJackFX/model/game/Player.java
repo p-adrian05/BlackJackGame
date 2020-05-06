@@ -1,6 +1,4 @@
-package blackJackFX.Model.Game;
-
-import blackJackFX.Model.Model;
+package blackJackFX.model.game;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -1,6 +1,6 @@
-package blackJackFX.Model;
+package blackJackFX.model;
 
-import blackJackFX.Model.Game.*;
+import blackJackFX.model.game.*;
 public class Model {
 
     private static final Model model = new Model();

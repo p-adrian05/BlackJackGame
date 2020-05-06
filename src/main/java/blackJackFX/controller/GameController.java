@@ -5,9 +5,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import blackJackFX.Main;
-import blackJackFX.Model.Game.Card;
-import blackJackFX.Model.Game.Person;
-import blackJackFX.Model.Model;
+import blackJackFX.model.game.Card;
+import blackJackFX.model.game.Person;
+import blackJackFX.model.Model;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

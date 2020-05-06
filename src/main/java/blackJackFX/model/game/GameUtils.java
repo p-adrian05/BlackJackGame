@@ -1,6 +1,4 @@
-package blackJackFX.Model.Game;
-
-import java.util.List;
+package blackJackFX.model.game;
 
 public class GameUtils {
 
