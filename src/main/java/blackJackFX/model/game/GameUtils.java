@@ -46,6 +46,7 @@ public class GameUtils {
         return switch (result){
               case 1 -> String.valueOf(Result.WON);
               case 0 -> String.valueOf(Result.PUSH);
+              case 2 -> String.valueOf(Result.BLACKJACK);
               default -> String.valueOf(Result.LOST);
           };
     }
