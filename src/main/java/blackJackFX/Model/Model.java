@@ -1,11 +1,6 @@
 package blackJackFX.Model;
 
 import blackJackFX.Model.Game.*;
-import blackJackFX.controller.PrimaryController;
-
-import java.util.LinkedList;
-import java.util.List;
-
 public class Model {
 
     private static final Model model = new Model();
