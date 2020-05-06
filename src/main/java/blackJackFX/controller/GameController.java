@@ -23,7 +23,7 @@ import javafx.scene.layout.VBox;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
-public class PrimaryController implements Initializable {
+public class GameController implements Initializable {
 
     @FXML
     private Label betLabel;
