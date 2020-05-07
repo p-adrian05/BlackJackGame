@@ -36,7 +36,7 @@ public class GameUtils {
     public boolean isPlayerScorePass21(int score){
         return score > 21;
     }
-    public boolean isDealerScorePass16(int score){
+    public boolean isScorePass16(int score){
         return score > 16;
     }
     public boolean isBlackJack(int score){

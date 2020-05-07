@@ -44,7 +44,7 @@ public class Player extends Person{
     public List<Card> getSplitCards() {
         return splitCards;
     }
-    public void addCardSplit1(Card card){
+    public void addCardSplit(Card card){
         splitCards.add(card);
     }
     public int getCardsSumValuesSplit(){
@@ -58,5 +58,14 @@ public class Player extends Person{
             //}
         }
         return false;
+    }
+
+    @Override
+    public void addCard(Card card) {
+        if(splitCards.size()>0 && getCardsSumValues()>=16){
+                addCardSplit(card);
+        }else{
+            super.addCard(card);
+        }
     }
 }

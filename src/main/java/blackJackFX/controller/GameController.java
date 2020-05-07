@@ -1,10 +1,7 @@
 package blackJackFX.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -158,9 +155,13 @@ public class GameController implements Initializable {
         }
     }
     public void hitBtnClickedInSplitMode(){
+        if(model.getGameUtils().isScorePass16(model.getPlayer().getCardsSumValues())){
+
+        }
         loadCardToPerson(1,imgContainerPlayer1,model.getPlayer());
         playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
     }
+
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
     }
@@ -255,7 +256,7 @@ public class GameController implements Initializable {
     }
     public void loadDealerCards(){
         imgContainerDealer.getChildren().remove(2);
-        while(!model.getGameUtils().isDealerScorePass16(model.getDealer().getCardsSumValues())){
+        while(!model.getGameUtils().isScorePass16(model.getDealer().getCardsSumValues())){
             loadCardToPerson(1,imgContainerDealer,model.getDealer());
             setScoreLabelDealer();
         }
