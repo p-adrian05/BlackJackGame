@@ -142,7 +142,7 @@ public class GameController implements Initializable {
     }
     @FXML
     public void split(ActionEvent actionEvent) {
-        if(model.getPlayer().enableSplitCards()){
+        if(model.getPlayer().enableSplitCards() && manageBet(model.getPlayer().getBet())){
             enableSplitLayout(true);
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
             imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
@@ -315,14 +315,16 @@ public class GameController implements Initializable {
             }
         });
     }
-    private void manageBet(int value){
+    private boolean manageBet(int value){
         if(model.getGameUtils().validateBet(value,model.getPlayer().getFund())){
             model.getPlayer().addBetFromFund(value);
             betLabel.setText(String.valueOf(model.getPlayer().getBet()));
             fundInput.textProperty().setValue(String.valueOf(model.getPlayer().getFund()));
+            return true;
         }
         else{
             showWarningPopUp("Not have enough funds!");
+            return false;
         }
     }
 
