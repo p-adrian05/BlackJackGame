@@ -143,10 +143,7 @@ public class GameController implements Initializable {
     @FXML
     public void split(ActionEvent actionEvent) {
         if(model.getPlayer().enableSplitCards()){
-            playerGroup.setVisible(false);
-            playerScore.setVisible(false);
-            playerGroup1.setVisible(true);
-            playerGroup2.setVisible(true);
+            enableSplitLayout(true);
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
             imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
             playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
@@ -237,6 +234,19 @@ public class GameController implements Initializable {
     public void enableHitBtn(){
         hitBtn.setDisable(false);
     }
+    public void enableSplitLayout(boolean bol){
+        if(bol){
+            playerGroup.setVisible(false);
+            playerScore.setVisible(false);
+            playerGroup1.setVisible(true);
+            playerGroup2.setVisible(true);
+        }else{
+            playerGroup.setVisible(true);
+            playerScore.setVisible(true);
+            playerGroup1.setVisible(false);
+            playerGroup2.setVisible(false);
+        }
+    }
 
     public void madeResult(){
         int playerScore = model.getPlayer().getCardsSumValues();
@@ -258,6 +268,7 @@ public class GameController implements Initializable {
         setScoreLabelPlayer();
         betLabel.setText("0");
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
+        enableSplitLayout(false);
     }
     public void loadDealerCards(){
         imgContainerDealer.getChildren().remove(2);

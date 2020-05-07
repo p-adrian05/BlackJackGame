@@ -3,9 +3,6 @@ package blackJackFX.model.game;
 public class GameUtils {
 
     public Result calculateResult(int playerScore,int dealerScore){
-        //1 is win
-        //0 is push
-        //-1 is bust
         final int gameValue = 21;
 
         if(playerScore==gameValue){
