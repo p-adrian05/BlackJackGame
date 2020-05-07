@@ -25,8 +25,9 @@ import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 public class GameController implements Initializable {
-
+    @FXML
     public Pane imgContainerPlayer2;
+    @FXML
     public Pane imgContainerPlayer1;
     @FXML
     private Label betLabel;
@@ -133,8 +134,6 @@ public class GameController implements Initializable {
             checkGameOver();
             checkBlackJack();
         }
-
-
     }
     @FXML
     public void doubleBtnClicked(ActionEvent actionEvent) {
@@ -156,10 +155,13 @@ public class GameController implements Initializable {
     }
     public void hitBtnClickedInSplitMode(){
         if(model.getGameUtils().isScorePass16(model.getPlayer().getCardsSumValues())){
-
+            loadCardToPerson(1,imgContainerPlayer2,model.getPlayer());
+            playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
         }
-        loadCardToPerson(1,imgContainerPlayer1,model.getPlayer());
-        playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+        else{
+            loadCardToPerson(1,imgContainerPlayer1,model.getPlayer());
+            playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+        }
     }
 
     @FXML
@@ -236,6 +238,7 @@ public class GameController implements Initializable {
 
     public void madeResult(){
         int playerScore = model.getPlayer().getCardsSumValues();
+        int playerScore2 = model.getPlayer().getCardsSumValuesSplit();
         int dealerScore = model.getDealer().getCardsSumValues();
         int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
         int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);

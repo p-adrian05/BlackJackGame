@@ -2,7 +2,7 @@ package blackJackFX.model.game;
 
 public class GameUtils {
 
-    public int calculateResult(int playerScore, int dealerScore){
+    public int calculateResult(int playerScore,int dealerScore){
         //1 is win
         //0 is push
         //-1 is bust
@@ -27,7 +27,10 @@ public class GameUtils {
                 case 2 -> (int)(bet*1.5);
                 default -> -bet;
             };
-        }
+     }
+    public int calculatePrize(int bet,int result,int result2){
+        return calculatePrize(bet,result) + calculatePrize(bet,result2);
+    }
 
     public boolean validateBet(int bet,int funds){
         return funds - bet >= 0;

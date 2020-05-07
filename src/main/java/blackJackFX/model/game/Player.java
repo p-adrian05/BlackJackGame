@@ -62,7 +62,7 @@ public class Player extends Person{
 
     @Override
     public void addCard(Card card) {
-        if(splitCards.size()>0 && getCardsSumValues()>=16){
+        if(splitCards.size()>0 && getCardsSumValues()>16){
                 addCardSplit(card);
         }else{
             super.addCard(card);
