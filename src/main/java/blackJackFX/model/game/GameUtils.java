@@ -19,7 +19,14 @@ public class GameUtils {
         }
         return -1;
     }
-
+    public int[] calculateResults(int playerScore, int playerScore2, int dealerScore){
+        int[] results = new int[2];
+        if(playerScore2>0){
+            results[0] = calculateResult(playerScore,dealerScore);
+            results[1] = calculateResult(playerScore2,dealerScore);
+        }
+        return results;
+    }
     public int calculatePrize(int bet,int result){
            return switch (result){
                 case 1 -> bet*2;
@@ -28,8 +35,11 @@ public class GameUtils {
                 default -> -bet;
             };
      }
-    public int calculatePrize(int bet,int result,int result2){
-        return calculatePrize(bet,result) + calculatePrize(bet,result2);
+    public int calculatePrize(int bet,int[] results){
+        if(results.length == 2){
+            return calculatePrize(bet,results[0]) + calculatePrize(bet,results[1]);
+        }
+        throw new IllegalArgumentException("Results must contain 2 int value");
     }
 
     public boolean validateBet(int bet,int funds){
