@@ -11,7 +11,6 @@ public class Player extends Person{
     private int bet;
     private List<Card> splitCards1;
     private List<Card> splitCards2;
-    private
 
     public Player() {
         fund = 0;
@@ -66,11 +65,11 @@ public class Player extends Person{
     }
     public boolean enableSplitCards(){
         if(cards.size()==2){
-            if(cards.get(0).getIntValue()==cards.get(1).getIntValue()){
+            //if(cards.get(0).getIntValue()==cards.get(1).getIntValue()){
                 splitCards1.add(cards.get(0));
                 splitCards2.add(cards.get(1));
                 return true;
-            }
+            //}
         }
         return false;
     }

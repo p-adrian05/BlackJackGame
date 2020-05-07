@@ -137,12 +137,16 @@ public class GameController implements Initializable {
     }
     @FXML
     public void split(ActionEvent actionEvent) {
-        playerGroup.setVisible(false);
-        playerScore.setVisible(false);
-        playerGroup1.setVisible(true);
-        playerGroup2.setVisible(true);
-
-
+        if(model.getPlayer().enableSplitCards()){
+            playerGroup.setVisible(false);
+            playerScore.setVisible(false);
+            playerGroup1.setVisible(true);
+            playerGroup2.setVisible(true);
+            imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
+            imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
+            playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit1()));
+            playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit2()));
+        }
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
