@@ -9,6 +9,7 @@ import blackJackFX.Main;
 import blackJackFX.model.game.Card;
 import blackJackFX.model.game.Person;
 import blackJackFX.model.Model;
+import blackJackFX.model.game.Result;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -240,13 +241,13 @@ public class GameController implements Initializable {
         int playerScore = model.getPlayer().getCardsSumValues();
         int playerScore2 = model.getPlayer().getCardsSumValuesSplit();
         int dealerScore = model.getDealer().getCardsSumValues();
-        int[] result = model.getGameUtils().calculateResult(playerScore,playerScore2,dealerScore);
-        int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
+        Result[] results = model.getGameUtils().calculateResult(playerScore,playerScore2,dealerScore);
+        int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),results);
         if(prize>0){
             model.getPlayer().addFund(prize);
         }
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
-        showResultPopUp(model.getGameUtils().madeStringResult(result),String.valueOf(prize));
+        showResultPopUp(model.getGameUtils().madeStringResult(results),String.valueOf(prize));
     }
     public void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
