@@ -142,7 +142,7 @@ public class GameController implements Initializable {
         playerGroup1.setVisible(true);
         playerGroup2.setVisible(true);
 
-        
+
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
