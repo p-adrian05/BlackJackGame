@@ -29,6 +29,8 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 public class GameController implements Initializable {
 
+    public Pane imgContainerPlayer2;
+    public Pane imgContainerPlayer1;
     @FXML
     private Label betLabel;
     @FXML
@@ -39,6 +41,10 @@ public class GameController implements Initializable {
     private Label prizeLabel;
     @FXML
     private Label playerScore;
+    @FXML
+    private Label playerScore1;
+    @FXML
+    private Label playerScore2;
     @FXML
     private Label dealerScore;
     @FXML
@@ -58,9 +64,9 @@ public class GameController implements Initializable {
     @FXML
     private Group playerGroup;
     @FXML
-    private Group playerSplitGroup1;
+    private Group playerGroup1;
     @FXML
-    private Group playerSplitGroup2;
+    private Group playerGroup2;
     @FXML
     private VBox resultPopUpContainer;
     @FXML
@@ -131,6 +137,12 @@ public class GameController implements Initializable {
     }
     @FXML
     public void split(ActionEvent actionEvent) {
+        playerGroup.setVisible(false);
+        playerScore.setVisible(false);
+        playerGroup1.setVisible(true);
+        playerGroup2.setVisible(true);
+
+        
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
