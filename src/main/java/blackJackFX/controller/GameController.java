@@ -269,6 +269,7 @@ public class GameController implements Initializable {
         betLabel.setText("0");
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
         enableSplitLayout(false);
+        splitEnabled = false;
     }
     public void loadDealerCards(){
         imgContainerDealer.getChildren().remove(2);
