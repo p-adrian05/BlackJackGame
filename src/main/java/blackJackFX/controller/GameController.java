@@ -240,9 +240,7 @@ public class GameController implements Initializable {
         int playerScore = model.getPlayer().getCardsSumValues();
         int playerScore2 = model.getPlayer().getCardsSumValuesSplit();
         int dealerScore = model.getDealer().getCardsSumValues();
-
-
-        int result = model.getGameUtils().calculateResult(playerScore,dealerScore);
+        int[] result = model.getGameUtils().calculateResult(playerScore,playerScore2,dealerScore);
         int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),result);
         if(prize>0){
             model.getPlayer().addFund(prize);

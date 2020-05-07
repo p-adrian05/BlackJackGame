@@ -19,11 +19,15 @@ public class GameUtils {
         }
         return -1;
     }
-    public int[] calculateResults(int playerScore, int playerScore2, int dealerScore){
-        int[] results = new int[2];
+    public int[] calculateResult(int playerScore, int playerScore2, int dealerScore){
+        int[] results;
         if(playerScore2>0){
+            results = new int[2];
             results[0] = calculateResult(playerScore,dealerScore);
             results[1] = calculateResult(playerScore2,dealerScore);
+        }else{
+            results = new int[1];
+            results[0] = calculateResult(playerScore,dealerScore);
         }
         return results;
     }
@@ -38,6 +42,8 @@ public class GameUtils {
     public int calculatePrize(int bet,int[] results){
         if(results.length == 2){
             return calculatePrize(bet,results[0]) + calculatePrize(bet,results[1]);
+        }else if(results.length==1){
+            return calculatePrize(bet,results[0]);
         }
         throw new IllegalArgumentException("Results must contain 2 int value");
     }
@@ -62,5 +68,15 @@ public class GameUtils {
               case 2 -> String.valueOf(Result.BLACKJACK);
               default -> String.valueOf(Result.LOST);
           };
+    }
+    public String madeStringResult(int[] result){
+        if(result.length== 2){
+            return madeStringResult(result[0])+" and "+madeStringResult(result[1]);
+        }
+        else if(result.length==1){
+            return madeStringResult(result[0]);
+        }
+        throw new IllegalArgumentException("Wrong argument");
+
     }
 }
