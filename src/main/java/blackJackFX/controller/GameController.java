@@ -77,6 +77,7 @@ public class GameController implements Initializable {
     private AnchorPane mainContainer;
 
     Model model = Model.getInstance();
+    boolean splitEnabled = false;
 
     @FXML
     public void okResultBtnClicked(ActionEvent actionEvent) {
@@ -126,10 +127,17 @@ public class GameController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
-        loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
-        setScoreLabelPlayer();
-        checkGameOver();
-        checkBlackJack();
+        if(splitEnabled){
+            hitBtnClickedInSplitMode();
+        }
+        else{
+            loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
+            setScoreLabelPlayer();
+            checkGameOver();
+            checkBlackJack();
+        }
+
+
     }
     @FXML
     public void doubleBtnClicked(ActionEvent actionEvent) {
@@ -144,9 +152,14 @@ public class GameController implements Initializable {
             playerGroup2.setVisible(true);
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
             imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
-            playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit1()));
-            playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit2()));
+            playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+            playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
+            splitEnabled = true;
         }
+    }
+    public void hitBtnClickedInSplitMode(){
+        loadCardToPerson(1,imgContainerPlayer1,model.getPlayer());
+        playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
@@ -284,7 +297,6 @@ public class GameController implements Initializable {
     public void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
-
         for(int i = 0; i<amount;i++) {
             card = model.getDeck().getCard();
             imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
