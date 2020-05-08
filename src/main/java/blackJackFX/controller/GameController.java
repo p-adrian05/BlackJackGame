@@ -161,6 +161,7 @@ public class GameController implements Initializable {
             playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
         }
         checkGameOver();
+        checkBlackJack();
     }
 
     @FXML
@@ -290,6 +291,15 @@ public class GameController implements Initializable {
         if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
             madeResult();
             playerScore.setText("BLACKJACK");
+        }
+        if(splitEnabled){
+            if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
+                playerScore1.setText("BLACKJACK");
+            }
+            if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValuesSplit())){
+                madeResult();
+                playerScore2.setText("BLACKJACK");
+            }
         }
     }
     private void readInFundInputListener(){
