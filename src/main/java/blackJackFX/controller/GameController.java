@@ -256,6 +256,10 @@ public class GameController implements Initializable {
     public void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
         imgContainerPlayer.getChildren().remove(1,imgContainerPlayer.getChildren().size());
+        if(splitEnabled){
+            imgContainerPlayer1.getChildren().remove(1,imgContainerPlayer1.getChildren().size());
+            imgContainerPlayer2.getChildren().remove(1,imgContainerPlayer2.getChildren().size());
+        }
         model.resetValues();
         setScoreLabelDealer();
         setScoreLabelPlayer();
