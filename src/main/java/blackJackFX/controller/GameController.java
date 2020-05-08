@@ -249,16 +249,9 @@ public class GameController implements Initializable {
     }
 
     public void madeResult(){
-        int playerScore = model.getPlayer().getCardsSumValues();
-        int playerScore2 = model.getPlayer().getCardsSumValuesSplit();
-        int dealerScore = model.getDealer().getCardsSumValues();
-        Result[] results = model.getGameUtils().calculateResult(playerScore,playerScore2,dealerScore);
-        int prize = model.getGameUtils().calculatePrize(model.getPlayer().getBet(),results);
-        if(prize>0){
-            model.getPlayer().addFund(prize);
-        }
+        Result[] results = model.getResult();
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
-        showResultPopUp(model.getGameUtils().madeStringResult(results),String.valueOf(prize));
+        showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(model.getPrize(results)));
     }
     public void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
