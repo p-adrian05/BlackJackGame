@@ -70,5 +70,17 @@ public class Model {
         }
         return false;
     }
+    public Result[] getResult(){
+        return gameUtils.calculateResult(player.getCardsSumValues(),
+                player.getCardsSumValuesSplit(),
+                dealer.getCardsSumValues());
+    }
+    public int getPrize(Result[] results){
+        int prize = gameUtils.calculatePrize(player.getBet(),results);
+        if(prize>0){
+            model.getPlayer().addFund(prize);
+        }
+        return prize;
+    }
 
 }
