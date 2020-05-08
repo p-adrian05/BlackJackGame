@@ -52,5 +52,23 @@ public class Model {
            deck = cardApi.getDeck();
        }
     }
+    public boolean isGameOver(){
+        boolean pass1 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues());
+        if(model.getPlayer().getCardsSumValuesSplit()>0){
+            boolean pass2 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValuesSplit());
+            return pass1 && pass2;
+        }
+        else{
+            return pass1;
+        }
+    }
+    public boolean isSplitGameOver(){
+        if(model.getPlayer().getCardsSumValuesSplit()>0){
+            boolean pass1 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues());
+            boolean pass2 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValuesSplit());
+            return !pass1 && pass2;
+        }
+        return false;
+    }
 
 }
