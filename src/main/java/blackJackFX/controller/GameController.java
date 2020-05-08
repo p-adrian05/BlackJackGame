@@ -288,10 +288,6 @@ public class GameController implements Initializable {
         }
     }
     public void checkBlackJack(){
-        if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
-            madeResult();
-            playerScore.setText("BLACKJACK");
-        }
         if(splitEnabled){
             if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
                 playerScore1.setText("BLACKJACK");
@@ -299,6 +295,11 @@ public class GameController implements Initializable {
             if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValuesSplit())){
                 madeResult();
                 playerScore2.setText("BLACKJACK");
+            }
+        }else{
+            if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
+                madeResult();
+                playerScore.setText("BLACKJACK");
             }
         }
     }
