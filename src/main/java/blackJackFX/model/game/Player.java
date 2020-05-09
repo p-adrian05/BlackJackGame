@@ -9,7 +9,7 @@ public class Player extends Person{
 
     private int fund;
     private int bet;
-    private List<Card> splitCards;
+    private final List<Card> splitCards;
 
     public Player() {
         fund = 0;
@@ -44,7 +44,7 @@ public class Player extends Person{
     public List<Card> getSplitCards() {
         return splitCards;
     }
-    public void addCardSplit(Card card){
+    private void addCardSplit(Card card){
         splitCards.add(card);
     }
     public int getCardsSumValuesSplit(){
@@ -52,17 +52,15 @@ public class Player extends Person{
     }
     public boolean enableSplitCards(){
         if(cards.size()==2){
-          if(cards.get(0).getIntValue()==cards.get(1).getIntValue()){
-                return true;
-           }
+            return cards.get(0).getIntValue() == cards.get(1).getIntValue();
         }
         return false;
     }
     public void madeSplitCards(){
-        splitCards.add(cards.remove(1));
-
+        if(enableSplitCards()){
+            splitCards.add(cards.remove(1));
+        }
     }
-
     @Override
     public void addCard(Card card) {
         if(splitCards.size()>0 && getCardsSumValues()>16){
