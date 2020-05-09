@@ -30,7 +30,7 @@
                            </font>
                         </Label>
                         <Button id="loginBtn" fx:id="loginBtn" layoutX="21.0" layoutY="157.0" mnemonicParsing="false" onAction="#loginBtnClicked" prefHeight="27.0" prefWidth="85.0" styleClass="btn" text="Login" />
-                        <Label id="loginLabel" fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="126.0" prefHeight="25.0" prefWidth="298.0" text="Successful login label" textAlignment="CENTER" textFill="#408d05" />
+                        <Label id="loginLabel" fx:id="loginLabel" alignment="CENTER" contentDisplay="CENTER" layoutY="126.0" prefHeight="25.0" prefWidth="298.0" textAlignment="CENTER" textFill="#408d05" />
                         <Button id="registerBtn" fx:id="registerBtn" layoutX="179.0" layoutY="157.0" mnemonicParsing="false" onAction="#registerBtnClicked" prefHeight="27.0" prefWidth="85.0" styleClass="btn" text="Register" />
                      </children>
                   </Pane>
