@@ -85,7 +85,6 @@ public class GameController implements Initializable {
         resultPopUpContainer.setDisable(true);
         resultPopUpContainer.setVisible(false);
         showNewGamePopUp();
-        enableHitBtn();
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
@@ -152,8 +151,6 @@ public class GameController implements Initializable {
     }
     @FXML
     public void splitBtnClicked(ActionEvent actionEvent) {
-        System.out.println(model.getPlayer().enableSplitCards());
-        System.out.println(manageBet(model.getPlayer().getBet()));
         if(model.getPlayer().enableSplitCards() && manageBet(model.getPlayer().getBet())){
             enableSplitLayout(true);
             model.getPlayer().madeSplitCards();
@@ -181,7 +178,6 @@ public class GameController implements Initializable {
         checkGameOver();
         checkBlackJack();
     }
-
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
     }
@@ -247,14 +243,8 @@ public class GameController implements Initializable {
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
     }
-    public void disableHitBtn(){
-        hitBtn.setDisable(true);
-    }
-    public void enableHitBtn(){
-        hitBtn.setDisable(false);
-    }
-    public void enableSplitLayout(boolean bol){
-        if(bol){
+    public void enableSplitLayout(boolean bool){
+        if(bool){
             playerGroup.setVisible(false);
             playerScore.setVisible(false);
             playerGroup1.setVisible(true);
@@ -273,7 +263,13 @@ public class GameController implements Initializable {
         doubleBtn.setDisable(bool);
         standBtn.setDisable(bool);
     }
-
+    public void checkSplitEnable(){
+        if(model.getPlayer().enableSplitCards()){
+            activateBtn(splitBtn);
+        }else{
+            deactivateBtn(splitBtn);
+        }
+    }
     public void madeResult(){
         Result[] results = model.getResult();
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
@@ -304,12 +300,10 @@ public class GameController implements Initializable {
     }
     public void checkGameOver(){
         if (model.isGameOver()) {
-            disableHitBtn();
             madeResult();
         }
         if(splitEnabled && model.isSplitGameOver()){
             loadDealerCards();
-            disableHitBtn();
             madeResult();
         }
     }
@@ -353,7 +347,6 @@ public class GameController implements Initializable {
             return false;
         }
     }
-
     public void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
@@ -382,7 +375,6 @@ public class GameController implements Initializable {
         imageView.setImage(new Image(url));
         return imageView;
     }
-
     public void loadCardToPane(File file, Pane placetoLoad){
         ImageView imageView;
             imageView = madeImageViewFromUrl(file.toString(), getLastChildXLayout(placetoLoad) + 25);
@@ -396,18 +388,10 @@ public class GameController implements Initializable {
         btn.setDisable(true);
         btn.getStyleClass().remove("redBorder");
     }
-    public void checkSplitEnable(){
-        if(model.getPlayer().enableSplitCards()){
-            activateBtn(splitBtn);
-        }else{
-            deactivateBtn(splitBtn);
-        }
-    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
         disableAllBtn(true);
     }
-
-
 }
