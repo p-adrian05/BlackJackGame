@@ -185,7 +185,7 @@ public class GameController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        model.resetValues();
+        makeNewRound();
     }
     @FXML
     public void helpClick(ActionEvent actionEvent) {
