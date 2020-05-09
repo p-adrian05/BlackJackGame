@@ -55,7 +55,7 @@
                               </Group>
                               <Group layoutX="481.0" layoutY="299.0">
                                  <children>
-                                    <Label text="Player" textFill="WHITE">
+                                    <Label alignment="CENTER" layoutX="-64.0" layoutY="-3.0" prefHeight="31.0" prefWidth="192.0" text="Player" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="21.0" />
                                        </font>
@@ -70,7 +70,7 @@
                               <Line endX="140.0" layoutX="565.0" layoutY="269.0" startX="-244.0" stroke="#1aff12" strokeLineCap="ROUND" strokeWidth="2.0" />
                               <Group fx:id="playerGroup1" layoutX="276.0" layoutY="329.0" visible="false">
                                  <children>
-                                    <Label fx:id="playerScore1" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="86.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                    <Label fx:id="playerScore1" alignment="CENTER" contentDisplay="CENTER" layoutX="-20.0" layoutY="-4.0" prefHeight="32.0" prefWidth="128.0" text="0" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
@@ -84,7 +84,7 @@
                               </Group>
                               <Group fx:id="playerGroup2" layoutX="662.0" layoutY="329.0" visible="false">
                                  <children>
-                                    <Label fx:id="playerScore2" alignment="CENTER" contentDisplay="CENTER" prefHeight="32.0" prefWidth="86.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                    <Label fx:id="playerScore2" alignment="CENTER" contentDisplay="CENTER" layoutX="-22.0" layoutY="-6.0" prefHeight="32.0" prefWidth="132.0" text="0" textAlignment="CENTER" textFill="WHITE">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
@@ -176,7 +176,7 @@
                                           <Font size="22.0" />
                                        </font>
                                     </Label>
-                                    <Label id="betLabel" fx:id="betLabel" layoutX="110.0" layoutY="16.0" prefHeight="40.0" prefWidth="61.0" text="0" textFill="WHITE">
+                                    <Label id="betLabel" fx:id="betLabel" layoutX="99.0" layoutY="16.0" prefHeight="40.0" prefWidth="72.0" text="0" textFill="WHITE">
                                        <font>
                                           <Font size="21.0" />
                                        </font>
@@ -218,7 +218,7 @@
                         </MenuBar>
                      </children>
                   </AnchorPane>
-                  <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="364.0" layoutY="348.0" prefHeight="206.0" prefWidth="386.0" visible="false">
+                  <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="307.0" layoutY="554.0" prefHeight="206.0" prefWidth="503.0" visible="false">
                      <children>
                         <Label id="resultLabel" fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="383.0" text="RESULT" textFill="WHITE">
                            <font>
@@ -253,7 +253,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox id="newGamePopUpContainer" fx:id="newGamePopUpContainer" alignment="TOP_CENTER" cacheShape="false" disable="true" layoutX="417.0" layoutY="545.0" prefHeight="156.0" prefWidth="280.0" visible="false">
+                  <VBox id="newGamePopUpContainer" fx:id="newGamePopUpContainer" alignment="TOP_CENTER" cacheShape="false" disable="true" layoutX="419.0" layoutY="554.0" prefHeight="156.0" prefWidth="280.0" visible="false">
                      <children>
                         <Label id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="385.0" text="New Game?" textAlignment="CENTER" textFill="#3a9406">
                            <font>
