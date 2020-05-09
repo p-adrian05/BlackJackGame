@@ -53,6 +53,10 @@ public class GameController implements Initializable {
     @FXML
     private Button doubleBtn;
     @FXML
+    private Button splitBtn;
+    @FXML
+    private Button standBtn;
+    @FXML
     private HBox betCoinsContainer;
     @FXML
     private TextField fundInput;
@@ -106,6 +110,8 @@ public class GameController implements Initializable {
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(true);
+        disableAllBtn(false);
+        dealBtn.setDisable(true);
         loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
         loadCardToPerson(1,imgContainerDealer,model.getDealer());
         try{
@@ -120,7 +126,7 @@ public class GameController implements Initializable {
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
         disableFundAndBetInput(false);
-        dealBtn.setDisable(false);
+        hitBtn.setDisable(true);
         loadDealerCards();
         madeResult();
     }
@@ -138,10 +144,16 @@ public class GameController implements Initializable {
     }
     @FXML
     public void doubleBtnClicked(ActionEvent actionEvent) {
-        manageBet(model.getPlayer().getBet());
+        if(model.getPlayer().getCards().size()==2){
+            manageBet(model.getPlayer().getBet());
+            dealBtn.setDisable(true);
+        }else{
+            showWarningPopUp("Double not allowed!");
+        }
+        doubleBtn.setDisable(true);
     }
     @FXML
-    public void split(ActionEvent actionEvent) {
+    public void splitBtnClicked(ActionEvent actionEvent) {
         if(model.getPlayer().enableSplitCards() && manageBet(model.getPlayer().getBet())){
             enableSplitLayout(true);
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
@@ -149,7 +161,13 @@ public class GameController implements Initializable {
             playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
             playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
             splitEnabled = true;
+            doubleBtn.setDisable(true);
+        }else{
+            showWarningPopUp("Cards splitting not allowed!");
         }
+        splitBtn.setDisable(true);
+        dealBtn.setDisable(true);
+
     }
     public void hitBtnClickedInSplitMode(){
         if(model.getGameUtils().isScorePass16(model.getPlayer().getCardsSumValues())){
@@ -248,6 +266,13 @@ public class GameController implements Initializable {
             playerGroup2.setVisible(false);
         }
     }
+    public void disableAllBtn(boolean bool){
+        dealBtn.setDisable(bool);
+        hitBtn.setDisable(bool);
+        splitBtn.setDisable(bool);
+        doubleBtn.setDisable(bool);
+        standBtn.setDisable(bool);
+    }
 
     public void madeResult(){
         Result[] results = model.getResult();
@@ -268,6 +293,7 @@ public class GameController implements Initializable {
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
         enableSplitLayout(false);
         splitEnabled = false;
+        disableAllBtn(true);
     }
     public void loadDealerCards(){
         imgContainerDealer.getChildren().remove(2);
@@ -319,6 +345,7 @@ public class GameController implements Initializable {
             model.getPlayer().addBetFromFund(value);
             betLabel.setText(String.valueOf(model.getPlayer().getBet()));
             fundInput.textProperty().setValue(String.valueOf(model.getPlayer().getFund()));
+            dealBtn.setDisable(false);
             return true;
         }
         else{
@@ -365,6 +392,7 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
+        disableAllBtn(true);
     }
 
 
