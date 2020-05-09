@@ -180,6 +180,12 @@ public class GameController implements Initializable {
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
+        try {
+            Main.setRoot("login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        model.resetValues();
     }
     @FXML
     public void helpClick(ActionEvent actionEvent) {
