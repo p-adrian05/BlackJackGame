@@ -91,3 +91,6 @@
 .menu{
     -fx-text-fill: white;
 }
+.redBorder{
+    -fx-border-color: red;
+}

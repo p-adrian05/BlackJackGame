@@ -115,7 +115,7 @@
                                     <Insets left="30.0" right="30.0" />
                                  </HBox.margin>
                               </Button>
-                              <Button fx:id="splitBtn" alignment="CENTER" layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#splitBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="SPLIT">
+                              <Button id="splitBtn" fx:id="splitBtn" alignment="CENTER" layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#splitBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="SPLIT">
                                  <HBox.margin>
                                     <Insets left="30.0" right="30.0" />
                                  </HBox.margin>

@@ -53,11 +53,14 @@ public class Player extends Person{
     public boolean enableSplitCards(){
         if(cards.size()==2){
           if(cards.get(0).getIntValue()==cards.get(1).getIntValue()){
-                splitCards.add(cards.remove(1));
                 return true;
            }
         }
         return false;
+    }
+    public void madeSplitCards(){
+        splitCards.add(cards.remove(1));
+
     }
 
     @Override

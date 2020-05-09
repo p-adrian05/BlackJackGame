@@ -18,10 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -122,6 +119,7 @@ public class GameController implements Initializable {
         setScoreLabelDealer();
         setScoreLabelPlayer();
         checkBlackJack();
+        checkSplitEnable();
     }
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
@@ -154,8 +152,11 @@ public class GameController implements Initializable {
     }
     @FXML
     public void splitBtnClicked(ActionEvent actionEvent) {
+        System.out.println(model.getPlayer().enableSplitCards());
+        System.out.println(manageBet(model.getPlayer().getBet()));
         if(model.getPlayer().enableSplitCards() && manageBet(model.getPlayer().getBet())){
             enableSplitLayout(true);
+            model.getPlayer().madeSplitCards();
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
             imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
             playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
@@ -167,7 +168,6 @@ public class GameController implements Initializable {
         }
         splitBtn.setDisable(true);
         dealBtn.setDisable(true);
-
     }
     public void hitBtnClickedInSplitMode(){
         if(model.getGameUtils().isScorePass16(model.getPlayer().getCardsSumValues())){
@@ -388,7 +388,21 @@ public class GameController implements Initializable {
             imageView = madeImageViewFromUrl(file.toString(), getLastChildXLayout(placetoLoad) + 25);
             placetoLoad.getChildren().add(imageView);
     }
-
+    private void activateBtn(Button btn){
+        btn.getStyleClass().add("redBorder");
+        btn.setDisable(false);
+    }
+    private void deactivateBtn(Button btn){
+        btn.setDisable(true);
+        btn.getStyleClass().remove("redBorder");
+    }
+    public void checkSplitEnable(){
+        if(model.getPlayer().enableSplitCards()){
+            activateBtn(splitBtn);
+        }else{
+            deactivateBtn(splitBtn);
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
