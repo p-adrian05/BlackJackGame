@@ -4,6 +4,9 @@ package blackJackFX.model.game;
 import java.net.URL;
 import java.util.Map;
 
+/**
+ * Class represents an implementation of {@code Card} interface.
+ */
 
 public class FranceCard implements Card {
     private String value;
@@ -20,6 +23,12 @@ public class FranceCard implements Card {
         this.image = image;
         this.images = images;
     }
+
+    /**
+     * Returns an {@code int} representation of a {@code Card} object.
+     *
+     * @return a value of a {@code Card} object
+     */
     @Override
     public int getIntValue(){
         String value = this.value;
