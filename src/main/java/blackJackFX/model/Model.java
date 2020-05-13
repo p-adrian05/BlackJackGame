@@ -1,8 +1,17 @@
 package blackJackFX.model;
 
 import blackJackFX.model.game.*;
+
+/**
+ * Class collects all objects needed the game and provides game related functions.
+ */
+
+
 public class Model {
 
+    /**
+     * Make a {@code static final Model} object instance as singleton pattern requires.
+     */
     private static final Model model = new Model();
 
     private Player player;
@@ -43,6 +52,9 @@ public class Model {
         return gameUtils;
     }
 
+    /**
+     * Makes new instances of {@link Player}, {@link Dealer} and {@link Deck} objects.
+     */
     public void resetValues(){
        int oldPlayerFund = player.getFund();
        player = new Player();
@@ -52,6 +64,12 @@ public class Model {
            deck = cardApi.getDeck();
        }
     }
+
+    /**
+     * Returns whether the actual game is over checking the scores.
+     *
+     * @return {@code true} if the {@link Player} score(s) pass a defined value, {@code false} otherwise
+     */
     public boolean isGameOver(){
         boolean pass1 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues());
         if(model.getPlayer().getCardsSumValuesSplit()>0){
@@ -62,6 +80,12 @@ public class Model {
             return pass1;
         }
     }
+
+    /**
+     * Returns whether the actual game is over in {@link Player#enableSplitCards()} case.
+     *
+     * @return {@code true} if the {@link Player} score(s) pass a defined value, {@code false} otherwise
+     */
     public boolean isSplitGameOver(){
         if(model.getPlayer().getCardsSumValuesSplit()>0){
             boolean pass1 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues());
@@ -70,11 +94,25 @@ public class Model {
         }
         return false;
     }
+
+    /**
+     * Returns the final results of the game using {@link GameUtils#calculateResult(int, int, int)} function.
+     *
+     * @return an array of {@link Result} enum values
+     */
     public Result[] getResult(){
         return gameUtils.calculateResult(player.getCardsSumValues(),
                 player.getCardsSumValuesSplit(),
                 dealer.getCardsSumValues());
     }
+
+    /**
+     * Returns the final prize of the player using {@link GameUtils#calculatePrize(int, Result[])
+     * and update the {@link Player} object fund attribute.
+     *
+     * @param results an array of {@link Result} enum values
+     * @return a prize value
+     */
     public int getPrize(Result[] results){
         int prize = gameUtils.calculatePrize(player.getBet(),results);
         if(prize>0){

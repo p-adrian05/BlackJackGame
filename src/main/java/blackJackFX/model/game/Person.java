@@ -22,7 +22,7 @@ public abstract class Person {
      *
      * @return a summary value
      */
-    protected int getCardsSumValues(){
+    public int getCardsSumValues(){
        return Model.getInstance().getDeck().calcCardsSumValue(this.cards);
     }
 

@@ -91,7 +91,7 @@ public class Player extends Person{
             splitCards.add(cards.remove(1));
         }
     }
-    
+
     @Override
     public void addCard(Card card) {
         if(splitCards.size()>0 && getCardsSumValues()>16){
