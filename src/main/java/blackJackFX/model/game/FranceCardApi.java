@@ -12,12 +12,28 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 
+/**
+ * Class represents an implementation of {@link CardApi} interface,
+ * obtaining {@link Card} objects and made an implementation {@link Deck} interface.
+ * The class uses the <a href = https://deckofcardsapi.com">deckofcardsapi.com</a> service.
+ */
 
 public class FranceCardApi implements CardApi{
 
-    private static final String DECK_URL = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
+    /**
+     * URI of the card api service.
+     */
+    private static final String DECK_URI = "https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1";
+
     private static Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
+    /**
+     * Returns a {@link DeckFranceCards} implementation of {@link Deck} interface uses the
+     * api service if it is successfully returns, otherwise read the information from a local
+     * json file.
+     *
+     * @return {@link DeckFranceCards} object
+     */
     @Override
     public Deck getDeck(){
         DeckFranceCards deck = null;
@@ -36,11 +52,17 @@ public class FranceCardApi implements CardApi{
         return deck;
     }
 
+    /**
+     * Returns a {@code String} information used the {@value #DECK_URI} URI to get the service ID
+     * for further api calls.
+     *
+     * @return {@code String} id information
+     */
     private String getDeckID(){
         String deckRes;
         String deckID = "";
         try {
-            deckRes = IOUtils.toString(URI.create(DECK_URL),"UTF-8");
+            deckRes = IOUtils.toString(URI.create(DECK_URI),"UTF-8");
             if(requestIsSuccess(deckRes)){
                 JsonObject json = JsonParser.parseString(deckRes).getAsJsonObject();
                 deckID = json.getAsJsonPrimitive("deck_id").getAsString();
@@ -51,9 +73,25 @@ public class FranceCardApi implements CardApi{
         return deckID;
     }
 
+    /**
+     * Made an {@link URL} object from the needed id information.
+     *
+     * @param deckID the {@code String} information provided by {@link #getDeckID()}
+     * @return {@link URL} object
+     * @throws MalformedURLException if the URL creation fails
+     */
     private URL makeCardsUrl(String deckID) throws MalformedURLException {
         return new URL("https://deckofcardsapi.com/api/deck/"+deckID+"/draw/?count=52");
     }
+
+    /**
+     * Returns the given {@code String} URI response success attribute value.
+     *
+     * @param jsonString the URI response
+     * @return {@code true} if the success attribute is true, {@code false} otherwise
+     * @throws AssertionError if the given {@code String} response not contains success attributes
+     * or the value of it is not true or false
+     * */
     private boolean requestIsSuccess(String jsonString){
         JsonObject json = JsonParser.parseString(jsonString).getAsJsonObject();
         String success = json.getAsJsonPrimitive("success").getAsString();
