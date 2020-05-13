@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
@@ -110,11 +111,7 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
         loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
         loadCardToPerson(1,imgContainerDealer,model.getDealer());
-        try{
-            loadCardToPane(new File("images/card-back.png"),imgContainerDealer);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        loadCardToPane(new File("images/card-back.png"),imgContainerDealer);
         setScoreLabelDealer();
         setScoreLabelPlayer();
         checkBlackJack();
@@ -358,10 +355,24 @@ public class GameController implements Initializable {
         Card card;
         for(int i = 0; i<amount;i++) {
             card = model.getDeck().getCard();
-            imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
-            placetoLoad.getChildren().add(imageView);
+            try{
+                imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
+                placetoLoad.getChildren().add(imageView);
+            }catch (Exception ex){
+                ex.printStackTrace();
+                showWarningPopUp("Failed to load image");
+                placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),card.getCode()));
+            }
             person.addCard(card);
         }
+    }
+    private Label madeLabel(double xLayout,String msg){
+        Label label = new Label();
+        label.setLayoutX(xLayout + 30);
+        label.setText(msg);
+        label.setTextFill(Color.RED);
+        label.setStyle("-fx-font-size: 15px");
+        return label;
     }
     private double getLastChildXLayout(Pane pane){
         double xLayout;
@@ -373,18 +384,28 @@ public class GameController implements Initializable {
         }
         return xLayout;
     }
-    private ImageView madeImageViewFromUrl(String url,double imgXLayout){
+    private ImageView madeImageViewFromUrl(String url,double imgXLayout) throws Exception {
         ImageView imageView = new ImageView();
         imageView.setFitHeight(139);
         imageView.setFitWidth(100);
         imageView.setLayoutX(imgXLayout);
         imageView.setImage(new Image(url));
+        if(imageView.getImage().getException() != null){
+            throw imageView.getImage().getException();
+        }
         return imageView;
     }
     public void loadCardToPane(File file, Pane placetoLoad){
         ImageView imageView;
+        try {
             imageView = madeImageViewFromUrl(file.toString(), getLastChildXLayout(placetoLoad) + 25);
             placetoLoad.getChildren().add(imageView);
+        } catch (Exception e) {
+            placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),"err"));
+            showWarningPopUp("Failed to load images");
+            e.printStackTrace();
+        }
+
     }
     private void activateBtn(Button btn){
         btn.getStyleClass().add("redBorder");
