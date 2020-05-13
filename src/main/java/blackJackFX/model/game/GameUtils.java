@@ -34,8 +34,8 @@ public class GameUtils {
      * @param playerScore the first final summary score of the player
      * @param playerScore2 the second final summary score of the player
      * @param dealerScore the final summary score of the dealer
-     * @return an array of {@code Result} enums, which contains maximum two values
-     *  and minimum one value, depending on the given score values
+     * @return an array of {@link Result} enums, which contains maximum two values
+     *  and minimum one
      */
     public Result[] calculateResult(int playerScore, int playerScore2, int dealerScore){
         Result[] results;
@@ -54,8 +54,8 @@ public class GameUtils {
      * Calculates the prize to the player.
      *
      * @param bet the bet from the player given
-     * @param result an {@code Result} enum value which represents the result of the game
-     * @return the value of the prize depending on the given result
+     * @param result an {@link Result} enum value which represents the result of the game
+     * @return the value of the prize
      */
     public int calculatePrize(int bet,Result result){
            return switch (result){
@@ -70,9 +70,9 @@ public class GameUtils {
      * Calculates the prize to the player.
      *
      * @param bet the bet from the player given
-     * @param results an array of {@code Result} enum values which represents the results of the game
-     * @return the value of the prize depending on the given results.
-     * @throws IllegalArgumentException if the given array contains 0 or more than 2 values.
+     * @param results an array of {@link Result} enum values which represents the results of the game
+     * @return the value of the prize
+     * @throws IllegalArgumentException if the given array contains 0 or more than 2 values
      */
     public int calculatePrize(int bet,Result[] results){
         if(results.length == 2){
@@ -113,25 +113,27 @@ public class GameUtils {
     }
 
     /**
-     * Converts an {@code int} result to a {@code Result} enum value.
+     * Converts an {@code int} result to a {@link Result} enum value.
      *
-     * @param result the player result
-     * @return {@code Result} enum value.
+     * @param result must be 1, 0 or -1
+     * @return {@link Result} enum value
+     * @throws IllegalArgumentException if the given int value not 1, 0 or -1
      */
     public Result convertResult(int result){
         return switch (result){
               case 1 -> Result.WON;
               case 0 -> Result.PUSH;
-              default -> Result.LOST;
-          };
+              case -1 -> Result.LOST;
+              default -> throw new IllegalArgumentException("Wrong argument: " + result);
+        };
     }
 
     /**
-     * Made a {@code String} object from an array of {@code Result} enum values.
+     * Made a {@code String} object from an array of {@link Result} enum values.
      *
-     * @param result an array of {@code Result} enum values which represents the results of the game
+     * @param result an array of {@link Result} enum values which represents the results of the game
      * @return a {@code String} object
-     * @throws IllegalArgumentException if the given array contains 0 or more than 2 values.
+     * @throws IllegalArgumentException if the given array contains 0 or more than 2 values
      */
     public String madeStringResult(Result[] result){
         if(result.length== 2){
