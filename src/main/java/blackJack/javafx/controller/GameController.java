@@ -1,4 +1,4 @@
-package blackJack.controller;
+package blackJack.javafx.controller;
 
 import java.io.File;
 import java.io.IOException;

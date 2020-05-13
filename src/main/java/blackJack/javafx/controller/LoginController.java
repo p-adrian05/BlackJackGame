@@ -1,4 +1,4 @@
-package blackJack.controller;
+package blackJack.javafx.controller;
 
 import blackJack.javafx.BlackJackApplication;
 import javafx.event.ActionEvent;
