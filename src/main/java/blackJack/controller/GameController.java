@@ -111,7 +111,7 @@ public class GameController implements Initializable {
         loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
         loadCardToPerson(1,imgContainerDealer,model.getDealer());
         try{
-            loadCardToPane(new File("card-back.png"),imgContainerDealer);
+            loadCardToPane(new File("images/card-back.png"),imgContainerDealer);
         }catch (Exception e){
             e.printStackTrace();
         }
