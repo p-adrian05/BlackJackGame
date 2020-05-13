@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.Map;
 
 /**
- * Class represents an implementation of {@code Card} interface.
+ * Class represents an implementation of {@link Card} interface.
  */
 
 public class FranceCard implements Card {
@@ -25,9 +25,9 @@ public class FranceCard implements Card {
     }
 
     /**
-     * Returns an {@code int} representation of a {@code Card} object.
+     * Returns an {@code int} representation of {@code String} {@link #value} attribute
      *
-     * @return a value of a {@code Card} object
+     * @return a value of a {@link Card} object
      */
     @Override
     public int getIntValue(){
