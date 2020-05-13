@@ -1,6 +1,6 @@
-package blackJackFX.model;
+package blackJack.model;
 
-import blackJackFX.model.game.*;
+import blackJack.model.game.*;
 
 /**
  * Class collects all objects needed the game and provides game related functions.

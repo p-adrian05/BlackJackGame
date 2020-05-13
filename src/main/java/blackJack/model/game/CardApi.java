@@ -1,4 +1,4 @@
-package blackJackFX.model.game;
+package blackJack.model.game;
 
 /**
  * The CardApi interface provides to get an implementation of {@link Deck} interface.

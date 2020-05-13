@@ -10,7 +10,7 @@
         <maven.compiler.target>14</maven.compiler.target>
         <maven.compiler.release>14</maven.compiler.release>
         <javafx.version>14</javafx.version>
-        <mainClass>blackJackFX.Main</mainClass>
+        <mainClass>blackJack.javafx.Main</mainClass>
     </properties>
     <dependencies>
         <dependency>

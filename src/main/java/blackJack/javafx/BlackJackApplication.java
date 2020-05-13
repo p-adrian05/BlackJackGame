@@ -1,4 +1,4 @@
-package blackJackFX;
+package blackJack.javafx;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -8,10 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
-public class Main extends Application {
+public class BlackJackApplication extends Application {
 
     private static Scene scene;
 
@@ -31,12 +28,8 @@ public class Main extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource( "/fxml/"+fxml+".fxml"));
         return fxmlLoader.load();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 
 }

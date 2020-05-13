@@ -7,7 +7,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="CENTER" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackJackFX.controller.GameController">
+<HBox alignment="CENTER" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackJack.controller.GameController">
    <children>
       <VBox alignment="CENTER" prefHeight="819.0" prefWidth="1076.0" style="-fx-background-color: grey;">
          <children>

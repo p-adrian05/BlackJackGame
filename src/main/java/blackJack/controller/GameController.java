@@ -1,15 +1,15 @@
-package blackJackFX.controller;
+package blackJack.controller;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import blackJackFX.Main;
-import blackJackFX.model.game.Card;
-import blackJackFX.model.game.Person;
-import blackJackFX.model.Model;
-import blackJackFX.model.game.Result;
+import blackJack.javafx.BlackJackApplication;
+import blackJack.model.game.Card;
+import blackJack.model.game.Person;
+import blackJack.model.Model;
+import blackJack.model.game.Result;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -101,7 +101,7 @@ public class GameController implements Initializable {
     @FXML
     public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
         disableNewGamePopUp();
-        Main.setRoot("login");
+        BlackJackApplication.setRoot("login");
     }
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
@@ -181,7 +181,7 @@ public class GameController implements Initializable {
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
         try {
-            Main.setRoot("login");
+            BlackJackApplication.setRoot("login");
         } catch (IOException e) {
             e.printStackTrace();
         }

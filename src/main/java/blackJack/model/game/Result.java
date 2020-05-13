@@ -1,4 +1,4 @@
-package blackJackFX.model.game;
+package blackJack.model.game;
 
 /**
  * Enum representing the four kind of results of a game round.

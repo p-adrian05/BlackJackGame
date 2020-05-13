@@ -1,4 +1,4 @@
-package blackJackFX.model.game;
+package blackJack.model.game;
 
 import java.net.URL;
 

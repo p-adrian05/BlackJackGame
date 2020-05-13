@@ -1,6 +1,6 @@
-package blackJackFX.model.game;
+package blackJack.model.game;
 
-import blackJackFX.model.Model;
+import blackJack.model.Model;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public abstract class Person {
 
     protected List<Card> cards;
 
-    protected void addCard(Card card) {
+    public void addCard(Card card) {
         cards.add(card);
     }
 
@@ -26,11 +26,7 @@ public abstract class Person {
        return Model.getInstance().getDeck().calcCardsSumValue(this.cards);
     }
 
-    protected List<Card> getCards() {
+    public List<Card> getCards() {
         return this.cards;
-    }
-
-    protected void setCards(List<Card> cards) {
-        this.cards = cards;
     }
 }

@@ -1,6 +1,6 @@
-package blackJackFX.controller;
+package blackJack.controller;
 
-import blackJackFX.Main;
+import blackJack.javafx.BlackJackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,7 +27,7 @@ public class LoginController {
     public void loginBtnClicked(ActionEvent actionEvent) {
         //TODO database check
         try {
-            Main.setRoot("primary");
+            BlackJackApplication.setRoot("primary");
         } catch (IOException e) {
             e.printStackTrace();
         }

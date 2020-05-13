@@ -1,4 +1,4 @@
-package blackJackFX.model.game;
+package blackJack.model.game;
 
 /**
  * Class representing the business logic of the game.

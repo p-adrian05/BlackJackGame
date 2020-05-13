@@ -1,6 +1,6 @@
-package blackJackFX.controller;
+package blackJack.controller;
 
-import blackJackFX.Main;
+import blackJack.javafx.BlackJackApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.PieChart;
@@ -18,7 +18,7 @@ public class StatController {
 
     public void backGameBtnClicked(ActionEvent actionEvent) {
         try {
-            Main.setRoot("primary");
+            BlackJackApplication.setRoot("primary");
         } catch (IOException e) {
             e.printStackTrace();
         }
