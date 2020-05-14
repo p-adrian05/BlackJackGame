@@ -16,7 +16,7 @@ public class GameUtils {
     public Result calculateResult(int playerScore,int dealerScore){
         final int gameValue = 21;
 
-        if(playerScore==gameValue){
+        if(playerScore==gameValue && dealerScore!=21){
             return Result.BLACKJACK;
         }
         if(playerScore<=gameValue && dealerScore<=gameValue){
