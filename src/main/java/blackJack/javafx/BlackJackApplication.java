@@ -28,7 +28,7 @@ public class BlackJackApplication extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource( "/fxml/"+fxml+".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BlackJackApplication.class.getResource( "/fxml/"+fxml+".fxml"));
         return fxmlLoader.load();
     }
 
