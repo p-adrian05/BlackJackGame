@@ -79,6 +79,7 @@ public class GameController implements Initializable {
 
     Model model = Model.getInstance();
     boolean splitEnabled = false;
+    boolean standButtonClicked = false;
 
     @FXML
     public void okResultBtnClicked(ActionEvent actionEvent) {
@@ -125,10 +126,16 @@ public class GameController implements Initializable {
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
         log.info("Stand button clicked.");
-        disableFundAndBetInput(false);
-        hitBtn.setDisable(true);
-        loadDealerCards();
-        madeResult();
+        if((splitEnabled && standButtonClicked) || (!standButtonClicked && !splitEnabled)){
+            disableFundAndBetInput(false);
+            hitBtn.setDisable(true);
+            loadDealerCards();
+            madeResult();
+        }else{
+            standButtonClicked = true;
+            model.getPlayer().madeSecondHand();
+        }
+
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
@@ -174,7 +181,7 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
     }
     public void hitBtnClickedInSplitMode(){
-        if(model.getPlayer().getCardsSumValues()>16){
+        if(standButtonClicked || model.getPlayer().getCardsSumValues()>21){
             loadCardToPerson(1,imgContainerPlayer2,model.getPlayer());
             playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
             log.info("Player score 2: {}",playerScore2);
@@ -314,6 +321,7 @@ public class GameController implements Initializable {
         enableSplitLayout(false);
         splitEnabled = false;
         disableAllBtn(true);
+        standButtonClicked = false;
         log.info("Made new round.");
     }
     public void loadDealerCards(){

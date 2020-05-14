@@ -14,6 +14,7 @@ public class Player extends Person{
     private int fund;
     private int bet;
     private final List<Card> splitCards;
+    private int hands;
 
     /**
      * Creates a {@code Player} object, initialize attributes.
@@ -23,6 +24,11 @@ public class Player extends Person{
         bet = 0;
         cards = new LinkedList<>();
         splitCards = new LinkedList<>();
+        hands = 1;
+    }
+
+    public void madeSecondHand(){
+        this.hands = 2;
     }
 
     public int getFund() {
@@ -94,7 +100,7 @@ public class Player extends Person{
 
     @Override
     public void addCard(Card card) {
-        if(splitCards.size()>0 && getCardsSumValues()>16){
+        if(this.getCardsSumValues()>21 || this.hands==2){
                 addCardSplit(card);
         }else{
             super.addCard(card);
