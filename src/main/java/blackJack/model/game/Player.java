@@ -100,7 +100,7 @@ public class Player extends Person{
 
     @Override
     public void addCard(Card card) {
-        if(this.getCardsSumValues()>21 || this.hands==2){
+        if(this.hands==2){
                 addCardSplit(card);
         }else{
             super.addCard(card);

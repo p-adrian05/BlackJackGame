@@ -133,7 +133,6 @@ public class GameController implements Initializable {
             madeResult();
         }else{
             standButtonClicked = true;
-            model.getPlayer().madeSecondHand();
         }
 
     }
@@ -182,6 +181,7 @@ public class GameController implements Initializable {
     }
     public void hitBtnClickedInSplitMode(){
         if(standButtonClicked || model.getPlayer().getCardsSumValues()>21){
+            model.getPlayer().madeSecondHand();
             loadCardToPerson(1,imgContainerPlayer2,model.getPlayer());
             playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
             log.info("Player score 2: {}",playerScore2);
@@ -347,10 +347,15 @@ public class GameController implements Initializable {
         boolean isBjNumber = model.getPlayer().getCardsSumValues()==21
                 && model.getPlayer().getCards().size()==2;
         if(splitEnabled){
+            boolean isBjNumber2 = model.getPlayer().getCardsSumValuesSplit()==21
+                    && model.getPlayer().getSplitCards().size()==2;
             if(isBjNumber){
                 playerScore1.setText("BLACKJACK");
             }
-            if(model.getPlayer().getCardsSumValuesSplit()==21){
+            if(isBjNumber2){
+                if(!isBjNumber){
+                    loadDealerCards();
+                }
                 madeResult();
                 playerScore2.setText("BLACKJACK");
             }
