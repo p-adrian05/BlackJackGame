@@ -76,14 +76,30 @@ class GameUtilsTest {
 
     @Test
     void testCalculatePrize() {
+        GameUtils gu = new GameUtils();
+        assertEquals(20,gu.calculatePrize(10,Result.WON));
+        assertEquals(-10,gu.calculatePrize(10,Result.LOST));
+        assertEquals(10,gu.calculatePrize(10,Result.PUSH));
+        assertEquals(25,gu.calculatePrize(10,Result.BLACKJACK));
     }
 
     @Test
     void testCalculatePrize2() {
+        GameUtils gu = new GameUtils();
+        assertEquals(50,gu.calculatePrize(10,new Result[]{Result.BLACKJACK,Result.BLACKJACK}));
+        assertEquals(45,gu.calculatePrize(10,new Result[]{Result.BLACKJACK,Result.WON}));
+        assertEquals(15,gu.calculatePrize(10,new Result[]{Result.BLACKJACK,Result.LOST}));
+        assertEquals(35,gu.calculatePrize(10,new Result[]{Result.BLACKJACK,Result.PUSH}));
+        assertEquals(0,gu.calculatePrize(10,new Result[]{Result.PUSH,Result.LOST}));
+        assertEquals(10,gu.calculatePrize(10,new Result[]{Result.WON,Result.LOST}));
+        assertEquals(20,gu.calculatePrize(10,new Result[]{Result.PUSH,Result.PUSH}));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.calculatePrize(10,new Result[]{}));
+        assertEquals("Results argument must contains 2 enum values.", e.getMessage());
     }
 
     @Test
     void testValidateBet() {
+
     }
 
     @Test

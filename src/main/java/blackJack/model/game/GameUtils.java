@@ -69,7 +69,7 @@ public class GameUtils {
            return switch (result){
                case WON -> bet*2;
                case PUSH -> bet;
-               case BLACKJACK -> (int)(bet*1.5);
+               case BLACKJACK -> (int)(bet*2.5);
                default -> -bet;
             };
      }
@@ -88,7 +88,7 @@ public class GameUtils {
         }else if(results.length == 1){
             return calculatePrize(bet,results[0]);
         }
-        throw new IllegalArgumentException("Results must contains 2 enum values.");
+        throw new IllegalArgumentException("Results argument must contains 2 enum values.");
     }
 
     /**
