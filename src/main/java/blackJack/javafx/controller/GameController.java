@@ -336,12 +336,13 @@ public class GameController implements Initializable {
     }
     public void checkBlackJack(){
         log.info("Checking BlackJack has happened...");
-        boolean isBjNumber = model.getPlayer().getCardsSumValues()==21;
+        boolean isBjNumber = model.getPlayer().getCardsSumValues()==21
+                && model.getPlayer().getCards().size()==2;
         if(splitEnabled){
             if(isBjNumber){
                 playerScore1.setText("BLACKJACK");
             }
-            if(isBjNumber){
+            if(model.getPlayer().getCardsSumValuesSplit()==21){
                 madeResult();
                 playerScore2.setText("BLACKJACK");
             }
