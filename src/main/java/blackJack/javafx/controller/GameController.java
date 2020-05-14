@@ -126,7 +126,7 @@ public class GameController implements Initializable {
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
         log.info("Stand button clicked.");
-        if((splitEnabled && standButtonClicked) || (!standButtonClicked && !splitEnabled)){
+        if((splitEnabled && standButtonClicked) || !splitEnabled || model.getPlayer().getCardsSumValues()>=21){
             disableFundAndBetInput(false);
             hitBtn.setDisable(true);
             loadDealerCards();
@@ -180,7 +180,7 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
     }
     public void hitBtnClickedInSplitMode(){
-        if(standButtonClicked || model.getPlayer().getCardsSumValues()>21){
+        if(standButtonClicked || model.getPlayer().getCardsSumValues()>=21){
             model.getPlayer().madeSecondHand();
             loadCardToPerson(1,imgContainerPlayer2,model.getPlayer());
             playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
