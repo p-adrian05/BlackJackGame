@@ -102,24 +102,6 @@ public class GameUtils {
     public boolean validateBet(int bet,int funds){
         return funds - bet >= 0;
     }
-
-    public boolean isPlayerScorePass21(int score){
-        return score > 21;
-    }
-    public boolean isScorePass16(int score){
-        return score > 16;
-    }
-    /**
-     * Return whether the score value is equals to 21.
-     *
-     * @param score the score to check
-     * @return {@code true} if the given score is equals to 21,
-     * {@code false} otherwise
-     */
-    public boolean isBlackJack(int score){
-        return score == 21;
-    }
-
     /**
      * Converts an {@code int} result to a {@link Result} enum value.
      *

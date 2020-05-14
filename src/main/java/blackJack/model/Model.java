@@ -71,9 +71,9 @@ public class Model {
      * @return {@code true} if the {@link Player} score(s) pass a defined value, {@code false} otherwise
      */
     public boolean isGameOver(){
-        boolean pass1 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues());
+        boolean pass1 = model.getPlayer().getCardsSumValues()>21;
         if(model.getPlayer().getCardsSumValuesSplit()>0){
-            boolean pass2 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValuesSplit());
+            boolean pass2 = model.getPlayer().getCardsSumValuesSplit()>21;
             return pass1 && pass2;
         }
         else{
@@ -84,12 +84,12 @@ public class Model {
     /**
      * Returns whether the actual game is over in {@link Player#enableSplitCards()} case.
      *
-     * @return {@code true} if the {@link Player} score(s) pass a defined value, {@code false} otherwise
+     * @return {@code true} if the {@link Player} first score not pass 21 value and the second pass 21, {@code false} otherwise
      */
     public boolean isSplitGameOver(){
         if(model.getPlayer().getCardsSumValuesSplit()>0){
-            boolean pass1 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValues());
-            boolean pass2 = model.getGameUtils().isPlayerScorePass21(model.getPlayer().getCardsSumValuesSplit());
+            boolean pass1 = model.getPlayer().getCardsSumValues()>21;
+            boolean pass2 = model.getPlayer().getCardsSumValuesSplit()>21;
             return !pass1 && pass2;
         }
         return false;

@@ -93,6 +93,7 @@ class GameUtilsTest {
         assertEquals(0,gu.calculatePrize(10,new Result[]{Result.PUSH,Result.LOST}));
         assertEquals(10,gu.calculatePrize(10,new Result[]{Result.WON,Result.LOST}));
         assertEquals(20,gu.calculatePrize(10,new Result[]{Result.PUSH,Result.PUSH}));
+        assertEquals(20,gu.calculatePrize(10,new Result[]{Result.WON}));
         IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.calculatePrize(10,new Result[]{}));
         assertEquals("Results argument must contains 2 enum values.", e.getMessage());
     }

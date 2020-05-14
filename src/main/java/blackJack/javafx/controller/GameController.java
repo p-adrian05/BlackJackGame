@@ -174,7 +174,7 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
     }
     public void hitBtnClickedInSplitMode(){
-        if(model.getGameUtils().isScorePass16(model.getPlayer().getCardsSumValues())){
+        if(model.getPlayer().getCardsSumValues()>16){
             loadCardToPerson(1,imgContainerPlayer2,model.getPlayer());
             playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
             log.info("Player score 2: {}",playerScore2);
@@ -319,7 +319,7 @@ public class GameController implements Initializable {
     public void loadDealerCards(){
         log.info("Dealer getting cards: ");
         imgContainerDealer.getChildren().remove(2);
-        while(!model.getGameUtils().isScorePass16(model.getDealer().getCardsSumValues())){
+        while(model.getDealer().getCardsSumValues()<17){
             loadCardToPerson(1,imgContainerDealer,model.getDealer());
             setScoreLabelDealer();
         }
@@ -336,16 +336,17 @@ public class GameController implements Initializable {
     }
     public void checkBlackJack(){
         log.info("Checking BlackJack has happened...");
+        boolean isBjNumber = model.getPlayer().getCardsSumValues()==21;
         if(splitEnabled){
-            if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
+            if(isBjNumber){
                 playerScore1.setText("BLACKJACK");
             }
-            if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValuesSplit())){
+            if(isBjNumber){
                 madeResult();
                 playerScore2.setText("BLACKJACK");
             }
         }else{
-            if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
+            if(isBjNumber){
                 madeResult();
                 playerScore.setText("BLACKJACK");
             }
