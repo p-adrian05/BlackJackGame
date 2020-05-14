@@ -107,8 +107,13 @@ class GameUtilsTest {
 
     @Test
     void testConvertResult() {
+        GameUtils gu = new GameUtils();
+        assertEquals(Result.WON,gu.convertResult(1));
+        assertEquals(Result.LOST,gu.convertResult(-1));
+        assertEquals(Result.PUSH,gu.convertResult(0));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.convertResult(10));
+        assertEquals("Wrong argument: 10", e.getMessage());
     }
-
     @Test
     void testMadeStringResult() {
     }
