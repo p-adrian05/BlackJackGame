@@ -23,7 +23,7 @@ public class GameUtils {
                 return Result.BLACKJACK;
             }
             else if(playerScore<=gameValue && dealerScore<=gameValue){
-                return convertResult(Integer.compare(playerScore,dealerScore));
+                return convertIntResult(Integer.compare(playerScore,dealerScore));
             }
             else if(playerScore<=gameValue && dealerScore>gameValue){
                 return Result.WON;
@@ -127,7 +127,7 @@ public class GameUtils {
      * @return {@link Result} enum value
      * @throws IllegalArgumentException if the given int value not 1, 0 or -1
      */
-    public Result convertResult(int result){
+    public Result convertIntResult(int result){
         return switch (result){
               case 1 -> Result.WON;
               case 0 -> Result.PUSH;
@@ -150,6 +150,6 @@ public class GameUtils {
         else if(result.length==1){
             return String.valueOf(result[0]);
         }
-        throw new IllegalArgumentException("Wrong argument");
+        throw new IllegalArgumentException("Result argument must contains 2 or 1 enum values.");
     }
 }

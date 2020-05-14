@@ -106,15 +106,21 @@ class GameUtilsTest {
     }
 
     @Test
-    void testConvertResult() {
+    void testConvertIntResult() {
         GameUtils gu = new GameUtils();
-        assertEquals(Result.WON,gu.convertResult(1));
-        assertEquals(Result.LOST,gu.convertResult(-1));
-        assertEquals(Result.PUSH,gu.convertResult(0));
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.convertResult(10));
+        assertEquals(Result.WON,gu.convertIntResult(1));
+        assertEquals(Result.LOST,gu.convertIntResult(-1));
+        assertEquals(Result.PUSH,gu.convertIntResult(0));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.convertIntResult(10));
         assertEquals("Wrong argument: 10", e.getMessage());
     }
     @Test
     void testMadeStringResult() {
+        GameUtils gu = new GameUtils();
+        assertEquals("PUSH and LOST", gu.madeStringResult(new Result[]{Result.PUSH, Result.LOST}));
+        assertEquals("BLACKJACK and WON", gu.madeStringResult(new Result[]{Result.BLACKJACK, Result.WON}));
+        assertEquals("BLACKJACK", gu.madeStringResult(new Result[]{Result.BLACKJACK}));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.madeStringResult(new Result[]{}));
+        assertEquals("Result argument must contains 2 or 1 enum values.", e.getMessage());
     }
 }
