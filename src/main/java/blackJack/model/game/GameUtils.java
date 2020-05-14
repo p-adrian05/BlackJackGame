@@ -96,7 +96,7 @@ public class GameUtils {
      *
      * @param bet the actual bet form the player
      * @param funds the actual funds from the player
-     * @return {@code true} if the player have enough funds to made the bet,
+     * @return {@code true} if the player have enough funds to subtract the bet,
      * {@code false} otherwise
      */
     public boolean validateBet(int bet,int funds){

@@ -99,7 +99,10 @@ class GameUtilsTest {
 
     @Test
     void testValidateBet() {
-
+        GameUtils gu = new GameUtils();
+        assertTrue(gu.validateBet(10,100));
+        assertTrue(gu.validateBet(100,100));
+        assertFalse(gu.validateBet(105,100));
     }
 
     @Test
