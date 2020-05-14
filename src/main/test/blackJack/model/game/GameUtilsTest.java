@@ -18,6 +18,11 @@ class GameUtilsTest {
         assertEquals(Result.PUSH,gu.calculateResult(17,17));
         assertEquals(Result.BLACKJACK,gu.calculateResult(21,24));
         assertEquals(Result.BLACKJACK,gu.calculateResult(21,18));
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(-1,23));
+        assertEquals("Wrong arguments, must be > 0", e.getMessage());
+        e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(14,-12));
+        assertEquals("Wrong arguments, must be > 0", e.getMessage());
     }
 
     @Test
@@ -56,6 +61,17 @@ class GameUtilsTest {
         assertArrayEquals(new Result[]{Result.BLACKJACK,Result.PUSH},gu.calculateResult(21,16,16));
         assertArrayEquals(new Result[]{Result.BLACKJACK,Result.BLACKJACK},gu.calculateResult(21,21,16));
         assertArrayEquals(new Result[]{Result.BLACKJACK,Result.BLACKJACK},gu.calculateResult(21,21,24));
+
+        assertArrayEquals(new Result[]{Result.WON},gu.calculateResult(19,0,22));
+        assertArrayEquals(new Result[]{Result.LOST},gu.calculateResult(23,0,22));
+        assertArrayEquals(new Result[]{Result.BLACKJACK},gu.calculateResult(21,0,18));
+        assertArrayEquals(new Result[]{Result.PUSH},gu.calculateResult(21,0,21));
+
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(21,-2,23));
+        assertEquals("Wrong arguments, must be > 0", e.getMessage());
+        e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(14,12,-12));
+        assertEquals("Wrong arguments, must be > 0", e.getMessage());
+
     }
 
     @Test

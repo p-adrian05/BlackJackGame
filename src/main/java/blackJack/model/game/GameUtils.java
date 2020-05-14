@@ -16,16 +16,20 @@ public class GameUtils {
     public Result calculateResult(int playerScore,int dealerScore){
         final int gameValue = 21;
 
-        if(playerScore==gameValue && dealerScore!=21){
-            return Result.BLACKJACK;
+        if(playerScore<0 || dealerScore<0){
+            throw new IllegalArgumentException("Wrong arguments, must be > 0");
+        }else{
+            if(playerScore==gameValue && dealerScore!=21){
+                return Result.BLACKJACK;
+            }
+            else if(playerScore<=gameValue && dealerScore<=gameValue){
+                return convertResult(Integer.compare(playerScore,dealerScore));
+            }
+            else if(playerScore<=gameValue && dealerScore>gameValue){
+                return Result.WON;
+            }
+            return Result.LOST;
         }
-        if(playerScore<=gameValue && dealerScore<=gameValue){
-            return convertResult(Integer.compare(playerScore,dealerScore));
-        }
-        else if(playerScore<=gameValue && dealerScore>gameValue){
-            return Result.WON;
-        }
-        return Result.LOST;
     }
 
     /**
@@ -37,17 +41,21 @@ public class GameUtils {
      * @return an array of {@link Result} enums, which contains maximum two values
      *  and minimum one
      */
-    public Result[] calculateResult(int playerScore, int playerScore2, int dealerScore){
+    public Result[] calculateResult(int playerScore, int playerScore2, int dealerScore) {
         Result[] results;
-        if(playerScore2>0){
-            results = new Result[2];
-            results[0] = calculateResult(playerScore,dealerScore);
-            results[1] = calculateResult(playerScore2,dealerScore);
-        }else{
-            results = new Result[1];
-            results[0] = calculateResult(playerScore,dealerScore);
+        if (playerScore < 0 || playerScore2 < 0 || dealerScore < 0) {
+            throw new IllegalArgumentException("Wrong arguments, must be > 0");
+        } else {
+            if (playerScore2 > 0) {
+                results = new Result[2];
+                results[0] = calculateResult(playerScore, dealerScore);
+                results[1] = calculateResult(playerScore2, dealerScore);
+            } else {
+                results = new Result[1];
+                results[0] = calculateResult(playerScore, dealerScore);
+            }
+            return results;
         }
-        return results;
     }
 
     /**
