@@ -86,26 +86,31 @@ public class GameController implements Initializable {
         resultPopUpContainer.setDisable(true);
         resultPopUpContainer.setVisible(false);
         showNewGamePopUp();
+        log.info("OK button clicked on result pop up.");
     }
     @FXML
     public void okWarningBtnClicked(ActionEvent actionEvent) {
         mainContainer.setDisable(false);
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
+        log.info("OK button clicked on warning pop up.");
     }
     @FXML
     public void newGameYesBtnClicked(ActionEvent actionEvent) {
         disableNewGamePopUp();
         makeNewRound();
         disableFundAndBetInput(false);
+        log.info("Yes button clicked on new game pop up.");
     }
     @FXML
     public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
         disableNewGamePopUp();
         BlackJackApplication.setRoot("login");
+        log.info("No button clicked on new game pop up.");
     }
     @FXML
     public void dealBtnClicked(ActionEvent actionEvent) {
+        log.info("Deal button clicked.");
         disableFundAndBetInput(true);
         disableAllBtn(false);
         dealBtn.setDisable(true);
@@ -119,6 +124,7 @@ public class GameController implements Initializable {
     }
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
+        log.info("Stand button clicked.");
         disableFundAndBetInput(false);
         hitBtn.setDisable(true);
         loadDealerCards();
@@ -126,6 +132,7 @@ public class GameController implements Initializable {
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
+        log.info("Hit button clicked.");
         if(splitEnabled){
             hitBtnClickedInSplitMode();
         }
@@ -138,6 +145,7 @@ public class GameController implements Initializable {
     }
     @FXML
     public void doubleBtnClicked(ActionEvent actionEvent) {
+        log.info("Double button clicked");
         if(model.getPlayer().getCards().size()==2){
             manageBet(model.getPlayer().getBet());
             dealBtn.setDisable(true);
@@ -148,6 +156,7 @@ public class GameController implements Initializable {
     }
     @FXML
     public void splitBtnClicked(ActionEvent actionEvent) {
+        log.info("Split button clicked");
         if(model.getPlayer().enableSplitCards() && manageBet(model.getPlayer().getBet())){
             enableSplitLayout(true);
             model.getPlayer().madeSplitCards();
@@ -160,6 +169,7 @@ public class GameController implements Initializable {
         }else{
             showWarningPopUp("Cards splitting not allowed!");
         }
+        log.info("Split enabled: {}",splitEnabled);
         splitBtn.setDisable(true);
         dealBtn.setDisable(true);
     }
@@ -167,20 +177,23 @@ public class GameController implements Initializable {
         if(model.getGameUtils().isScorePass16(model.getPlayer().getCardsSumValues())){
             loadCardToPerson(1,imgContainerPlayer2,model.getPlayer());
             playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
+            log.info("Player score 2: {}",playerScore2);
         }
         else{
             loadCardToPerson(1,imgContainerPlayer1,model.getPlayer());
             playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+            log.info("Player score 1: {}",playerScore1);
         }
         checkGameOver();
         checkBlackJack();
     }
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
+        log.info("Log out has happened.");
         try {
             BlackJackApplication.setRoot("login");
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(),e);
         }
         makeNewRound();
     }
@@ -238,9 +251,11 @@ public class GameController implements Initializable {
     }
     private void setScoreLabelPlayer(){
         playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+        log.debug("Player score: {}", model.getPlayer().getCardsSumValues());
     }
     public void setScoreLabelDealer(){
         dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
+        log.debug("Dealer score: {}", model.getDealer().getCardsSumValues());
     }
     private void disableFundAndBetInput(boolean bool){
         fundInput.setDisable(bool);
@@ -267,16 +282,22 @@ public class GameController implements Initializable {
         standBtn.setDisable(bool);
     }
     public void checkSplitEnable(){
+        log.info("Checking split button allowing...");
         if(model.getPlayer().enableSplitCards()){
             activateBtn(splitBtn);
+            log.info("Split button allowed.");
         }else{
             deactivateBtn(splitBtn);
+            log.info("Split button not allowed.");
         }
     }
     public void madeResult(){
         Result[] results = model.getResult();
         fundInput.setText(String.valueOf(model.getPlayer().getFund()));
         showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(model.getPrize(results)));
+        log.info("RESULT: {}", resultLabel.getText());
+        log.info("PRIZE: {}", prizeLabel.getText());
+        log.info("Player fund: {}", fundInput.getText());
     }
     public void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
@@ -293,8 +314,10 @@ public class GameController implements Initializable {
         enableSplitLayout(false);
         splitEnabled = false;
         disableAllBtn(true);
+        log.info("Made new round.");
     }
     public void loadDealerCards(){
+        log.info("Dealer getting cards: ");
         imgContainerDealer.getChildren().remove(2);
         while(!model.getGameUtils().isScorePass16(model.getDealer().getCardsSumValues())){
             loadCardToPerson(1,imgContainerDealer,model.getDealer());
@@ -302,6 +325,7 @@ public class GameController implements Initializable {
         }
     }
     public void checkGameOver(){
+        log.info("Checking game over...");
         if (model.isGameOver()) {
             madeResult();
         }
@@ -311,6 +335,7 @@ public class GameController implements Initializable {
         }
     }
     public void checkBlackJack(){
+        log.info("Checking BlackJack has happened...");
         if(splitEnabled){
             if(model.getGameUtils().isBlackJack(model.getPlayer().getCardsSumValues())){
                 playerScore1.setText("BLACKJACK");
@@ -328,17 +353,17 @@ public class GameController implements Initializable {
     }
     private void readInFundInputListener(){
         fundInput.textProperty().addListener((obs, oldText, newText) -> {
+            log.debug("Fund input text: {}",fundInput.textProperty().getValue());
             if (!newText.matches("\\d*")) {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
-            }else {
-                if(!fundInput.textProperty().getValue().equals("")){
-                    model.getPlayer().setFund(Integer.parseInt(fundInput.textProperty().getValue()));
-                }
+            }else if(!fundInput.textProperty().getValue().equals("")){
+                model.getPlayer().setFund(Integer.parseInt(fundInput.textProperty().getValue()));
             }
         });
     }
     private boolean manageBet(int value){
         if(model.getGameUtils().validateBet(value,model.getPlayer().getFund())){
+            log.info("Player's valid bet: {}",value);
             model.getPlayer().addBetFromFund(value);
             betLabel.setText(String.valueOf(model.getPlayer().getBet()));
             fundInput.textProperty().setValue(String.valueOf(model.getPlayer().getFund()));
@@ -347,6 +372,7 @@ public class GameController implements Initializable {
         }
         else{
             showWarningPopUp("Not have enough funds!");
+            log.info("Player's not valid bet: ",value);
             return false;
         }
     }
@@ -355,11 +381,13 @@ public class GameController implements Initializable {
         Card card;
         for(int i = 0; i<amount;i++) {
             card = model.getDeck().getCard();
+            log.debug("Card object: {}",card.toString());
             try{
                 imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
+                log.info("Card image URL: {}",imageView.getImage().getUrl());
                 placetoLoad.getChildren().add(imageView);
             }catch (Exception ex){
-                ex.printStackTrace();
+                log.error(ex.getMessage(),ex);
                 showWarningPopUp("Failed to load image");
                 placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),card.getCode()));
             }
@@ -372,6 +400,7 @@ public class GameController implements Initializable {
         label.setText(msg);
         label.setTextFill(Color.RED);
         label.setStyle("-fx-font-size: 15px");
+        log.info("Card code label text: {}",label.getText());
         return label;
     }
     private double getLastChildXLayout(Pane pane){
@@ -382,6 +411,7 @@ public class GameController implements Initializable {
         }else{
             xLayout = pane.getChildren().get(lastChildIndex).getLayoutX();
         }
+        log.debug("Image xLayout: {}",xLayout);
         return xLayout;
     }
     private ImageView madeImageViewFromUrl(String url,double imgXLayout) throws Exception {
@@ -400,12 +430,12 @@ public class GameController implements Initializable {
         try {
             imageView = madeImageViewFromUrl(file.toString(), getLastChildXLayout(placetoLoad) + 25);
             placetoLoad.getChildren().add(imageView);
+            log.info("Image URL: {}",imageView.getImage().getUrl());
         } catch (Exception e) {
+            log.error(e.getMessage(),e);
             placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),"err"));
             showWarningPopUp("Failed to load images");
-            e.printStackTrace();
         }
-
     }
     private void activateBtn(Button btn){
         btn.getStyleClass().add("redBorder");
