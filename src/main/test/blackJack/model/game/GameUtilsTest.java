@@ -19,10 +19,9 @@ class GameUtilsTest {
         assertEquals(Result.BLACKJACK,gu.calculateResult(21,24));
         assertEquals(Result.BLACKJACK,gu.calculateResult(21,18));
 
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(-1,23));
-        assertEquals("Wrong arguments, must be > 0", e.getMessage());
-        e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(14,-12));
-        assertEquals("Wrong arguments, must be > 0", e.getMessage());
+        assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(14,-12));
+        assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(-14,12));
+        assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(-14,-12));
     }
 
     @Test
@@ -67,11 +66,10 @@ class GameUtilsTest {
         assertArrayEquals(new Result[]{Result.BLACKJACK},gu.calculateResult(21,0,18));
         assertArrayEquals(new Result[]{Result.PUSH},gu.calculateResult(21,0,21));
 
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(21,-2,23));
-        assertEquals("Wrong arguments, must be > 0", e.getMessage());
-        e = assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(14,12,-12));
-        assertEquals("Wrong arguments, must be > 0", e.getMessage());
-
+        assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(14,-17,15));
+        assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(-14,-17,-15));
+        assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(-14,17,15));
+        assertThrows(IllegalArgumentException.class,() -> gu.calculateResult(14,-17,-15));
     }
 
     @Test
@@ -94,8 +92,9 @@ class GameUtilsTest {
         assertEquals(10,gu.calculatePrize(10,new Result[]{Result.WON,Result.LOST}));
         assertEquals(20,gu.calculatePrize(10,new Result[]{Result.PUSH,Result.PUSH}));
         assertEquals(20,gu.calculatePrize(10,new Result[]{Result.WON}));
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.calculatePrize(10,new Result[]{}));
-        assertEquals("Results argument must contains 2 enum values.", e.getMessage());
+
+        assertThrows(IllegalArgumentException.class,() -> gu.calculatePrize(10,new Result[]{}));
+        assertThrows(IllegalArgumentException.class,() -> gu.calculatePrize(10,new Result[]{Result.PUSH,Result.PUSH,Result.LOST}));
     }
 
     @Test
@@ -121,7 +120,7 @@ class GameUtilsTest {
         assertEquals("PUSH and LOST", gu.madeStringResult(new Result[]{Result.PUSH, Result.LOST}));
         assertEquals("BLACKJACK and WON", gu.madeStringResult(new Result[]{Result.BLACKJACK, Result.WON}));
         assertEquals("BLACKJACK", gu.madeStringResult(new Result[]{Result.BLACKJACK}));
-        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,() -> gu.madeStringResult(new Result[]{}));
-        assertEquals("Result argument must contains 2 or 1 enum values.", e.getMessage());
+        assertThrows(IllegalArgumentException.class,() -> gu.madeStringResult(new Result[]{}));
+        assertThrows(IllegalArgumentException.class,() -> gu.madeStringResult(new Result[]{Result.PUSH,Result.WON,Result.LOST}));
     }
 }
