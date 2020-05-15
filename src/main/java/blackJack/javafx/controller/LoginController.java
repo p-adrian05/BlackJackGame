@@ -5,12 +5,18 @@ import blackJack.results.User;
 import blackJack.results.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
+import lombok.extern.java.Log;
 
 import java.io.IOException;
 import java.net.URL;
@@ -34,7 +40,7 @@ public class LoginController implements Initializable {
     String password;
 
     @FXML
-    public void loginBtnClicked(ActionEvent actionEvent) {
+    public void loginBtnClicked(ActionEvent event) {
          username = userNameInput.getText();
          password = passwordInput.getText();
          Optional<User> user = userDao.findbyUsername(username);
@@ -44,7 +50,7 @@ public class LoginController implements Initializable {
              if(user.get().getPassword().equals(password) && user.get().getUsername().equals(username)){
                  setLabelText("Successful login!","green");
                  try {
-                     BlackJackApplication.setRoot("primary");
+                     passUserToGameController(user.get(),event);
                  } catch (IOException e) {
                      e.printStackTrace();
                  }
@@ -91,6 +97,18 @@ public class LoginController implements Initializable {
     private void setLabelText(String text,String color){
         loginLabel.setText(text);
         loginLabel.setTextFill(Paint.valueOf(color));
+    }
+
+    private void passUserToGameController(User user, ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/fxml/primary.fxml"));
+        Parent root = fxmlLoader.load();
+        GameController controller = fxmlLoader.getController();
+        controller.setUser(user);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("main.css");
+        stage.setScene(scene);
+        stage.show();
     }
 
     private User createUser(String username, String password){
