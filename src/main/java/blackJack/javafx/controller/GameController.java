@@ -15,15 +15,21 @@ import blackJack.results.UserDao;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
+import net.bytebuddy.matcher.ModifierMatcher;
 
 @Log4j2
 public class GameController implements Initializable {
@@ -81,6 +87,8 @@ public class GameController implements Initializable {
     private VBox newGamePopUpContainer;
     @FXML
     private AnchorPane mainContainer;
+    @FXML
+    private MenuBar menuBar;
 
     Model model = Model.getInstance();
     boolean splitEnabled = false;
@@ -205,9 +213,14 @@ public class GameController implements Initializable {
     public void logOutClick(ActionEvent actionEvent) {
         log.info("Log out has happened.");
         try {
-            BlackJackApplication.setRoot("login");
+            Parent root = FXMLLoader.load(getClass().getResource( "/fxml/login.fxml"));
+            Stage stage = (Stage) menuBar.getScene().getWindow();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add("main.css");
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
-            log.error(e.getMessage(),e);
+            e.printStackTrace();
         }
         makeNewRound();
     }
@@ -307,12 +320,13 @@ public class GameController implements Initializable {
     }
     public void madeResult(){
         Result[] results = model.getResult();
-        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
-        showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(model.getPrize(results)));
+        int prize = model.getPrize(results);
+        showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prize));
+        fundInput.textProperty().setValue((String.valueOf(model.getPlayer().getFund())));
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
-        user.setFunds(Integer.parseInt(fundInput.getText()));
+        user.setFunds(model.getPlayer().getFund());
         userDao.update(user);
     }
     public void makeNewRound(){
@@ -322,11 +336,12 @@ public class GameController implements Initializable {
             imgContainerPlayer1.getChildren().remove(1,imgContainerPlayer1.getChildren().size());
             imgContainerPlayer2.getChildren().remove(1,imgContainerPlayer2.getChildren().size());
         }
-        model.resetValues();
+        model.resetGame();
         setScoreLabelDealer();
         setScoreLabelPlayer();
         betLabel.setText("0");
-        fundInput.setText(String.valueOf(model.getPlayer().getFund()));
+        fundInput.textProperty().setValue(String.valueOf(user.getFunds()));
+        model.getPlayer().setFund(user.getFunds());
         enableSplitLayout(false);
         splitEnabled = false;
         disableAllBtn(true);
@@ -473,6 +488,14 @@ public class GameController implements Initializable {
     public void setUser(User user){
         this.user = user;
     }
+    private void setRoot(ActionEvent actionEvent, String fxml) throws IOException {
+        Parent root =  FXMLLoader.load(getClass().getResource( "/fxml/"+fxml+".fxml"));
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("main.css");
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -480,7 +503,8 @@ public class GameController implements Initializable {
         disableAllBtn(true);
         Platform.runLater(() -> {
             playerNameLabel.setText(user.getUsername());
-            fundInput.setText(String.valueOf(user.getFunds()));
+            fundInput.textProperty().setValue(String.valueOf(user.getFunds()));
         });
+        log.info("INIT");
     }
 }
