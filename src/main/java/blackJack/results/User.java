@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 @AllArgsConstructor
 @Builder
 @Entity
-public class GameResult {
+public class User {
     @Id
     @GeneratedValue
     private Long id;

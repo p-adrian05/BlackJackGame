@@ -1,16 +1,12 @@
 package blackJack.results;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-import util.juice.PersistenceModule;
-
 public class GameResultExample {
 
     public static void main(String[] args) {
-        GameResultDao gameResultDao = GameResultDao.getInstance();
+        UserDao userDao = UserDao.getInstance();
 //        Injector injector = Guice.createInjector(new PersistenceModule("blackJackGame"));
 //        GameResultDao gameResultDao = injector.getInstance(GameResultDao.class);
-        GameResult gameResult = GameResult.builder()
+        User user = User.builder()
                 .username("adrian")
                 .password("12334")
                 .funds(360)
@@ -19,8 +15,8 @@ public class GameResultExample {
                 .wonCount(2)
                 .loseCount(2)
                 .build();
-        gameResultDao.persist(gameResult);
-        System.out.println(gameResultDao.findAll());
+        userDao.persist(user);
+        System.out.println(userDao.findAll());
     }
 
 }
