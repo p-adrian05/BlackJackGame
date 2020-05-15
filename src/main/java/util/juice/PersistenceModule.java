@@ -1,4 +1,4 @@
-package guice;
+package util.juice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.persist.jpa.JpaPersistModule;

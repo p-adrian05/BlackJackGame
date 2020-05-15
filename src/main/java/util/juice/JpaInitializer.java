@@ -1,4 +1,4 @@
-package guice;
+package util.juice;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
