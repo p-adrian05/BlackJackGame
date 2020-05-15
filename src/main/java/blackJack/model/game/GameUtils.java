@@ -1,7 +1,7 @@
 package blackJack.model.game;
 
 /**
- * Class representing the business logic of the game.
+ * Class representing the logic of the game.
  */
 
 public class GameUtils {
