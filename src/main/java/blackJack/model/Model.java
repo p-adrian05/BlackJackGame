@@ -82,7 +82,7 @@ public class Model {
     }
 
     /**
-     * Returns whether the actual game is over in {@link Player#enableSplitCards()} case.
+     * Returns whether the actual game is over in {@link Player#isEnableSplitCards()} case.
      *
      * @return {@code true} if the {@link Player} first score not pass 21 value and the second pass 21, {@code false} otherwise
      */

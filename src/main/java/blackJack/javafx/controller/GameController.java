@@ -163,7 +163,7 @@ public class GameController implements Initializable {
     @FXML
     public void splitBtnClicked(ActionEvent actionEvent) {
         log.info("Split button clicked");
-        if(model.getPlayer().enableSplitCards() && manageBet(model.getPlayer().getBet())){
+        if(model.getPlayer().isEnableSplitCards() && manageBet(model.getPlayer().getBet())){
             enableSplitLayout(true);
             model.getPlayer().madeSplitCards();
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
@@ -290,7 +290,7 @@ public class GameController implements Initializable {
     }
     public void checkSplitEnable(){
         log.info("Checking split button allowing...");
-        if(model.getPlayer().enableSplitCards()){
+        if(model.getPlayer().isEnableSplitCards()){
             activateBtn(splitBtn);
             log.info("Split button allowed.");
         }else{

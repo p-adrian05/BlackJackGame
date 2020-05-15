@@ -69,7 +69,7 @@ public class Player extends Person{
      * @return {@code true} if two cards has in the {@link #cards} list
      * and the elements' values equals, {@code false} otherwise
      */
-    public boolean enableSplitCards(){
+    public boolean isEnableSplitCards(){
         if(cards.size()==2){
             return cards.get(0).getIntValue() == cards.get(1).getIntValue();
         }
@@ -80,7 +80,7 @@ public class Player extends Person{
      * and add to {@link #splitCards} list.
      */
     public void madeSplitCards(){
-        if(enableSplitCards()){
+        if(isEnableSplitCards()){
             splitCards.add(cards.remove(1));
         }
     }
