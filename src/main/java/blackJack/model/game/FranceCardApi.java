@@ -29,7 +29,7 @@ public class FranceCardApi implements CardApi{
 
     /**
      * Returns a {@link DeckFranceCards} implementation of {@link Deck} interface uses the
-     * api service if it is successfully returns, otherwise read the information from a local
+     * api service if it is successfully returns, otherwise read the data from a local
      * json file.
      *
      * @return {@link DeckFranceCards} object
@@ -53,7 +53,7 @@ public class FranceCardApi implements CardApi{
     }
 
     /**
-     * Returns a {@code String} information used the {@value #DECK_URI} URI to get the service ID
+     * Returns a {@code String} data used the {@value #DECK_URI} URI to get the service ID
      * for further api calls.
      *
      * @return {@code String} id information
@@ -76,7 +76,7 @@ public class FranceCardApi implements CardApi{
     /**
      * Made an {@link URL} object from the needed id information.
      *
-     * @param deckID the {@code String} information provided by {@link #getDeckID()}
+     * @param deckID the {@code String} data provided by {@link #getDeckID()}
      * @return {@link URL} object
      * @throws MalformedURLException if the URL creation fails
      */
