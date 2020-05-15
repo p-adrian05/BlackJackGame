@@ -2,6 +2,7 @@ package util.jpa;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
 
