@@ -5,8 +5,6 @@ import blackJack.model.game.*;
 /**
  * Class collects all objects needed the game and provides game related functions.
  */
-
-
 public class Model {
 
     /**
@@ -38,10 +36,6 @@ public class Model {
 
     public Deck getDeck() {
         return deck;
-    }
-
-    public CardApi getCardApi() {
-        return cardApi;
     }
 
     public static Model getInstance(){
