@@ -1,17 +1,24 @@
 package blackJack.model.game;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Class represents an implementation of {@link Deck} interface.
  */
-
+@AllArgsConstructor
+@Data
 public class DeckFranceCards implements Deck{
 
     /**
      * The list of {@link FranceCard} objects.
      */
+    @Getter(AccessLevel.NONE)
     private LinkedList<FranceCard> cards;
 
     @Override
@@ -39,11 +46,11 @@ public class DeckFranceCards implements Deck{
     @Override
     public int calcCardsSumValue(List<Card> cards) {
         int sum = 0;
-        for(int i = 0; i<cards.size();i++){
-            if(cards.get(i).getValue().equals("ACE") && sum>10){
+        for (Card card : cards) {
+            if (card.getValue().equals("ACE") && sum > 10) {
                 sum++;
-            }else{
-                sum+=cards.get(i).getIntValue();
+            } else {
+                sum += card.getIntValue();
             }
         }
         return sum;
