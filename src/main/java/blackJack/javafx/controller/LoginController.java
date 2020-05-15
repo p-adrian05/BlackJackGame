@@ -1,8 +1,11 @@
 package blackJack.javafx.controller;
 
 import blackJack.javafx.BlackJackApplication;
+import blackJack.results.User;
+import blackJack.results.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -10,8 +13,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
     @FXML
     private TextField userNameInput;
     @FXML
@@ -23,24 +29,45 @@ public class LoginController {
     @FXML
     private Button loginBtn;
 
+    private UserDao userDao;
+    String username;
+    String password;
+
     @FXML
     public void loginBtnClicked(ActionEvent actionEvent) {
-        //TODO database check
-        try {
-            BlackJackApplication.setRoot("primary");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+         username = userNameInput.getText();
+         password = passwordInput.getText();
+         Optional<User> user = userDao.findbyUsername(username);
+         if(user.isEmpty()){
+             setLabelText("User not found!","red");
+         }else{
+             if(user.get().getPassword().equals(password) && user.get().getUsername().equals(username)){
+                 setLabelText("Successful login!","green");
+                 try {
+                     BlackJackApplication.setRoot("primary");
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
+             }else{
+                 setLabelText("Wrong password!","red");
+             }
+         }
     }
     @FXML
     public void registerBtnClicked(ActionEvent actionEvent) {
-        if(validateUsername(userNameInput.getText()) &&validatePassword(passwordInput.getText())){
-            setLabelText("Successful registering","green");
-            userNameInput.clear();
-            passwordInput.clear();
-            //TODO add database
+         username = userNameInput.getText();
+         password = passwordInput.getText();
+        if(validateUsername(username) && validatePassword(password)){
+            if(userDao.findbyUsername(username).isPresent()){
+                setLabelText("Name is already taken!","red");
+            }else{
+                userDao.persist(createUser(username,password));
+                setLabelText("Successful registering!","green");
+                userNameInput.clear();
+                passwordInput.clear();
+                System.out.println(userDao.findAll());
+            }
         }
-
     }
     private boolean validateUsername(String username){
         if (username.matches("[A-Za-z0-9_]+")){
@@ -64,6 +91,23 @@ public class LoginController {
     private void setLabelText(String text,String color){
         loginLabel.setText(text);
         loginLabel.setTextFill(Paint.valueOf(color));
+    }
+
+    private User createUser(String username, String password){
+        return User.builder()
+                .username(username)
+                .password(password)
+                .funds(0)
+                .lostMoney(0)
+                .wonMoney(0)
+                .wonCount(0)
+                .loseCount(0)
+                .build();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        userDao = UserDao.getInstance();
     }
 }
 
