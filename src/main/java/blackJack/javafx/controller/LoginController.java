@@ -1,6 +1,6 @@
 package blackJack.javafx.controller;
 
-import blackJack.javafx.BlackJackApplication;
+import blackJack.model.Model;
 import blackJack.results.User;
 import blackJack.results.UserDao;
 import javafx.event.ActionEvent;
@@ -16,7 +16,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import lombok.extern.java.Log;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +35,7 @@ public class LoginController implements Initializable {
     private Button loginBtn;
 
     private UserDao userDao;
+    Model model = Model.getInstance();
     String username;
     String password;
 
@@ -49,6 +49,7 @@ public class LoginController implements Initializable {
          }else{
              if(user.get().getPassword().equals(password) && user.get().getUsername().equals(username)){
                  setLabelText("Successful login!","green");
+                 model.resetGame();
                  try {
                      passUserToGameController(user.get(),event);
                  } catch (IOException e) {
