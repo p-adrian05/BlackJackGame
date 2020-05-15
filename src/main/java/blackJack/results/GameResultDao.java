@@ -1,4 +1,10 @@
 package blackJack.results;
 
-public class GameResultDao {
+import util.jpa.GenericJpaDao;
+
+public class GameResultDao extends GenericJpaDao<GameResult> {
+
+    public GameResultDao() {
+        super(GameResult.class);
+    }
 }
