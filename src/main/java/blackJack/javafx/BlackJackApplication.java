@@ -1,5 +1,7 @@
 package blackJack.javafx;
 
+import blackJack.javafx.controller.GameController;
+import blackJack.javafx.controller.LoginController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
