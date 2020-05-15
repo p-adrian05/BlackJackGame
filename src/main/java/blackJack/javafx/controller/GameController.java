@@ -411,7 +411,7 @@ public class GameController implements Initializable {
     }
     private Label madeLabel(double xLayout,String msg){
         Label label = new Label();
-        label.setLayoutX(xLayout + 30);
+        label.setLayoutX(xLayout + 35);
         label.setText(msg);
         label.setTextFill(Color.RED);
         label.setStyle("-fx-font-size: 15px");

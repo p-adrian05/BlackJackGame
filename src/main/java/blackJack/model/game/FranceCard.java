@@ -1,31 +1,28 @@
 package blackJack.model.game;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.net.URL;
 import java.util.Map;
 
 /**
  * Class represents an implementation of {@link Card} interface.
  */
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
 public class FranceCard implements Card {
+
     private String value;
     private String code;
     private String suit;
     private URL image;
-    private Map<String, URL> images;
-
-
-    public FranceCard(String value, String code, String suit, URL image, Map<String, URL> images) {
-        this.value = value;
-        this.code = code;
-        this.suit = suit;
-        this.image = image;
-        this.images = images;
-    }
 
     /**
-     * Returns an {@code int} representation of {@code String} {@link #value} attribute
+     * Returns an {@code int} representation of {@code String} {@link #value} attribute.
      *
      * @return a value of a {@link Card} object
      */
@@ -42,26 +39,12 @@ public class FranceCard implements Card {
         }
     }
 
+    @Override
     public String getValue() { return value; }
 
-    public void setValue(String value) {
-        this.value = value;
-    }
     @Override
     public String getCode() {
         return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getSuit() {
-        return suit;
-    }
-
-    public void setSuit(String suit) {
-        this.suit = suit;
     }
 
     @Override
@@ -69,26 +52,4 @@ public class FranceCard implements Card {
         return image;
     }
 
-    public void setImage(URL image) {
-        this.image = image;
-    }
-
-    public Map<String, URL> getImages() {
-        return images;
-    }
-
-    public void setImages(Map<String, URL> images) {
-        this.images = images;
-    }
-
-    @Override
-    public String toString() {
-        return "Card{" +
-                "value='" + value + '\'' +
-                ", code='" + code + '\'' +
-                ", suit='" + suit + '\'' +
-                ", image=" + image +
-                ", images=" + images +
-                '}';
-    }
 }
