@@ -119,9 +119,13 @@ public class GameController implements Initializable {
         log.info("Yes button clicked on new game pop up.");
     }
     @FXML
-    public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
+    public void newGameNoBtnClicked(ActionEvent actionEvent){
         disableNewGamePopUp();
-        BlackJackApplication.setRoot("login");
+        try {
+            setRoot(actionEvent,"login");
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
         log.info("No button clicked on new game pop up.");
     }
     @FXML
