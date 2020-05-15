@@ -48,25 +48,15 @@ public class Model {
 
     /**
      * Makes new instances of {@link Player}, {@link Dealer} and {@link Deck} objects
-     * for making a new game round to the same player.
-     */
-    public void resetValues(){
-       int oldPlayerFund = player.getFund();
-       player = new Player();
-       player.setFund(oldPlayerFund);
-       dealer = new Dealer();
-       if(deck.getDeckCards().size()<20){
-           deck = cardApi.getDeck();
-       }
-    }
-    /**
-     * Makes new instances of {@link Player}, {@link Dealer} and {@link Deck} objects
-     * for making a new game for another player.
+     * for making a new game.
      */
     public void resetGame(){
         this.player = new Player();
         this.dealer = new Dealer();
-        this.deck = cardApi.getDeck();
+        if(deck.getDeckCards().size()<20){
+            this.deck = cardApi.getDeck();
+        }
+
     }
     /**
      * Returns whether the actual game is over checking the scores.
