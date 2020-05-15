@@ -10,6 +10,9 @@ import blackJack.model.game.Card;
 import blackJack.model.game.Person;
 import blackJack.model.Model;
 import blackJack.model.game.Result;
+import blackJack.results.User;
+import blackJack.results.UserDao;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -44,6 +47,8 @@ public class GameController implements Initializable {
     private Label playerScore2;
     @FXML
     private Label dealerScore;
+    @FXML
+    private Label playerNameLabel;
     @FXML
     private Button dealBtn;
     @FXML
@@ -80,6 +85,8 @@ public class GameController implements Initializable {
     Model model = Model.getInstance();
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
+    User user;
+    UserDao userDao = UserDao.getInstance();
 
     @FXML
     public void okResultBtnClicked(ActionEvent actionEvent) {
@@ -305,6 +312,8 @@ public class GameController implements Initializable {
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
+        user.setFunds(Integer.parseInt(fundInput.getText()));
+        userDao.update(user);
     }
     public void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
@@ -461,9 +470,17 @@ public class GameController implements Initializable {
         btn.getStyleClass().remove("redBorder");
     }
 
+    public void setUser(User user){
+        this.user = user;
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
         disableAllBtn(true);
+        Platform.runLater(() -> {
+            playerNameLabel.setText(user.getUsername());
+            fundInput.setText(String.valueOf(user.getFunds()));
+        });
     }
 }
