@@ -1,9 +1,6 @@
 package blackJack.model.game;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +9,7 @@ import java.util.List;
  * Class represents an implementation of {@link Deck} interface.
  */
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class DeckFranceCards implements Deck{
 
