@@ -122,11 +122,21 @@ public class Model {
         if(prize>0){
             player.addFund(prize);
         }
-        saveUser();
         return prize;
     }
-    
-    private void saveUser(){
+
+    /**
+     * Sets user entity's attributes and save it to the database.
+     */
+    public void saveUser(){
+        int prize = getPrize(getResult());
+        if(prize<0){
+            user.setLostMoney(user.getLostMoney() + prize);
+            user.setLoseCount(user.getLoseCount() + 1);
+        }else if(prize>0){
+            user.setWonMoney(user.getWonMoney() + prize);
+            user.setWonCount(user.getWonCount() + 1);
+        }
         user.setFunds(player.getFund());
         userDao.update(user);
     }

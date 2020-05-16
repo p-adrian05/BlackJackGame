@@ -320,6 +320,7 @@ public class GameController implements Initializable {
         int prize = model.getPrize(results);
         showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prize));
         fundInput.textProperty().setValue((String.valueOf(model.getPlayer().getFund())));
+        model.saveUser();
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
