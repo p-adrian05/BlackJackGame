@@ -13,7 +13,6 @@ public class Model {
      * Make a {@code static final Model} object instance as singleton pattern requires.
      */
     private static final Model model = new Model();
-    private UserDao userDao = UserDao.getInstance();
 
     private Player player;
     private Person dealer;

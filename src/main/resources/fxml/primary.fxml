@@ -204,13 +204,12 @@
                               </Pane>
                            </children>
                         </HBox>
-                        <MenuBar fx:id="menuBar" layoutX="21.0" layoutY="2.0" onMouseClicked="#MenuBarClicked">
+                        <MenuBar fx:id="menuBar" layoutX="21.0" layoutY="2.0">
                           <menus>
                             <Menu mnemonicParsing="false" styleClass="menu" text="Menu">
                               <items>
                                 <MenuItem id="editName" fx:id="editName" mnemonicParsing="false" onAction="#editNameClicked" text="Change name" />
                                     <MenuItem id="gameStatistic" fx:id="gameStatistic" mnemonicParsing="false" onAction="#gameStatisticClick" text="Game Statistic" />
-                                    <MenuItem id="helpMenu" fx:id="helpMenu" mnemonicParsing="false" onAction="#helpClick" text="Help" />
                                     <MenuItem id="logOutItem" fx:id="logOutItem" mnemonicParsing="false" onAction="#logOutClick" text="Log out" />
                               </items>
                             </Menu>

@@ -87,8 +87,6 @@ public class GameController implements Initializable {
     private VBox newGamePopUpContainer;
     @FXML
     private AnchorPane mainContainer;
-    @FXML
-    private MenuBar menuBar;
 
     Model model = Model.getInstance();
     boolean splitEnabled = false;
@@ -222,10 +220,8 @@ public class GameController implements Initializable {
         makeNewRound();
     }
     @FXML
-    public void helpClick(ActionEvent actionEvent) {
-    }
-    @FXML
     public void gameStatisticClick(ActionEvent actionEvent) {
+        log.info("Game statistic button clicked");
         try {
             BlackJackApplication.setRoot("stat");
         } catch (IOException e) {
@@ -234,9 +230,6 @@ public class GameController implements Initializable {
     }
     @FXML
     public void editNameClicked(ActionEvent actionEvent) {
-    }
-    @FXML
-    public void MenuBarClicked(MouseEvent mouseEvent) {
     }
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
