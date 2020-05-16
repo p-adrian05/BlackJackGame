@@ -1,5 +1,6 @@
 package blackJack.javafx.controller;
 
+import blackJack.javafx.BlackJackApplication;
 import blackJack.model.Model;
 import blackJack.results.User;
 import blackJack.results.UserDao;
@@ -50,8 +51,9 @@ public class LoginController implements Initializable {
              if(user.get().getPassword().equals(password) && user.get().getUsername().equals(username)){
                  setLabelText("Successful login!","green");
                  model.resetGame();
+                 model.setUser(user.get());
                  try {
-                     passUserToGameController(user.get(),event);
+                     BlackJackApplication.setRoot("primary");
                  } catch (IOException e) {
                      e.printStackTrace();
                  }
@@ -98,18 +100,6 @@ public class LoginController implements Initializable {
     private void setLabelText(String text,String color){
         loginLabel.setText(text);
         loginLabel.setTextFill(Paint.valueOf(color));
-    }
-
-    private void passUserToGameController(User user, ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginController.class.getResource("/fxml/primary.fxml"));
-        Parent root = fxmlLoader.load();
-        GameController controller = fxmlLoader.getController();
-        controller.setUser(user);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("main.css");
-        stage.setScene(scene);
-        stage.show();
     }
 
     private User createUser(String username, String password){
