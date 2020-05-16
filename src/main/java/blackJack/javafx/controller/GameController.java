@@ -143,7 +143,7 @@ public class GameController implements Initializable {
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
         log.info("Stand button clicked.");
-        if((splitEnabled && standButtonClicked) || !splitEnabled || model.getPlayer().getCardsSumValues()>=21){
+        if((splitEnabled && standButtonClicked) || !splitEnabled){
             disableFundAndBetInput(false);
             hitBtn.setDisable(true);
             loadDealerCards();
