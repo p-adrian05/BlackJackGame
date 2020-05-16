@@ -1,6 +1,8 @@
 package blackJack.model;
 
 import blackJack.model.game.*;
+import blackJack.results.User;
+import blackJack.results.UserDao;
 
 /**
  * Class collects all objects needed the game and provides game related functions.
@@ -11,12 +13,14 @@ public class Model {
      * Make a {@code static final Model} object instance as singleton pattern requires.
      */
     private static final Model model = new Model();
+    private UserDao userDao = UserDao.getInstance();
 
     private Player player;
     private Person dealer;
     private CardApi cardApi;
     private GameUtils gameUtils;
     private Deck deck;
+    private User user;
 
     private Model() {
         this.player = new Player();
@@ -44,6 +48,13 @@ public class Model {
 
     public GameUtils getGameUtils() {
         return gameUtils;
+    }
+
+    public void setUser(User user){
+        this.user = user;
+    }
+    public User getUser(){
+        return this.user;
     }
 
     /**
