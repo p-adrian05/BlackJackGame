@@ -93,8 +93,6 @@ public class GameController implements Initializable {
     Model model = Model.getInstance();
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
-    User user;
-    UserDao userDao = UserDao.getInstance();
 
     @FXML
     public void okResultBtnClicked(ActionEvent actionEvent) {
@@ -122,7 +120,7 @@ public class GameController implements Initializable {
     public void newGameNoBtnClicked(ActionEvent actionEvent){
         disableNewGamePopUp();
         try {
-            setRoot(actionEvent,"login");
+            BlackJackApplication.setRoot("login");
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -217,12 +215,7 @@ public class GameController implements Initializable {
     public void logOutClick(ActionEvent actionEvent) {
         log.info("Log out has happened.");
         try {
-            Parent root = FXMLLoader.load(getClass().getResource( "/fxml/login.fxml"));
-            Stage stage = (Stage) menuBar.getScene().getWindow();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add("main.css");
-            stage.setScene(scene);
-            stage.show();
+           BlackJackApplication.setRoot("login");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -330,8 +323,6 @@ public class GameController implements Initializable {
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
-        user.setFunds(model.getPlayer().getFund());
-        userDao.update(user);
     }
     public void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
@@ -344,8 +335,8 @@ public class GameController implements Initializable {
         setScoreLabelDealer();
         setScoreLabelPlayer();
         betLabel.setText("0");
-        fundInput.textProperty().setValue(String.valueOf(user.getFunds()));
-        model.getPlayer().setFund(user.getFunds());
+        fundInput.textProperty().setValue(String.valueOf(model.getUser().getFunds()));
+        model.getPlayer().setFund(model.getUser().getFunds());
         enableSplitLayout(false);
         splitEnabled = false;
         disableAllBtn(true);
@@ -489,26 +480,12 @@ public class GameController implements Initializable {
         btn.getStyleClass().remove("redBorder");
     }
 
-    public void setUser(User user){
-        this.user = user;
-    }
-    private void setRoot(ActionEvent actionEvent, String fxml) throws IOException {
-        Parent root =  FXMLLoader.load(getClass().getResource( "/fxml/"+fxml+".fxml"));
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("main.css");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
         disableAllBtn(true);
-        Platform.runLater(() -> {
-            playerNameLabel.setText(user.getUsername());
-            fundInput.textProperty().setValue(String.valueOf(user.getFunds()));
-        });
+        playerNameLabel.setText(model.getUser().getUsername());
+        fundInput.textProperty().setValue(String.valueOf(model.getUser().getFunds()));
         log.info("INIT");
     }
 }
