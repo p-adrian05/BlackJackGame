@@ -226,6 +226,11 @@ public class GameController implements Initializable {
     }
     @FXML
     public void gameStatisticClick(ActionEvent actionEvent) {
+        try {
+            BlackJackApplication.setRoot("stat");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void editNameClicked(ActionEvent actionEvent) {
