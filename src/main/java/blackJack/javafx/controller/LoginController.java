@@ -17,12 +17,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+@Log4j2
 public class LoginController implements Initializable {
     @FXML
     private TextField userNameInput;
@@ -30,10 +33,6 @@ public class LoginController implements Initializable {
     private PasswordField passwordInput;
     @FXML
     private Label loginLabel;
-    @FXML
-    private Button registerBtn;
-    @FXML
-    private Button loginBtn;
 
     private UserDao userDao;
     Model model = Model.getInstance();
@@ -42,14 +41,18 @@ public class LoginController implements Initializable {
 
     @FXML
     public void loginBtnClicked(ActionEvent event) {
+         log.info("Login button clicked.");
          username = userNameInput.getText();
          password = passwordInput.getText();
+         log.debug("Username input: {}",username);
+         log.debug("Password input: {}",password);
          Optional<User> user = userDao.findbyUsername(username);
          if(user.isEmpty()){
              setLabelText("User not found!","red");
          }else{
              if(user.get().getPassword().equals(password) && user.get().getUsername().equals(username)){
                  setLabelText("Successful login!","green");
+                 log.info("Successful login!");
                  model.resetGame();
                  model.setUser(user.get());
                  try {
@@ -64,17 +67,20 @@ public class LoginController implements Initializable {
     }
     @FXML
     public void registerBtnClicked(ActionEvent actionEvent) {
+         log.info("Register button clicked.");
          username = userNameInput.getText();
          password = passwordInput.getText();
+         log.debug("Username input: {}",username);
+         log.debug("Password input: {}",password);
         if(validateUsername(username) && validatePassword(password)){
             if(userDao.findbyUsername(username).isPresent()){
                 setLabelText("Name is already taken!","red");
             }else{
                 userDao.persist(createUser(username,password));
+                log.info("Successful registering!");
                 setLabelText("Successful registering!","green");
                 userNameInput.clear();
                 passwordInput.clear();
-                System.out.println(userDao.findAll());
             }
         }
     }
