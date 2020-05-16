@@ -120,8 +120,14 @@ public class Model {
     public int getPrize(Result[] results){
         int prize = gameUtils.calculatePrize(player.getBet(),results);
         if(prize>0){
-            model.getPlayer().addFund(prize);
+            player.addFund(prize);
         }
+        saveUser();
         return prize;
+    }
+    
+    private void saveUser(){
+        user.setFunds(player.getFund());
+        userDao.update(user);
     }
 }
