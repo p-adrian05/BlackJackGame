@@ -118,11 +118,7 @@ public class Model {
      * @return a prize value
      */
     public int getPrize(Result[] results){
-        int prize = gameUtils.calculatePrize(player.getBet(),results);
-        if(prize>0){
-            player.addFund(prize);
-        }
-        return prize;
+        return gameUtils.calculatePrize(player.getBet(),results);
     }
 
     /**
@@ -136,8 +132,7 @@ public class Model {
         }else if(prize>0){
             user.setWonMoney(user.getWonMoney() + prize);
             user.setWonCount(user.getWonCount() + 1);
+            user.setFunds(user.getFunds() + prize);
         }
-        user.setFunds(player.getFund());
-        userDao.update(user);
     }
 }

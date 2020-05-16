@@ -143,7 +143,8 @@ public class GameController implements Initializable {
     @FXML
     public void standBtnClicked(ActionEvent actionEvent) {
         log.info("Stand button clicked.");
-        if((splitEnabled && standButtonClicked) || !splitEnabled){
+        if((splitEnabled && standButtonClicked) ||
+                (splitEnabled && model.getPlayer().getCardsSumValues()>21) || !splitEnabled){
             disableFundAndBetInput(false);
             hitBtn.setDisable(true);
             loadDealerCards();
@@ -397,6 +398,7 @@ public class GameController implements Initializable {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
             }else if(!fundInput.textProperty().getValue().equals("")){
                 model.getPlayer().setFund(Integer.parseInt(fundInput.textProperty().getValue()));
+                model.getUser().setFunds(Integer.parseInt(fundInput.textProperty().getValue()));
             }
         });
     }

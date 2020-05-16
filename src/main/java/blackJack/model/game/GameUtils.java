@@ -69,7 +69,7 @@ public class GameUtils {
            return switch (result){
                case WON -> bet*2;
                case PUSH -> bet;
-               case BLACKJACK -> (int)(bet*2.5);
+               case BLACKJACK -> (int)(bet*1.5);
                default -> -bet;
             };
      }
