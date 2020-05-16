@@ -10,11 +10,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Menu;
+import lombok.extern.log4j.Log4j2;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+@Log4j2
 public class StatController implements Initializable {
     @FXML
     private PieChart pieLoseWinCount;
@@ -24,6 +26,7 @@ public class StatController implements Initializable {
     Model model = Model.getInstance();
 
     public void setPieLoseWinCount() {
+        log.info("Setting LoseWinCount pie");
         ObservableList<PieChart.Data> pieChartDataLoseWin =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Won", model.getUser().getWonCount()),
@@ -40,6 +43,7 @@ public class StatController implements Initializable {
         pieLoseWinCount.setTitle("Won/Lost rate");
     }
     public void setPieLoseWinMoney(){
+        log.info("Setting LoseWinMoney pie");
         ObservableList<PieChart.Data> pieChartDataMoney =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Won", model.getUser().getWonMoney()),
@@ -58,6 +62,7 @@ public class StatController implements Initializable {
     }
 
     public void backGameBtnClicked(ActionEvent actionEvent) {
+        log.info("Back to game button clicked");
         try {
             BlackJackApplication.setRoot("primary");
         } catch (IOException e) {
