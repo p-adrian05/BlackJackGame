@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Class represents an implementation of {@link CardApi} interface,
@@ -49,6 +51,7 @@ public class FranceCardApi implements CardApi{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Collections.shuffle(deck.getDeckCards());
         return deck;
     }
 

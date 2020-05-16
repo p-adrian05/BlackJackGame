@@ -163,7 +163,6 @@ public class GameController implements Initializable {
             loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
             setScoreLabelPlayer();
             checkGameOver();
-            checkBlackJack();
         }
     }
     @FXML
