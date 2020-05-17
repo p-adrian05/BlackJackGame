@@ -21,8 +21,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.outputEncoding>UTF-8</project.build.outputEncoding>
-        <maven.compiler.source>14</maven.compiler.source>
-        <maven.compiler.target>14</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <exec.cleanupDaemonThreads>false</exec.cleanupDaemonThreads>
         <exec.mainClass>blackJack.javafx.Main</exec.mainClass>
         <mainClass>blackJack.javafx.Main</mainClass>
@@ -155,8 +155,8 @@
                         <configuration>
                             <rules>
                                 <requireJavaVersion>
-                                    <version>[14,)</version>
-                                    <message>JDK 14 or later is required!</message>
+                                    <version>[11,)</version>
+                                    <message>JDK 11 or later is required!</message>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
