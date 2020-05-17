@@ -6,8 +6,8 @@
     <version>1.0</version>
     <description>The BlackJack card game.</description>
     <scm>
-        <connection>https://github.com/p-adrian05/BlackJackGame.git</connection>
-        <developerConnection>https://github.com/p-adrian05/BlackJackGame.git</developerConnection>
+        <connection>scm:git:https://github.com/p-adrian05/BlackJackGame.git</connection>
+        <developerConnection>scm:git:https://github.com/p-adrian05/BlackJackGame.git</developerConnection>
     </scm>
     <developers>
         <developer>
