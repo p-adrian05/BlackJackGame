@@ -66,12 +66,16 @@ public class GameUtils {
      * @return the int value of the prize
      */
     public int calculatePrize(int bet,Result result){
-           return switch (result){
-               case WON -> bet*2;
-               case PUSH -> bet;
-               case BLACKJACK -> (int)(bet*2.5);
-               default -> -bet;
-            };
+        switch (result){
+            case WON:
+                return bet*2;
+            case PUSH:
+                return bet;
+            case BLACKJACK:
+                return (int)(bet*2.5);
+            default:
+                return -bet;
+        }
      }
 
     /**
@@ -133,12 +137,15 @@ public class GameUtils {
      * @throws IllegalArgumentException if the given int value not 1, 0 or -1
      */
     public Result convertIntResult(int result){
-        return switch (result){
-              case 1 -> Result.WON;
-              case 0 -> Result.PUSH;
-              case -1 -> Result.LOST;
-              default -> throw new IllegalArgumentException("Wrong argument: " + result);
-        };
+        switch (result){
+            case 1 :
+                return Result.WON;
+            case 0 :
+                return Result.PUSH;
+            case -1:
+                return Result.LOST;
+            default: throw new IllegalArgumentException("Wrong argument: " + result);
+        }
     }
 
     /**
