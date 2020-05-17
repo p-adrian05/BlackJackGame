@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 /**
- * Class representing the result of a game played by a specific player.
+ * Class representing a User played the game.
  */
 @Data
 @NoArgsConstructor
