@@ -92,6 +92,21 @@ public class GameUtils {
         throw new IllegalArgumentException("Results argument must contains 2 enum values.");
     }
 
+    public int calcProfit(int[] prizes,int bet){
+        int profit = 0;
+        if(prizes.length==2){
+            bet = bet/2;
+        }
+        for (int prize : prizes) {
+            if (prize < 0) {
+                profit += prize;
+            } else {
+                profit += prize - bet;
+            }
+        }
+        return profit;
+    }
+
     /**
      * Returns whether the bet is possible to given from the player.
      *
