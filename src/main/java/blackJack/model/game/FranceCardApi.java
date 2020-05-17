@@ -17,7 +17,7 @@ import java.util.Collections;
 /**
  * Class represents an implementation of {@link CardApi} interface,
  * obtaining {@link Card} objects and made an implementation {@link Deck} interface.
- * The class uses the <a href = https://deckofcardsapi.com">deckofcardsapi.com</a> service.
+ * The class uses the <a href = "https://deckofcardsapi.com">deckofcardsapi.com</a> service.
  */
 
 public class FranceCardApi implements CardApi{

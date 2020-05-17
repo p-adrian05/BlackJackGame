@@ -110,7 +110,7 @@ public class Model {
     }
 
     /**
-     * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])
+     * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])}
      * and update the {@link Player} object fund attribute.
      *
      * @param results an array of {@link Result} enum values
