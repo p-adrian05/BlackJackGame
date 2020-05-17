@@ -63,7 +63,7 @@ public class GameUtils {
      *
      * @param bet the bet from the player given
      * @param result an {@link Result} enum value which represents the result of the game
-     * @return the value of the prize
+     * @return the int value of the prize
      */
     public int calculatePrize(int bet,Result result){
            return switch (result){
@@ -75,11 +75,11 @@ public class GameUtils {
      }
 
     /**
-     * Calculates the prize to the player.
+     * Calculates the prizes to the player.
      *
      * @param bet the bet from the player given
      * @param results an array of {@link Result} enum values which represents the results of the game
-     * @return the value of the prize
+     * @return an array of the prizes, the length equals to the given results array
      * @throws IllegalArgumentException if the given array contains 0 or more than 2 values
      */
     public int[] calculatePrizes(int bet,Result[] results){
@@ -92,6 +92,13 @@ public class GameUtils {
         throw new IllegalArgumentException("Results argument must contains 2 enum values.");
     }
 
+    /**
+     * Returns a value which represents a profit
+     * for specified prizes and the actual {@link Player}'s bet.
+     * @param prizes array of int values
+     * @param bet the given {@link Player}'s bet.
+     * @return an int value which means a profit
+     */
     public int calcProfit(int[] prizes,int bet){
         int profit = 0;
         if(prizes.length==2){

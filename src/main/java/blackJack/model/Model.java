@@ -71,7 +71,7 @@ public class Model {
     /**
      * Returns whether the actual game is over checking the scores.
      *
-     * @return {@code true} if the {@link Player} score(s) pass a defined value, {@code false} otherwise
+     * @return {@code true} if the {@link Player} score(s) pass a specified value, {@code false} otherwise
      */
     public boolean isGameOver(){
         boolean pass1 = model.getPlayer().getCardsSumValues()>21;
@@ -114,12 +114,16 @@ public class Model {
      * and update the {@link Player} object fund attribute.
      *
      * @param results an array of {@link Result} enum values
-     * @return a prize value
+     * @return an array of int prizes
      */
     public int[] getPrizes(Result[] results){
         return gameUtils.calculatePrizes(player.getBet(),results);
     }
 
+    /**
+     * Updates the fund value for specified prizes
+     * @param prizes an array of int values, max length is 2
+     */
     public void manageFund(int[] prizes){
         int fund = player.getFund();
         int prize1 = prizes[0];
