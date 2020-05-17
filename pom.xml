@@ -4,6 +4,11 @@
     <groupId>blackJackFX</groupId>
     <artifactId>blackJackGame</artifactId>
     <version>1.0</version>
+    <description>The BlackJack card game.</description>
+    <scm>
+        <connection>https://github.com/p-adrian05/BlackJackGame.git</connection>
+        <developerConnection>https://github.com/p-adrian05/BlackJackGame.git</developerConnection>
+    </scm>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>14</maven.compiler.source>
