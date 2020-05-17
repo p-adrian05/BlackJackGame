@@ -9,8 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Menu;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -26,47 +24,29 @@ public class StatController implements Initializable {
 
     Model model = Model.getInstance();
 
-    public void setPieLoseWinCount() {
-        log.info("Setting LoseWinCount pie");
-        log.debug("WON: {}",model.getUser().getWonCount());
-        log.debug("LOST: {}",model.getUser().getLoseCount());
-        ObservableList<PieChart.Data> pieChartDataLoseWin =
+    public void initPies(){
+        madePie(new int[]{model.getUser().getWonCount(),
+                model.getUser().getLoseCount()},"Won/Lost rate",pieLoseWinCount);
+        madePie(new int[]{model.getUser().getWonMoney(),
+                model.getUser().getLostMoney()},"Won/Lost money rate",pieLoseWinMoney);
+    }
+    public void madePie(int[] datas, String title, PieChart pie ) {
+        log.info("Setting pie: "+title);
+        log.debug("WON: {}",datas[0]);
+        log.debug("LOST: {}",datas[1]);
+        ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Won", model.getUser().getWonCount()),
-                        new PieChart.Data("Lost", model.getUser().getLoseCount()));
-
-        pieChartDataLoseWin.forEach(data ->
+                        new PieChart.Data("Won", Math.abs(datas[0])),
+                        new PieChart.Data("Lost",  Math.abs(datas[1])));
+        pieChartData.forEach(data ->
                 data.nameProperty().bind(
                         Bindings.concat(
                                 data.getName(), " ",  data.pieValueProperty().intValue())
                 )
         );
-
-        pieLoseWinCount.setData(pieChartDataLoseWin);
-        pieLoseWinCount.setTitle("Won/Lost rate");
+        pie.setData(pieChartData);
+        pie.setTitle(title);
     }
-
-    public void setPieLoseWinMoney(){
-        log.info("Setting LoseWinMoney pie");
-        log.debug("WON: {}",model.getUser().getWonMoney());
-        log.debug("LOST: {}",model.getUser().getLostMoney());
-        ObservableList<PieChart.Data> pieChartDataMoney =
-                FXCollections.observableArrayList(
-                        new PieChart.Data("Won", model.getUser().getWonMoney()),
-                        new PieChart.Data("Lost", Math.abs(model.getUser().getLostMoney())));
-
-        pieChartDataMoney.forEach(data ->
-                data.nameProperty().bind(
-                        Bindings.concat(
-                                data.getName(), " ",  data.pieValueProperty().intValue())
-                )
-        );
-
-        pieLoseWinMoney.setData(pieChartDataMoney);
-        pieLoseWinMoney.setTitle("Won/Lost money rate");
-
-    }
-
     public void backGameBtnClicked(ActionEvent actionEvent) {
         log.info("Back to game button clicked");
         try {
@@ -78,7 +58,6 @@ public class StatController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setPieLoseWinCount();
-        setPieLoseWinMoney();
+        initPies();
     }
 }
