@@ -1,5 +1,9 @@
 package blackJack.model.game;
 
+import blackJack.model.game.Card;
+import blackJack.model.game.Deck;
+import blackJack.model.game.DeckFranceCards;
+import blackJack.model.game.FranceCard;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;

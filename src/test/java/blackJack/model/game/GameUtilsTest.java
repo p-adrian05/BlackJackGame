@@ -1,5 +1,8 @@
 package blackJack.model.game;
 
+import blackJack.model.game.GameUtils;
+import blackJack.model.game.Result;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -8,7 +11,7 @@ class GameUtilsTest {
     @Test
     void testCalculateResult() {
         GameUtils gu = new GameUtils();
-        assertEquals(Result.WON,gu.calculateResult(18,23));
+        Assertions.assertEquals(Result.WON,gu.calculateResult(18,23));
         assertEquals(Result.WON,gu.calculateResult(19,18));
         assertEquals(Result.LOST,gu.calculateResult(22,19));
         assertEquals(Result.LOST,gu.calculateResult(15,18));
