@@ -7,6 +7,9 @@ import javax.persistence.Persistence;
 import javax.swing.text.html.Option;
 import java.util.Optional;
 
+/**
+ * DAO class for the {@link User} entity.
+ */
 public class UserDao extends GenericJpaDao<User> {
 
     private UserDao() {
