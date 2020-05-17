@@ -20,7 +20,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -124,7 +123,7 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
         loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
         loadCardToPerson(1,imgContainerDealer,model.getDealer());
-        loadCardToPane(new File("images/card-back.png"),imgContainerDealer);
+        loadCardToPane(new File("card-back.png"),imgContainerDealer);
         setScoreLabelDealer();
         setScoreLabelPlayer();
         checkBlackJack();
