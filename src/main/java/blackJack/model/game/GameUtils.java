@@ -69,7 +69,7 @@ public class GameUtils {
            return switch (result){
                case WON -> bet*2;
                case PUSH -> bet;
-               case BLACKJACK -> (int)(bet*1.5);
+               case BLACKJACK -> (int)(bet*2.5);
                default -> -bet;
             };
      }
@@ -84,6 +84,7 @@ public class GameUtils {
      */
     public int calculatePrize(int bet,Result[] results){
         if(results.length == 2){
+            bet = bet/2;
             return calculatePrize(bet,results[0]) + calculatePrize(bet,results[1]);
         }else if(results.length == 1){
             return calculatePrize(bet,results[0]);

@@ -3,6 +3,7 @@ package blackJack.model;
 import blackJack.model.game.*;
 import blackJack.results.User;
 import blackJack.results.UserDao;
+import javafx.scene.layout.Pane;
 
 /**
  * Class collects all objects needed the game and provides game related functions.
@@ -13,6 +14,7 @@ public class Model {
      * Make a {@code static final Model} object instance as singleton pattern requires.
      */
     private static final Model model = new Model();
+    private UserDao userDao = UserDao.getInstance();
 
     private Player player;
     private Person dealer;
@@ -119,19 +121,29 @@ public class Model {
     public int getPrize(Result[] results){
         return gameUtils.calculatePrize(player.getBet(),results);
     }
+    public int getProfit(int prize){
+        if(prize<=0){
+            return prize;
+        }else{
+            return prize - player.getBet();
+        }
+    }
 
     /**
      * Sets user entity's attributes and save it to the database.
      */
     public void saveUser(){
         int prize = getPrize(getResult());
-        if(prize<0){
-            user.setLostMoney(user.getLostMoney() + prize);
+        int profit = getProfit(prize);
+        user.setFunds(player.getFund());
+        if(profit<0){
+            user.setLostMoney(user.getLostMoney() + profit);
             user.setLoseCount(user.getLoseCount() + 1);
-        }else if(prize>0){
-            user.setWonMoney(user.getWonMoney() + prize);
+        }else if(profit>0){
+            user.setWonMoney(user.getWonMoney() + profit);
             user.setWonCount(user.getWonCount() + 1);
-            user.setFunds(user.getFunds() + prize);
+            user.setFunds(user.getFunds()+prize);
         }
+        userDao.update(user);
     }
 }

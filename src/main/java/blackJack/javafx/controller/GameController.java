@@ -142,7 +142,7 @@ public class GameController implements Initializable {
     public void standBtnClicked(ActionEvent actionEvent) {
         log.info("Stand button clicked.");
         if((splitEnabled && standButtonClicked) ||
-                (splitEnabled && model.getPlayer().getCardsSumValues()>21) || !splitEnabled){
+                (splitEnabled && model.getPlayer().getCardsSumValues()>=21) || !splitEnabled){
             disableFundAndBetInput(false);
             hitBtn.setDisable(true);
             loadDealerCards();
@@ -163,6 +163,7 @@ public class GameController implements Initializable {
             setScoreLabelPlayer();
             checkGameOver();
         }
+        checkBlackJack();
     }
     @FXML
     public void doubleBtnClicked(ActionEvent actionEvent) {
@@ -362,11 +363,9 @@ public class GameController implements Initializable {
     }
     public void checkBlackJack(){
         log.info("Checking BlackJack has happened...");
-        boolean isBjNumber = model.getPlayer().getCardsSumValues()==21
-                && model.getPlayer().getCards().size()==2;
+        boolean isBjNumber = model.getPlayer().getCardsSumValues()==21;
         if(splitEnabled){
-            boolean isBjNumber2 = model.getPlayer().getCardsSumValuesSplit()==21
-                    && model.getPlayer().getSplitCards().size()==2;
+            boolean isBjNumber2 = model.getPlayer().getCardsSumValuesSplit()==21;
             if(isBjNumber){
                 playerScore1.setText("BLACKJACK");
             }
@@ -391,7 +390,7 @@ public class GameController implements Initializable {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
             }else if(!fundInput.textProperty().getValue().equals("")){
                 model.getPlayer().setFund(Integer.parseInt(fundInput.textProperty().getValue()));
-                model.getUser().setFunds(Integer.parseInt(fundInput.textProperty().getValue()));
+
             }
         });
     }
@@ -486,6 +485,6 @@ public class GameController implements Initializable {
         disableAllBtn(true);
         playerNameLabel.setText(model.getUser().getUsername());
         fundInput.textProperty().setValue(String.valueOf(model.getUser().getFunds()));
-        log.info("INIT");
+        log.info("INIT game controller");
     }
 }
