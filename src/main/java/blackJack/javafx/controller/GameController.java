@@ -10,26 +10,17 @@ import blackJack.model.game.Card;
 import blackJack.model.game.Person;
 import blackJack.model.Model;
 import blackJack.model.game.Result;
-import blackJack.results.User;
-import blackJack.results.UserDao;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j2;
-import net.bytebuddy.matcher.ModifierMatcher;
 
 @Log4j2
 public class GameController implements Initializable {
@@ -315,9 +306,13 @@ public class GameController implements Initializable {
         }
     }
     public void madeResult(){
-        Result[] results = model.getResult();
-        int prize = model.getPrize(results);
-        showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prize));
+        Result[] results = model.getResults();
+        int[] prizes = model.getPrizes(results);
+        if(prizes.length==2){
+            showResultPopUp(model.getGameUtils().madeStringResult(results), prizes[0] + " and " +prizes[1]);
+        }else{
+            showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prizes[0]));
+        }
         fundInput.textProperty().setValue((String.valueOf(model.getPlayer().getFund())));
         model.saveUser();
         log.info("RESULT: {}", resultLabel.getText());

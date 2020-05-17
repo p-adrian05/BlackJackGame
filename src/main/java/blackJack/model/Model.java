@@ -3,7 +3,6 @@ package blackJack.model;
 import blackJack.model.game.*;
 import blackJack.results.User;
 import blackJack.results.UserDao;
-import javafx.scene.layout.Pane;
 
 /**
  * Class collects all objects needed the game and provides game related functions.
@@ -68,7 +67,6 @@ public class Model {
         if(deck.getDeckCards().size()<20){
             this.deck = cardApi.getDeck();
         }
-
     }
     /**
      * Returns whether the actual game is over checking the scores.
@@ -105,7 +103,7 @@ public class Model {
      *
      * @return an array of {@link Result} enum values
      */
-    public Result[] getResult(){
+    public Result[] getResults(){
         return gameUtils.calculateResult(player.getCardsSumValues(),
                 player.getCardsSumValuesSplit(),
                 dealer.getCardsSumValues());
@@ -118,27 +116,30 @@ public class Model {
      * @param results an array of {@link Result} enum values
      * @return a prize value
      */
-    public int getPrize(Result[] results){
-        return gameUtils.calculatePrize(player.getBet(),results);
+    public int[] getPrizes(Result[] results){
+        return gameUtils.calculatePrizes(player.getBet(),results);
     }
-    public int getProfit(int prize){
-        if(prize<=0){
-            return prize;
-        }else{
-            return prize - player.getBet();
-        }
-    }
-    public void manageFund(Result[] results){
-        int fund = player.getFund();
+    public int getProfit(int[] prizes){
+        int profit = 0;
         int bet = player.getBet();
-        int prize1;
+        if(prizes.length==2){
+            bet/=2;
+        }
+        for (int prize : prizes) {
+            if (prize < 0) {
+                profit += prize;
+            } else {
+                profit += prize - bet;
+            }
+        }
+       return profit;
+    }
+    public void manageFund(int[] prizes){
+        int fund = player.getFund();
+        int prize1 = prizes[0];
         int prize2 = 0;
-        if(results.length == 2){
-            bet /= 2;
-            prize1 = gameUtils.calculatePrize(bet,results[0]);
-            prize2 = gameUtils.calculatePrize(bet,results[1]);
-        }else{
-            prize1 = gameUtils.calculatePrize(bet,results[0]);
+        if(prizes.length == 2){
+            prize2 = prizes[1];
         }
         if(prize1>0){
             fund += prize1;
@@ -153,10 +154,9 @@ public class Model {
      * Sets user entity's attributes and save it to the database.
      */
     public void saveUser(){
-        Result[] results = getResult();
-        int prize = getPrize(results);
-        int profit = getProfit(prize);
-        manageFund(results);
+        int[] prizes = getPrizes(getResults());
+        int profit = getProfit(prizes);
+        manageFund(prizes);
         user.setFunds(player.getFund());
         if(profit<0){
             user.setLostMoney(user.getLostMoney() + profit);

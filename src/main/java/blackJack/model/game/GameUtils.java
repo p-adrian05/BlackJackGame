@@ -82,12 +82,12 @@ public class GameUtils {
      * @return the value of the prize
      * @throws IllegalArgumentException if the given array contains 0 or more than 2 values
      */
-    public int calculatePrize(int bet,Result[] results){
+    public int[] calculatePrizes(int bet,Result[] results){
         if(results.length == 2){
             bet = bet/2;
-            return calculatePrize(bet,results[0]) + calculatePrize(bet,results[1]);
+            return new int[]{calculatePrize(bet,results[0]),calculatePrize(bet,results[1])};
         }else if(results.length == 1){
-            return calculatePrize(bet,results[0]);
+            return new int[]{calculatePrize(bet,results[0])};
         }
         throw new IllegalArgumentException("Results argument must contains 2 enum values.");
     }
