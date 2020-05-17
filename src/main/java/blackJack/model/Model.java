@@ -128,13 +128,35 @@ public class Model {
             return prize - player.getBet();
         }
     }
+    public void manageFund(Result[] results){
+        int fund = player.getFund();
+        int bet = player.getBet();
+        int prize1;
+        int prize2 = 0;
+        if(results.length == 2){
+            bet /= 2;
+            prize1 = gameUtils.calculatePrize(bet,results[0]);
+            prize2 = gameUtils.calculatePrize(bet,results[1]);
+        }else{
+            prize1 = gameUtils.calculatePrize(bet,results[0]);
+        }
+        if(prize1>0){
+            fund += prize1;
+        }
+        if(prize2>0){
+            fund += prize2;
+        }
+        player.setFund(fund);
+    }
 
     /**
      * Sets user entity's attributes and save it to the database.
      */
     public void saveUser(){
-        int prize = getPrize(getResult());
+        Result[] results = getResult();
+        int prize = getPrize(results);
         int profit = getProfit(prize);
+        manageFund(results);
         user.setFunds(player.getFund());
         if(profit<0){
             user.setLostMoney(user.getLostMoney() + profit);
@@ -142,7 +164,6 @@ public class Model {
         }else if(profit>0){
             user.setWonMoney(user.getWonMoney() + profit);
             user.setWonCount(user.getWonCount() + 1);
-            user.setFunds(user.getFunds()+prize);
         }
         userDao.update(user);
     }
