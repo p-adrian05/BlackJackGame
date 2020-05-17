@@ -110,7 +110,7 @@ public class Model {
     }
 
     /**
-     * Returns the final prize of the player using {@link GameUtils#calculatePrize(int, Result[])
+     * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])
      * and update the {@link Player} object fund attribute.
      *
      * @param results an array of {@link Result} enum values
@@ -119,21 +119,7 @@ public class Model {
     public int[] getPrizes(Result[] results){
         return gameUtils.calculatePrizes(player.getBet(),results);
     }
-    public int getProfit(int[] prizes){
-        int profit = 0;
-        int bet = player.getBet();
-        if(prizes.length==2){
-            bet/=2;
-        }
-        for (int prize : prizes) {
-            if (prize < 0) {
-                profit += prize;
-            } else {
-                profit += prize - bet;
-            }
-        }
-       return profit;
-    }
+
     public void manageFund(int[] prizes){
         int fund = player.getFund();
         int prize1 = prizes[0];
@@ -155,7 +141,7 @@ public class Model {
      */
     public void saveUser(){
         int[] prizes = getPrizes(getResults());
-        int profit = getProfit(prizes);
+        int profit = gameUtils.calcProfit(prizes,player.getBet());
         manageFund(prizes);
         user.setFunds(player.getFund());
         if(profit<0){
