@@ -144,17 +144,17 @@ public class GameUtils {
     /**
      * Made a {@code String} object from an array of {@link Result} enum values.
      *
-     * @param result an array of {@link Result} enum values which represents the results of the game
+     * @param results an array of {@link Result} enum values which represents the results of the game
      * @return a {@code String} object
      * @throws IllegalArgumentException if the given array contains 0 or more than 2 values
      */
-    public String madeStringResult(Result[] result){
-        if(result.length== 2){
-            return result[0]+" and "+result[1];
+    public String madeStringResult(Result[] results){
+        if(results.length== 2){
+            return results[0]+" and "+results[1];
         }
-        else if(result.length==1){
-            return String.valueOf(result[0]);
+        else if(results.length==1){
+            return String.valueOf(results[0]);
         }
-        throw new IllegalArgumentException("Result argument must contains 2 or 1 enum values.");
+        throw new IllegalArgumentException("Results argument must contains 2 or 1 enum values.");
     }
 }
