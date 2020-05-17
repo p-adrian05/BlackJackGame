@@ -25,7 +25,7 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-@Log4j2
+@Slf4j
 public class LoginController implements Initializable {
     @FXML
     private TextField userNameInput;

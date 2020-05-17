@@ -11,12 +11,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Menu;
 import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-@Log4j2
+@Slf4j
 public class StatController implements Initializable {
     @FXML
     private PieChart pieLoseWinCount;
@@ -27,6 +28,8 @@ public class StatController implements Initializable {
 
     public void setPieLoseWinCount() {
         log.info("Setting LoseWinCount pie");
+        log.debug("WON: {}",model.getUser().getWonCount());
+        log.debug("LOST: {}",model.getUser().getLoseCount());
         ObservableList<PieChart.Data> pieChartDataLoseWin =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Won", model.getUser().getWonCount()),
@@ -42,8 +45,11 @@ public class StatController implements Initializable {
         pieLoseWinCount.setData(pieChartDataLoseWin);
         pieLoseWinCount.setTitle("Won/Lost rate");
     }
+
     public void setPieLoseWinMoney(){
         log.info("Setting LoseWinMoney pie");
+        log.debug("WON: {}",model.getUser().getWonMoney());
+        log.debug("LOST: {}",model.getUser().getLostMoney());
         ObservableList<PieChart.Data> pieChartDataMoney =
                 FXCollections.observableArrayList(
                         new PieChart.Data("Won", model.getUser().getWonMoney()),
