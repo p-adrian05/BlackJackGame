@@ -6,18 +6,11 @@ import blackJack.results.User;
 import blackJack.results.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
-import javafx.stage.Stage;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
@@ -46,7 +39,7 @@ public class LoginController implements Initializable {
          password = passwordInput.getText();
          log.debug("Username input: {}",username);
          log.debug("Password input: {}",password);
-         Optional<User> user = userDao.findbyUsername(username);
+         Optional<User> user = userDao.findByUsername(username);
          if(user.isEmpty()){
              setLabelText("User not found!","red");
          }else{
@@ -73,7 +66,7 @@ public class LoginController implements Initializable {
          log.debug("Username input: {}",username);
          log.debug("Password input: {}",password);
         if(validateUsername(username) && validatePassword(password)){
-            if(userDao.findbyUsername(username).isPresent()){
+            if(userDao.findByUsername(username).isPresent()){
                 setLabelText("Name is already taken!","red");
             }else{
                 userDao.persist(createUser(username,password));
