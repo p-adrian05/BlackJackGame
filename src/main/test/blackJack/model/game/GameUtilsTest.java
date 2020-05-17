@@ -82,19 +82,31 @@ class GameUtilsTest {
     }
 
     @Test
-    void testCalculatePrize2() {
-//        GameUtils gu = new GameUtils();
-//        assertEquals(50,gu.calculatePrize(20,new Result[]{Result.BLACKJACK,Result.BLACKJACK}));
-//        assertEquals(45,gu.calculatePrize(20,new Result[]{Result.BLACKJACK,Result.WON}));
-//        assertEquals(15,gu.calculatePrize(20,new Result[]{Result.BLACKJACK,Result.LOST}));
-//        assertEquals(35,gu.calculatePrize(20,new Result[]{Result.BLACKJACK,Result.PUSH}));
-//        assertEquals(0,gu.calculatePrize(20,new Result[]{Result.PUSH,Result.LOST}));
-//        assertEquals(10,gu.calculatePrize(20,new Result[]{Result.WON,Result.LOST}));
-//        assertEquals(20,gu.calculatePrize(20,new Result[]{Result.PUSH,Result.PUSH}));
-//        assertEquals(40,gu.calculatePrize(20,new Result[]{Result.WON}));
-//
-//        assertThrows(IllegalArgumentException.class,() -> gu.calculatePrize(10,new Result[]{}));
-//        assertThrows(IllegalArgumentException.class,() -> gu.calculatePrize(10,new Result[]{Result.PUSH,Result.PUSH,Result.LOST}));
+    void testCalculatePrizes() {
+        GameUtils gu = new GameUtils();
+        assertArrayEquals(new int[]{25,25},gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.BLACKJACK}));
+        assertArrayEquals(new int[]{25,20},gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.WON}));
+        assertArrayEquals(new int[]{25,-10},gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.LOST}));
+        assertArrayEquals(new int[]{25,10},gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.PUSH}));
+        assertArrayEquals(new int[]{10,-10},gu.calculatePrizes(20,new Result[]{Result.PUSH,Result.LOST}));
+        assertArrayEquals(new int[]{20,-10},gu.calculatePrizes(20,new Result[]{Result.WON,Result.LOST}));
+        assertArrayEquals(new int[]{10,10},gu.calculatePrizes(20,new Result[]{Result.PUSH,Result.PUSH}));
+        assertArrayEquals(new int[]{40},gu.calculatePrizes(20,new Result[]{Result.WON}));
+        assertArrayEquals(new int[]{-20},gu.calculatePrizes(20,new Result[]{Result.LOST}));
+
+        assertThrows(IllegalArgumentException.class,() -> gu.calculatePrizes(10,new Result[]{}));
+        assertThrows(IllegalArgumentException.class,() -> gu.calculatePrizes(20,new Result[]{Result.PUSH,Result.PUSH,Result.LOST}));
+    }
+    @Test
+    void testCalcProfit() {
+        GameUtils gu = new GameUtils();
+        assertEquals(25,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.WON}),20));
+        assertEquals(0,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.WON,Result.LOST}),20));
+        assertEquals(0,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.PUSH,Result.PUSH}),20));
+        assertEquals(-10,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.PUSH,Result.LOST}),20));
+        assertEquals(20,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.WON}),20));
+        assertEquals(-20,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.LOST}),20));
+        assertEquals(0,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.PUSH}),20));
     }
 
     @Test
