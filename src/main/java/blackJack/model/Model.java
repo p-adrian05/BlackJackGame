@@ -4,6 +4,8 @@ import blackJack.model.game.*;
 import blackJack.results.User;
 import blackJack.results.UserDao;
 
+import javax.inject.Inject;
+
 /**
  * Class collects all objects needed the game and provides game related functions.
  */
@@ -13,7 +15,8 @@ public class Model {
      * Make a {@code static final Model} object instance as singleton pattern requires.
      */
     private static final Model model = new Model();
-    private UserDao userDao = UserDao.getInstance();
+    @Inject
+    private UserDao userDao;
 
     private Player player;
     private Person dealer;
@@ -155,6 +158,5 @@ public class Model {
             user.setWonMoney(user.getWonMoney() + profit);
             user.setWonCount(user.getWonCount() + 1);
         }
-        userDao.update(user);
     }
 }
