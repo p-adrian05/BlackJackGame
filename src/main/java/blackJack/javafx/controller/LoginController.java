@@ -6,13 +6,19 @@ import blackJack.results.User;
 import blackJack.results.UserDao;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.inject.Inject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
@@ -27,13 +33,18 @@ public class LoginController implements Initializable {
     @FXML
     private Label loginLabel;
 
+    @Inject
     private UserDao userDao;
+
+    @Inject
+    private FXMLLoader fxmlLoader;
+
     Model model = Model.getInstance();
     String username;
     String password;
 
     @FXML
-    public void loginBtnClicked(ActionEvent event) {
+    public void loginBtnClicked(ActionEvent event) throws IOException {
          log.info("Login button clicked.");
          username = userNameInput.getText();
          password = passwordInput.getText();
@@ -48,11 +59,8 @@ public class LoginController implements Initializable {
                  log.info("Successful login!");
                  model.resetGame();
                  model.setUser(user.get());
-                 try {
-                     BlackJackApplication.setRoot("primary");
-                 } catch (IOException e) {
-                     e.printStackTrace();
-                 }
+                 log.info("Loading primary screen...");
+                 setRootToFxml("primary",event);
              }else{
                  setLabelText("Wrong password!","red");
              }
@@ -77,6 +85,21 @@ public class LoginController implements Initializable {
             }
         }
     }
+    private void setRootToFxml(String fxml, ActionEvent event){
+        fxmlLoader.setLocation(getClass().getResource("/fxml/"+fxml+".fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("main.css");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private boolean validateUsername(String username){
         if (username.matches("[A-Za-z0-9_]+")){
             return true;
@@ -115,7 +138,7 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        userDao = UserDao.getInstance();
+
     }
 }
 

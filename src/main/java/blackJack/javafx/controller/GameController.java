@@ -12,15 +12,22 @@ import blackJack.model.Model;
 import blackJack.model.game.Result;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
+
+import javax.inject.Inject;
 
 @Slf4j
 public class GameController implements Initializable {
@@ -78,10 +85,15 @@ public class GameController implements Initializable {
     private VBox newGamePopUpContainer;
     @FXML
     private AnchorPane mainContainer;
+    @FXML
+    private MenuBar menuBar;
 
     Model model = Model.getInstance();
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
+
+    @Inject
+    private FXMLLoader fxmlLoader;
 
     @FXML
     public void okResultBtnClicked(ActionEvent actionEvent) {
@@ -106,13 +118,9 @@ public class GameController implements Initializable {
         log.info("Yes button clicked on new game pop up.");
     }
     @FXML
-    public void newGameNoBtnClicked(ActionEvent actionEvent){
+    public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
         disableNewGamePopUp();
-        try {
-            BlackJackApplication.setRoot("login");
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+        setRootToFxml("login",actionEvent);
         log.info("No button clicked on new game pop up.");
     }
     @FXML
@@ -204,21 +212,13 @@ public class GameController implements Initializable {
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
         log.info("Log out has happened.");
-        try {
-           BlackJackApplication.setRoot("login");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setRootToFxmlMenuBar("login",menuBar);
         makeNewRound();
     }
     @FXML
     public void gameStatisticClick(ActionEvent actionEvent) {
         log.info("Game statistic button clicked");
-        try {
-            BlackJackApplication.setRoot("stat");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setRootToFxmlMenuBar("stat",menuBar);
     }
     @FXML
     public void editNameClicked(ActionEvent actionEvent) {
@@ -472,6 +472,34 @@ public class GameController implements Initializable {
     private void deactivateBtn(Button btn){
         btn.setDisable(true);
         btn.getStyleClass().remove("redBorder");
+    }
+    private void setRootToFxml(String fxml, ActionEvent event){
+        fxmlLoader.setLocation(getClass().getResource("/fxml/"+fxml+".fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("main.css");
+        stage.setScene(scene);
+        stage.show();
+    }
+    private void setRootToFxmlMenuBar(String fxml, MenuBar menuBar){
+        fxmlLoader.setLocation(getClass().getResource("/fxml/"+fxml+".fxml"));
+        Parent root = null;
+        try {
+            root = fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Stage stage = (Stage) menuBar.getScene().getWindow();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("main.css");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @Override
