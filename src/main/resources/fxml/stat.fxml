@@ -5,9 +5,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox alignment="CENTER" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackJack.javafx.controller.StatController">
+<HBox alignment="CENTER" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackJack.javafx.controller.StatController">
    <children>
-      <VBox alignment="CENTER" prefHeight="629.0" prefWidth="1002.0" spacing="20.0">
+      <VBox alignment="CENTER" prefHeight="629.0" prefWidth="1002.0" spacing="20.0" style="-fx-background-color: green;">
           <padding>
               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
           </padding>

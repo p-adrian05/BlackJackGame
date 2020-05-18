@@ -7,9 +7,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<HBox alignment="CENTER" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackJack.javafx.controller.GameController">
+<HBox alignment="CENTER" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="blackJack.javafx.controller.GameController">
    <children>
-      <VBox alignment="CENTER" prefHeight="819.0" prefWidth="1076.0" style="-fx-background-color: grey;">
+      <VBox alignment="CENTER" prefHeight="819.0" prefWidth="1076.0" style="-fx-background-color: green;">
          <children>
             <AnchorPane prefHeight="878.0" prefWidth="1075.0">
                <children>
@@ -143,7 +143,7 @@
                               </Pane>
                               <Pane onMouseClicked="#coin20Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
-                                    <Button fx:id="coin20" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="20" textFill="WHITE" />
+                                    <Button fx:id="coin20" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: blue;" styleClass="coinBtn" text="20" textFill="WHITE" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="100.0" />
@@ -151,7 +151,7 @@
                               </Pane>
                               <Pane layoutX="190.0" layoutY="10.0" onMouseClicked="#coin40Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
-                                    <Button fx:id="coin40" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="40" textFill="WHITE" />
+                                    <Button fx:id="coin40" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: orange;" styleClass="coinBtn" text="40" textFill="WHITE" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="100.0" />
@@ -159,7 +159,7 @@
                               </Pane>
                               <Pane layoutX="543.0" layoutY="10.0" onMouseClicked="#coin80Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
-                                    <Button fx:id="coin80" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="80" textFill="WHITE" />
+                                    <Button fx:id="coin80" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: red;" styleClass="coinBtn" text="80" textFill="WHITE" />
                                  </children>
                               </Pane>
                            </children>
@@ -208,7 +208,6 @@
                           <menus>
                             <Menu mnemonicParsing="false" styleClass="menu" text="Menu">
                               <items>
-                                <MenuItem id="editName" fx:id="editName" mnemonicParsing="false" onAction="#editNameClicked" text="Change name" />
                                     <MenuItem id="gameStatistic" fx:id="gameStatistic" mnemonicParsing="false" onAction="#gameStatisticClick" text="Game Statistic" />
                                     <MenuItem id="logOutItem" fx:id="logOutItem" mnemonicParsing="false" onAction="#logOutClick" text="Log out" />
                               </items>
@@ -219,7 +218,7 @@
                   </AnchorPane>
                   <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="307.0" layoutY="554.0" prefHeight="206.0" prefWidth="503.0" visible="false">
                      <children>
-                        <Label id="resultLabel" fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="383.0" text="RESULT" textFill="WHITE">
+                        <Label id="resultLabel" fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="517.0" text="RESULT" textFill="WHITE">
                            <font>
                               <Font size="44.0" />
                            </font>
