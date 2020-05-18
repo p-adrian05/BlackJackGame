@@ -1,10 +1,14 @@
 package util.jpa;
 
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.Optional;
+
+import javax.inject.Inject;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import com.google.inject.persist.Transactional;
 
 /**
  * Generic JPA DAO class that provides JPA support for the entity class
@@ -41,6 +45,7 @@ public abstract class GenericJpaDao<T> {
      *
      * @param entityManager the underlying {@link EntityManager} instance
      */
+    @Inject
     public void setEntityManager(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
@@ -50,10 +55,9 @@ public abstract class GenericJpaDao<T> {
      *
      * @param entity the entity instance to be persisted in the database
      */
+    @Transactional
     public void persist(T entity) {
-        entityManager.getTransaction().begin();
         entityManager.persist(entity);
-        entityManager.getTransaction().commit();
     }
 
     /**
@@ -65,6 +69,7 @@ public abstract class GenericJpaDao<T> {
      * @return an {@link Optional} object wrapping the entity instance with
      * the specified primary key
      */
+    @Transactional
     public Optional<T> find(Object primaryKey) {
         return Optional.ofNullable(entityManager.find(entityClass, primaryKey));
     }
@@ -74,6 +79,7 @@ public abstract class GenericJpaDao<T> {
      *
      * @return the list of all instances of the entity class from the database
      */
+    @Transactional
     public List<T> findAll() {
         TypedQuery<T> typedQuery = entityManager.createQuery("FROM " + entityClass.getSimpleName(), entityClass);
         return typedQuery.getResultList();
@@ -84,10 +90,9 @@ public abstract class GenericJpaDao<T> {
      *
      * @param entity the entity instance to be removed from the database
      */
+    @Transactional
     public void remove(T entity) {
-        entityManager.getTransaction().begin();
         entityManager.remove(entity);
-        entityManager.getTransaction().commit();
     }
 
     /**
@@ -95,10 +100,9 @@ public abstract class GenericJpaDao<T> {
      *
      * @param entity the entity instance to be updated in the database
      */
+    @Transactional
     public void update(T entity) {
-        entityManager.getTransaction().begin();
         entityManager.merge(entity);
-        entityManager.getTransaction().commit();
     }
 
 }
