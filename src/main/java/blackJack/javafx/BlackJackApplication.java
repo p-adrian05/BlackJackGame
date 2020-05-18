@@ -41,6 +41,7 @@ public class BlackJackApplication extends Application {
         stage.setScene(scene);
         stage.setHeight(1000);
         stage.setWidth(1300);
+        stage.setTitle("BlackJack");
         stage.setResizable(true);
         stage.show();
     }
