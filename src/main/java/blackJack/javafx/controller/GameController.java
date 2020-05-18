@@ -221,9 +221,6 @@ public class GameController implements Initializable {
         setRootToFxmlMenuBar("stat",menuBar);
     }
     @FXML
-    public void editNameClicked(ActionEvent actionEvent) {
-    }
-    @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
         manageBet(80);
     }
