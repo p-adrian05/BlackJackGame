@@ -1,6 +1,5 @@
 package blackJack.javafx.controller;
 
-import blackJack.javafx.BlackJackApplication;
 import blackJack.model.Model;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -67,7 +66,7 @@ public class StatController implements Initializable {
         }
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("main.css");
+        scene.getStylesheets().add("fxml/main.css");
         stage.setScene(scene);
         stage.show();
     }

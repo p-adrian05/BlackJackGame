@@ -1,6 +1,5 @@
 package blackJack.javafx.controller;
 
-import blackJack.javafx.BlackJackApplication;
 import blackJack.model.Model;
 import blackJack.results.User;
 import blackJack.results.UserDao;
@@ -95,7 +94,7 @@ public class LoginController implements Initializable {
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("main.css");
+        scene.getStylesheets().add("fxml/main.css");
         stage.setScene(scene);
         stage.show();
     }

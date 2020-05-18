@@ -37,7 +37,7 @@ public class BlackJackApplication extends Application {
         fxmlLoader.setLocation(getClass().getResource("/fxml/login.fxml"));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("main.css");
+        scene.getStylesheets().add("fxml/main.css");
         stage.setScene(scene);
         stage.setHeight(1000);
         stage.setWidth(1300);

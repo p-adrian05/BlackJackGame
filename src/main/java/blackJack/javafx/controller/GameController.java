@@ -1,11 +1,9 @@
 package blackJack.javafx.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import blackJack.javafx.BlackJackApplication;
 import blackJack.model.game.Card;
 import blackJack.model.game.Person;
 import blackJack.model.Model;
@@ -131,7 +129,7 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
         loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
         loadCardToPerson(1,imgContainerDealer,model.getDealer());
-        loadCardToPane(new File("card-back.png"),imgContainerDealer);
+        loadCardToPane(getClass().getResource("/images/card-back.png").toExternalForm(),imgContainerDealer);
         setScoreLabelDealer();
         setScoreLabelPlayer();
         checkBlackJack();
@@ -450,10 +448,10 @@ public class GameController implements Initializable {
         }
         return imageView;
     }
-    public void loadCardToPane(File file, Pane placetoLoad){
+    public void loadCardToPane(String path, Pane placetoLoad){
         ImageView imageView;
         try {
-            imageView = madeImageViewFromUrl(file.toString(), getLastChildXLayout(placetoLoad) + 25);
+            imageView = madeImageViewFromUrl(path, getLastChildXLayout(placetoLoad) + 25);
             placetoLoad.getChildren().add(imageView);
             log.info("Image URL: {}",imageView.getImage().getUrl());
         } catch (Exception e) {
@@ -480,7 +478,7 @@ public class GameController implements Initializable {
         }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("main.css");
+        scene.getStylesheets().add("fxml/main.css");
         stage.setScene(scene);
         stage.show();
     }
@@ -494,7 +492,7 @@ public class GameController implements Initializable {
         }
         Stage stage = (Stage) menuBar.getScene().getWindow();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add("main.css");
+        scene.getStylesheets().add("fxml/main.css");
         stage.setScene(scene);
         stage.show();
     }
