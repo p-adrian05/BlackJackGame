@@ -1,34 +1,16 @@
 package blackJack.results;
 
 import com.google.inject.persist.Transactional;
-import org.checkerframework.checker.nullness.Opt;
 import util.jpa.GenericJpaDao;
-
-import javax.persistence.Persistence;
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 /**
  * DAO class for the {@link User} entity.
  */
 public class UserDao extends GenericJpaDao<User> {
-
-//    private UserDao() {
-//        super(User.class);
-//    }
     public UserDao() {
         super(User.class);
     }
-//    private static UserDao instance;
-//
-//    public static UserDao getInstance() {
-//        if (instance == null) {
-//            instance = new UserDao();
-//            instance.setEntityManager(Persistence.createEntityManagerFactory("blackJackGame").createEntityManager());
-//        }
-//        return instance;
-//    }
-
     /**
      * Returns a {@link User} entity instance with the specified username from the
      * database. The method returns an empty {@link Optional} object when
