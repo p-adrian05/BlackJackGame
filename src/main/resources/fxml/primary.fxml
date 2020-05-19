@@ -209,7 +209,7 @@
                             <Menu mnemonicParsing="false" styleClass="menu" text="Menu">
                               <items>
                                     <MenuItem id="gameStatistic" fx:id="gameStatistic" mnemonicParsing="false" onAction="#gameStatisticClick" text="Game Statistic" />
-                                    <MenuItem id="logOutItem" fx:id="logOutItem" mnemonicParsing="false" onAction="#logOutClick" text="Log out" />
+                                    <MenuItem id="logOutItem" fx:id="logOutItem" mnemonicParsing="false" onAction="#logOutClick" text="Logout" />
                               </items>
                             </Menu>
                           </menus>
