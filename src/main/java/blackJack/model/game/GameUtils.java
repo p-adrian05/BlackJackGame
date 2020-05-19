@@ -119,6 +119,28 @@ public class GameUtils {
     }
 
     /**
+     * Calculates the fund value for specified prizes. Only positive prizes add to funds.
+     *
+     * @param prizes an array of int values
+     * @param fund the fund to calculate
+     * @return a calculated fund value
+     */
+    public int calculateFund(int[] prizes,int fund){
+        int prize1 = prizes[0];
+        int prize2 = 0;
+        if(prizes.length == 2){
+            prize2 = prizes[1];
+        }
+        if(prize1>0){
+            fund += prize1;
+        }
+        if(prize2>0){
+            fund += prize2;
+        }
+        return fund;
+    }
+
+    /**
      * Returns whether the bet is possible to given from the player.
      *
      * @param bet the actual bet form the player

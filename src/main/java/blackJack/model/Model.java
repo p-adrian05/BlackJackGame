@@ -59,6 +59,7 @@ public class Model {
     public void setUser(User user){
         this.user = user;
     }
+
     public User getUser(){
         return this.user;
     }
@@ -80,9 +81,9 @@ public class Model {
      * @return {@code true} if the {@link Player} score(s) pass a specified value, {@code false} otherwise
      */
     public boolean isGameOver(){
-        boolean pass1 = model.getPlayer().getCardsSumValues()>21;
-        if(model.getPlayer().getCardsSumValuesSplit()>0){
-            boolean pass2 = model.getPlayer().getCardsSumValuesSplit()>21;
+        boolean pass1 = player.getCardsSumValues()>21;
+        if(player.getCardsSumValuesSplit()>0){
+            boolean pass2 = player.getCardsSumValuesSplit()>21;
             return pass1 && pass2;
         }
         else{
@@ -96,9 +97,9 @@ public class Model {
      * @return {@code true} if the {@link Player} first score not pass 21 value and the second pass 21, {@code false} otherwise
      */
     public boolean isSplitGameOver(){
-        if(model.getPlayer().getCardsSumValuesSplit()>0){
-            boolean pass1 = model.getPlayer().getCardsSumValues()>21;
-            boolean pass2 = model.getPlayer().getCardsSumValuesSplit()>21;
+        if(player.getCardsSumValuesSplit()>0){
+            boolean pass1 = player.getCardsSumValues()>21;
+            boolean pass2 = player.getCardsSumValuesSplit()>21;
             return !pass1 && pass2;
         }
         return false;
@@ -116,8 +117,7 @@ public class Model {
     }
 
     /**
-     * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])}
-     * and update the {@link Player} object fund attribute.
+     * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])}.
      *
      * @param results an array of {@link Result} enum values
      * @return an array of int prizes
@@ -127,33 +127,15 @@ public class Model {
     }
 
     /**
-     * Updates the fund value for specified prizes
-     * @param prizes an array of int values, max length is 2
-     */
-    public void manageFund(int[] prizes){
-        int fund = player.getFund();
-        int prize1 = prizes[0];
-        int prize2 = 0;
-        if(prizes.length == 2){
-            prize2 = prizes[1];
-        }
-        if(prize1>0){
-            fund += prize1;
-        }
-        if(prize2>0){
-            fund += prize2;
-        }
-        player.setFund(fund);
-    }
-
-    /**
      * Sets user entity's attributes and save it to the database.
      */
     public void saveUser(){
         int[] prizes = getPrizes(getResults());
         int profit = gameUtils.calcProfit(prizes,player.getBet());
-        manageFund(prizes);
-        user.setFunds(player.getFund());
+        user.setFunds(gameUtils.calculateFund(prizes,player.getFund()));
+        if(player.getBet()>user.getMaxBet()){
+            user.setMaxBet(player.getBet());
+        }
         if(profit<0){
             user.setLostMoney(user.getLostMoney() + profit);
             user.setLoseCount(user.getLoseCount() + 1);
