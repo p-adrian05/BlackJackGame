@@ -1,4 +1,4 @@
-package blackJack.model.game;
+package blackJack.model.card;
 
 import java.util.List;
 

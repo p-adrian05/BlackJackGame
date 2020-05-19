@@ -1,4 +1,4 @@
-package blackJack.model.game;
+package blackJack.model.card;
 
 
 import lombok.AllArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.net.URL;
-import java.util.Map;
 
 /**
  * Class represents an implementation of {@link Card} interface.

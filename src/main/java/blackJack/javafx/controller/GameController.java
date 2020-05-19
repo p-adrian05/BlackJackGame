@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import blackJack.model.game.Card;
+import blackJack.model.card.Card;
 import blackJack.model.game.Person;
 import blackJack.model.Model;
 import blackJack.model.game.Result;

@@ -1,5 +1,8 @@
 package blackJack.model;
 
+import blackJack.model.card.CardApi;
+import blackJack.model.card.Deck;
+import blackJack.model.card.FranceCardApi;
 import blackJack.model.game.*;
 import blackJack.results.User;
 import blackJack.results.UserDao;

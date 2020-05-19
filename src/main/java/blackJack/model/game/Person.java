@@ -1,6 +1,8 @@
 package blackJack.model.game;
 
 import blackJack.model.Model;
+import blackJack.model.card.Card;
+import blackJack.model.card.Deck;
 
 import java.util.List;
 

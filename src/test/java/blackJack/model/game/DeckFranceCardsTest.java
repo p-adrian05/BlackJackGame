@@ -1,14 +1,12 @@
 package blackJack.model.game;
 
-import blackJack.model.game.Card;
-import blackJack.model.game.Deck;
-import blackJack.model.game.DeckFranceCards;
-import blackJack.model.game.FranceCard;
+import blackJack.model.card.Card;
+import blackJack.model.card.Deck;
+import blackJack.model.card.DeckFranceCards;
+import blackJack.model.card.FranceCard;
 import org.junit.jupiter.api.Test;
 
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

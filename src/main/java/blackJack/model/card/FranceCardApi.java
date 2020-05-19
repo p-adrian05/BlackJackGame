@@ -1,4 +1,4 @@
-package blackJack.model.game;
+package blackJack.model.card;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Collections;
 
 /**
