@@ -38,6 +38,9 @@ public class User {
 
     @Column(nullable = false)
     private int loseCount;
+    
+    @Column(nullable = false)
+    private int maxBet;
 
     @Version
     @Setter(AccessLevel.NONE)
