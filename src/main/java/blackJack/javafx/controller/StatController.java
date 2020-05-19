@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,30 +27,36 @@ public class StatController implements Initializable {
     private PieChart pieLoseWinCount;
     @FXML
     private PieChart pieLoseWinMoney;
+    @FXML
+    private Label maxBetLabel;
+    @FXML
+    private Label totalProfitLabel;
 
     @Inject
     private FXMLLoader fxmlLoader;
 
     Model model = Model.getInstance();
 
-    public void initPies(){
+    public void initData(){
         madePie(new int[]{model.getUser().getWonCount(),
                 model.getUser().getLoseCount()},"Won/Lost rate",pieLoseWinCount);
         madePie(new int[]{model.getUser().getWonMoney(),
                 model.getUser().getLostMoney()},"Won/Lost money rate",pieLoseWinMoney);
+        maxBetLabel.setText(String.valueOf(model.getUser().getMaxBet()));
+        totalProfitLabel.setText(String.valueOf(model.getUser().getWonMoney() + model.getUser().getLostMoney()));
     }
-    public void madePie(int[] datas, String title, PieChart pie ) {
+    public void madePie(int[] data, String title, PieChart pie ) {
         log.info("Setting pie: "+title);
-        log.debug("WON: {}",datas[0]);
-        log.debug("LOST: {}",datas[1]);
+        log.debug("WON: {}",data[0]);
+        log.debug("LOST: {}",data[1]);
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList(
-                        new PieChart.Data("Won", Math.abs(datas[0])),
-                        new PieChart.Data("Lost",  Math.abs(datas[1])));
-        pieChartData.forEach(data ->
-                data.nameProperty().bind(
+                        new PieChart.Data("Won", Math.abs(data[0])),
+                        new PieChart.Data("Lost",  Math.abs(data[1])));
+        pieChartData.forEach(item ->
+                item.nameProperty().bind(
                         Bindings.concat(
-                                data.getName(), " ",  data.pieValueProperty().intValue())
+                                item.getName(), " ",  item.pieValueProperty().intValue())
                 )
         );
         pie.setData(pieChartData);
@@ -73,6 +80,6 @@ public class StatController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        initPies();
+        initData();
     }
 }
