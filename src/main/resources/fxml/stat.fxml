@@ -17,18 +17,18 @@
             <AnchorPane prefHeight="643.0" prefWidth="962.0" styleClass="container">
                <children>
                   <PieChart id="pieLoseWinCount" fx:id="pieLoseWinCount" layoutX="54.0" layoutY="95.0" prefHeight="389.0" prefWidth="401.0" />
-                  <Button id="backGameBtn" fx:id="backGameBtn" layoutX="435.0" layoutY="604.0" mnemonicParsing="false" onAction="#backGameBtnClicked" styleClass="btn" text="Back To Game" />
+                  <Button id="backGameBtn" fx:id="backGameBtn" layoutX="435.0" layoutY="604.0" mnemonicParsing="false" onAction="#backGameBtnClicked" styleClass="btn" text="Back to game" />
                   <PieChart id="pieLoseWinMoney" fx:id="pieLoseWinMoney" layoutX="514.0" layoutY="95.0" prefHeight="389.0" prefWidth="401.0" />
                   <HBox alignment="TOP_CENTER" layoutX="-2.0" layoutY="531.0" prefHeight="62.0" prefWidth="962.0" spacing="400.0">
                      <children>
                         <Group>
                            <children>
-                              <Label prefHeight="62.0" prefWidth="121.0" text="Highest bet: " textFill="WHITE">
+                              <Label prefHeight="62.0" prefWidth="121.0" text="Highest bet: ">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="maxBetLabel" layoutX="121.0" prefHeight="62.0" prefWidth="76.0" text="0" textFill="WHITE">
+                              <Label fx:id="maxBetLabel" layoutX="121.0" prefHeight="62.0" prefWidth="76.0" text="0">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
@@ -40,12 +40,12 @@
                         </Group>
                         <Group layoutX="10.0" layoutY="10.0">
                            <children>
-                              <Label prefHeight="62.0" prefWidth="121.0" text="Total profit:" textFill="WHITE">
+                              <Label prefHeight="62.0" prefWidth="121.0" text="Total profit:">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="totalProfitLabel" layoutX="121.0" prefHeight="62.0" prefWidth="76.0" text="0" textFill="WHITE">
+                              <Label fx:id="totalProfitLabel" layoutX="121.0" prefHeight="62.0" prefWidth="76.0" text="0">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
