@@ -103,13 +103,13 @@ class GameUtilsTest {
     @Test
     void testCalcProfit() {
         GameUtils gu = new GameUtils();
-        assertEquals(25,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.WON}),20));
-        assertEquals(0,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.WON,Result.LOST}),20));
-        assertEquals(0,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.PUSH,Result.PUSH}),20));
-        assertEquals(-10,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.PUSH,Result.LOST}),20));
-        assertEquals(20,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.WON}),20));
-        assertEquals(-20,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.LOST}),20));
-        assertEquals(0,gu.calcProfit(gu.calculatePrizes(20,new Result[]{Result.PUSH}),20));
+        assertEquals(25,gu.calcProfit(new int[]{25,20},20));
+        assertEquals(0,gu.calcProfit(new int[]{20,-10},20));
+        assertEquals(0,gu.calcProfit(new int[]{10,10},20));
+        assertEquals(-10,gu.calcProfit(new int[]{10,-10},20));
+        assertEquals(20,gu.calcProfit(new int[]{40},20));
+        assertEquals(-20,gu.calcProfit(new int[]{-20},20));
+        assertEquals(0,gu.calcProfit(new int[]{20},20));
     }
 
     @Test
@@ -137,5 +137,18 @@ class GameUtilsTest {
         assertEquals("BLACKJACK", gu.madeStringResult(new Result[]{Result.BLACKJACK}));
         assertThrows(IllegalArgumentException.class,() -> gu.madeStringResult(new Result[]{}));
         assertThrows(IllegalArgumentException.class,() -> gu.madeStringResult(new Result[]{Result.PUSH,Result.WON,Result.LOST}));
+    }
+
+    @Test
+    void calculateFund() {
+        GameUtils gu = new GameUtils();
+        assertEquals(110,gu.calculateFund(new int[]{10,-10},100));
+        assertEquals(100,gu.calculateFund(new int[]{10,20},70));
+        assertEquals(70,gu.calculateFund(new int[]{-10,-20},70));
+        assertEquals(90,gu.calculateFund(new int[]{-15,20},70));
+        assertEquals(70,gu.calculateFund(new int[]{-15},70));
+        assertEquals(70,gu.calculateFund(new int[]{0},70));
+        assertEquals(80,gu.calculateFund(new int[]{10},70));
+
     }
 }
