@@ -2,13 +2,20 @@ package blackJack.javafx.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Time;
 import java.util.ResourceBundle;
 
 import blackJack.model.card.Card;
 import blackJack.model.game.Person;
 import blackJack.model.Model;
 import blackJack.model.game.Result;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -23,6 +30,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
@@ -41,6 +49,8 @@ public class GameController implements Initializable {
     private Label resultLabel;
     @FXML
     private Label prizeLabel;
+    @FXML
+    private Label timerLabel;
     @FXML
     private Label playerScore;
     @FXML
@@ -90,6 +100,10 @@ public class GameController implements Initializable {
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
 
+    private static final Integer DURATIONTIME = 5;
+    private final IntegerProperty timeSeconds = new SimpleIntegerProperty(DURATIONTIME);
+    private Timeline timeline;
+
     @Inject
     private FXMLLoader fxmlLoader;
 
@@ -132,11 +146,13 @@ public class GameController implements Initializable {
         loadCardToPane(getClass().getResource("/images/card-back.png").toExternalForm(),imgContainerDealer);
         setScoreLabelDealer();
         setScoreLabelPlayer();
+        madeTimer(timerLabel);
         checkBlackJack();
         checkSplitEnable();
     }
     @FXML
-    public void standBtnClicked(ActionEvent actionEvent) {
+    public void standBtnClicked() {
+        timeline.stop();
         log.info("Stand button clicked.");
         if((splitEnabled && standButtonClicked) ||
                 (splitEnabled && model.getPlayer().getCardsSumValues()>=21) || !splitEnabled){
@@ -152,6 +168,7 @@ public class GameController implements Initializable {
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
         log.info("Hit button clicked.");
+        madeTimer(timerLabel);
         if(splitEnabled){
             hitBtnClickedInSplitMode();
         }
@@ -235,7 +252,23 @@ public class GameController implements Initializable {
         manageBet(10);
     }
 
-    public void showResultPopUp(String result, String prize){
+    private void madeTimer(Label label){
+        if (timeline != null) {
+            timeline.stop();
+            timerLabel.textProperty().unbind();
+        }
+        timeline = new Timeline();
+        label.textProperty().bind(timeSeconds.asString());
+        timeSeconds.set(DURATIONTIME);
+        timeline = new Timeline();
+        timeline.getKeyFrames().add(
+                new KeyFrame(Duration.seconds(DURATIONTIME + 1),
+                        event -> standBtnClicked(),
+                        new KeyValue(timeSeconds, 0)));
+        timeline.playFromStart();
+    }
+
+    private void showResultPopUp(String result, String prize){
         mainContainer.setDisable(true);
         resultPopUpContainer.setDisable(false);
         resultPopUpContainer.setVisible(true);
@@ -248,12 +281,12 @@ public class GameController implements Initializable {
         warningPopUpContainer.setDisable(false);
         warningLabel.setText(message);
     }
-    public void showNewGamePopUp(){
+    private void showNewGamePopUp(){
         mainContainer.setDisable(true);
         newGamePopUpContainer.setVisible(true);
         newGamePopUpContainer.setDisable(false);
     }
-    public void disableNewGamePopUp(){
+    private void disableNewGamePopUp(){
         mainContainer.setDisable(false);
         newGamePopUpContainer.setVisible(false);
         newGamePopUpContainer.setDisable(true);
@@ -262,7 +295,7 @@ public class GameController implements Initializable {
         playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
         log.debug("Player score: {}", model.getPlayer().getCardsSumValues());
     }
-    public void setScoreLabelDealer(){
+    private void setScoreLabelDealer(){
         dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
         log.debug("Dealer score: {}", model.getDealer().getCardsSumValues());
     }
@@ -270,7 +303,7 @@ public class GameController implements Initializable {
         fundInput.setDisable(bool);
         betCoinsContainer.setDisable(bool);
     }
-    public void enableSplitLayout(boolean bool){
+    private void enableSplitLayout(boolean bool){
         if(bool){
             playerGroup.setVisible(false);
             playerScore.setVisible(false);
@@ -283,14 +316,14 @@ public class GameController implements Initializable {
             playerGroup2.setVisible(false);
         }
     }
-    public void disableAllBtn(boolean bool){
+    private void disableAllBtn(boolean bool){
         dealBtn.setDisable(bool);
         hitBtn.setDisable(bool);
         splitBtn.setDisable(bool);
         doubleBtn.setDisable(bool);
         standBtn.setDisable(bool);
     }
-    public void checkSplitEnable(){
+    private void checkSplitEnable(){
         log.info("Checking split button allowing...");
         if(model.getPlayer().isEnableSplitCards()){
             activateBtn(splitBtn);
@@ -300,7 +333,10 @@ public class GameController implements Initializable {
             log.info("Split button not allowed.");
         }
     }
-    public void madeResult(){
+    private void madeResult(){
+        timeline.stop();
+        timerLabel.textProperty().unbind();
+        timerLabel.setText("");
         Result[] results = model.getResults();
         int[] prizes = model.getPrizes(results);
         if(prizes.length==2){
@@ -314,7 +350,7 @@ public class GameController implements Initializable {
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
     }
-    public void makeNewRound(){
+    private void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
         imgContainerPlayer.getChildren().remove(1,imgContainerPlayer.getChildren().size());
         if(splitEnabled){
@@ -333,7 +369,7 @@ public class GameController implements Initializable {
         standButtonClicked = false;
         log.info("Made new round.");
     }
-    public void loadDealerCards(){
+    private void loadDealerCards(){
         log.info("Dealer getting cards: ");
         imgContainerDealer.getChildren().remove(2);
         while(model.getDealer().getCardsSumValues()<17){
@@ -341,7 +377,7 @@ public class GameController implements Initializable {
             setScoreLabelDealer();
         }
     }
-    public void checkGameOver(){
+    private void checkGameOver(){
         log.info("Checking game over...");
         if (model.isGameOver()) {
             madeResult();
@@ -351,7 +387,7 @@ public class GameController implements Initializable {
             madeResult();
         }
     }
-    public void checkBlackJack(){
+    private void checkBlackJack(){
         log.info("Checking BlackJack has happened...");
         boolean isBjNumber = model.getPlayer().getCardsSumValues()==21;
         if(splitEnabled){
@@ -399,7 +435,7 @@ public class GameController implements Initializable {
             return false;
         }
     }
-    public void loadCardToPerson(int amount, Pane placetoLoad, Person person){
+    private void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
         for(int i = 0; i<amount;i++) {
@@ -448,7 +484,7 @@ public class GameController implements Initializable {
         }
         return imageView;
     }
-    public void loadCardToPane(String path, Pane placetoLoad){
+    private void loadCardToPane(String path, Pane placetoLoad){
         ImageView imageView;
         try {
             imageView = madeImageViewFromUrl(path, getLastChildXLayout(placetoLoad) + 25);

@@ -214,6 +214,10 @@
                             </Menu>
                           </menus>
                         </MenuBar>
+                        <Label fx:id="timerLabel" alignment="CENTER" layoutX="514.0" layoutY="10.0" prefHeight="25.0" prefWidth="86.0" textAlignment="CENTER" textFill="RED">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
                      </children>
                   </AnchorPane>
                   <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="307.0" layoutY="554.0" prefHeight="206.0" prefWidth="503.0" visible="false">
@@ -251,7 +255,7 @@
                         </Button>
                      </children>
                   </VBox>
-                  <VBox id="newGamePopUpContainer" fx:id="newGamePopUpContainer" alignment="TOP_CENTER" cacheShape="false" disable="true" layoutX="419.0" layoutY="554.0" prefHeight="156.0" prefWidth="280.0" visible="false">
+                  <VBox id="newGamePopUpContainer" fx:id="newGamePopUpContainer" alignment="TOP_CENTER" cacheShape="false" disable="true" layoutX="419.0" layoutY="536.0" prefHeight="174.0" prefWidth="280.0" visible="false">
                      <children>
                         <Label id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="385.0" text="New Game?" textAlignment="CENTER" textFill="#3a9406">
                            <font>
