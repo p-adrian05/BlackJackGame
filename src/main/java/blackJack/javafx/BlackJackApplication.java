@@ -7,11 +7,14 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 import util.juice.PersistenceModule;
 
 import javax.inject.Inject;
+import javax.swing.*;
+import java.awt.*;
 import java.util.List;
 
 @Slf4j
@@ -38,6 +41,7 @@ public class BlackJackApplication extends Application {
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         scene.getStylesheets().add("fxml/main.css");
+        stage.getIcons().add(new Image(getClass().getResource("/images/icon.png").toString()));
         stage.setScene(scene);
         stage.setHeight(1000);
         stage.setWidth(1300);
