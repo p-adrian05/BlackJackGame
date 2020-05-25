@@ -7,8 +7,6 @@ import blackJack.model.game.*;
 import blackJack.results.User;
 import blackJack.results.UserDao;
 
-import javax.inject.Inject;
-
 /**
  * Class collects all objects needed the game and provides game related functions.
  */

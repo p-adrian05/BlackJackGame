@@ -1,6 +1,5 @@
 package blackJack.results;
 
-import com.google.inject.persist.Transactional;
 import util.jpa.GenericJpaDao;
 
 import javax.persistence.Persistence;
