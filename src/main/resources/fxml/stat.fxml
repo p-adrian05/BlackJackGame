@@ -23,12 +23,12 @@
                      <children>
                         <Group>
                            <children>
-                              <Label prefHeight="62.0" prefWidth="121.0" text="Highest bet: ">
+                              <Label prefHeight="62.0" prefWidth="133.0" text="Highest bet: ">
                                  <font>
                                     <Font size="19.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="maxBetLabel" layoutX="121.0" prefHeight="62.0" prefWidth="76.0" text="0">
+                              <Label fx:id="maxBetLabel" layoutX="121.0" prefHeight="62.0" prefWidth="83.0" text="0">
                                  <font>
                                     <Font size="19.0" />
                                  </font>

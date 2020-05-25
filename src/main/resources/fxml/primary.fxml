@@ -30,7 +30,7 @@
                                     </Group>
                                     <Group layoutX="11.0">
                                        <children>
-                                          <Label text="Dealer" textFill="WHITE">
+                                          <Label layoutX="-6.0" layoutY="1.0" text="Dealer" textFill="WHITE">
                                              <font>
                                                 <Font name="System Bold" size="21.0" />
                                              </font>
@@ -55,7 +55,7 @@
                               </Group>
                               <Group layoutX="481.0" layoutY="299.0">
                                  <children>
-                                    <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="-64.0" layoutY="-3.0" prefHeight="31.0" prefWidth="192.0" text="Player" textFill="WHITE">
+                                    <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="-100.0" layoutY="-5.0" prefHeight="31.0" prefWidth="266.0" text="Player" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="21.0" />
                                        </font>
@@ -138,12 +138,18 @@
                                     <Insets right="30.0" />
                                  </padding>
                                  <children>
-                                    <Button fx:id="coin10" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="10" textFill="WHITE" />
+                                    <Button fx:id="coin10" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="10" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
                                  </children>
                               </Pane>
                               <Pane onMouseClicked="#coin20Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
-                                    <Button fx:id="coin20" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: blue;" styleClass="coinBtn" text="20" textFill="WHITE" />
+                                    <Button fx:id="coin20" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: blue;" styleClass="coinBtn" text="20" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
                                  </children>
                                  <HBox.margin>
                                     <Insets right="100.0" />
@@ -151,7 +157,10 @@
                               </Pane>
                               <Pane layoutX="190.0" layoutY="10.0" onMouseClicked="#coin40Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
-                                    <Button fx:id="coin40" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: orange;" styleClass="coinBtn" text="40" textFill="WHITE" />
+                                    <Button fx:id="coin40" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: orange;" styleClass="coinBtn" text="40" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
                                  </children>
                                  <HBox.margin>
                                     <Insets right="100.0" />
@@ -159,7 +168,10 @@
                               </Pane>
                               <Pane layoutX="543.0" layoutY="10.0" onMouseClicked="#coin80Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
                                  <children>
-                                    <Button fx:id="coin80" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: red;" styleClass="coinBtn" text="80" textFill="WHITE" />
+                                    <Button fx:id="coin80" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: red;" styleClass="coinBtn" text="80" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
                                  </children>
                               </Pane>
                            </children>
@@ -190,7 +202,7 @@
                                  <children>
                                     <Label layoutX="37.0" layoutY="20.0" prefHeight="32.0" prefWidth="61.0" text="Funds" textFill="WHITE">
                                        <font>
-                                          <Font size="22.0" />
+                                          <Font size="20.0" />
                                        </font>
                                     </Label>
                                     <TextField id="fundInput" fx:id="fundInput" layoutX="130.0" layoutY="20.0" prefHeight="32.0" prefWidth="115.0" text="0" />
