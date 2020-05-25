@@ -39,6 +39,10 @@ public class Player extends Person{
         hands = 1;
     }
 
+    /**
+     * Sets {@link #hands} attribute value to 2, means that the player has a second place where the cards can load.
+     * It makes sense in split mode after stand for the first hand.
+     */
     public void madeSecondHand(){
         this.hands = 2;
     }
