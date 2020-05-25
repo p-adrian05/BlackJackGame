@@ -5,6 +5,7 @@ import java.net.URL;
 import java.sql.Time;
 import java.util.ResourceBundle;
 
+import blackJack.javafx.BlackJackApplication;
 import blackJack.model.card.Card;
 import blackJack.model.game.Person;
 import blackJack.model.Model;
@@ -93,8 +94,6 @@ public class GameController implements Initializable {
     private VBox newGamePopUpContainer;
     @FXML
     private AnchorPane mainContainer;
-    @FXML
-    private MenuBar menuBar;
 
     Model model = Model.getInstance();
     boolean splitEnabled = false;
@@ -103,9 +102,6 @@ public class GameController implements Initializable {
     private static final Integer DURATIONTIME = 5;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(DURATIONTIME);
     private Timeline timeline;
-
-    @Inject
-    private FXMLLoader fxmlLoader;
 
     @FXML
     public void okResultBtnClicked(ActionEvent actionEvent) {
@@ -132,7 +128,7 @@ public class GameController implements Initializable {
     @FXML
     public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
         disableNewGamePopUp();
-        setRootToFxml("login",actionEvent);
+        BlackJackApplication.setRoot("login");
         log.info("No button clicked on new game pop up.");
     }
     @FXML
@@ -227,13 +223,21 @@ public class GameController implements Initializable {
     @FXML
     public void logOutClick(ActionEvent actionEvent) {
         log.info("Log out has happened.");
-        setRootToFxmlMenuBar("login",menuBar);
+        try {
+            BlackJackApplication.setRoot("login");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         makeNewRound();
     }
     @FXML
     public void gameStatisticClick(ActionEvent actionEvent) {
         log.info("Game statistic button clicked");
-        setRootToFxmlMenuBar("stat",menuBar);
+        try {
+            BlackJackApplication.setRoot("stat");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     public void coin80Clicked(MouseEvent mouseEvent) {
@@ -504,35 +508,6 @@ public class GameController implements Initializable {
         btn.setDisable(true);
         btn.getStyleClass().remove("redBorder");
     }
-    private void setRootToFxml(String fxml, ActionEvent event){
-        fxmlLoader.setLocation(getClass().getResource("/fxml/"+fxml+".fxml"));
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("fxml/main.css");
-        stage.setScene(scene);
-        stage.show();
-    }
-    private void setRootToFxmlMenuBar(String fxml, MenuBar menuBar){
-        fxmlLoader.setLocation(getClass().getResource("/fxml/"+fxml+".fxml"));
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) menuBar.getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("fxml/main.css");
-        stage.setScene(scene);
-        stage.show();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();

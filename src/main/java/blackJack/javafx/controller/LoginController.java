@@ -1,5 +1,6 @@
 package blackJack.javafx.controller;
 
+import blackJack.javafx.BlackJackApplication;
 import blackJack.model.Model;
 import blackJack.results.User;
 import blackJack.results.UserDao;
@@ -32,18 +33,13 @@ public class LoginController implements Initializable {
     @FXML
     private Label loginLabel;
 
-    @Inject
-    private UserDao userDao;
-
-    @Inject
-    private FXMLLoader fxmlLoader;
-
     Model model = Model.getInstance();
+    private UserDao userDao = UserDao.getInstance();;
     String username;
     String password;
 
     @FXML
-    public void loginBtnClicked(ActionEvent event) throws IOException {
+    public void loginBtnClicked(ActionEvent actionEvent) throws IOException {
          log.info("Login button clicked.");
          username = userNameInput.getText();
          password = passwordInput.getText();
@@ -59,7 +55,7 @@ public class LoginController implements Initializable {
                  model.resetGame();
                  model.setUser(user.get());
                  log.info("Loading primary screen...");
-                 setRootToFxml("primary",event);
+                 BlackJackApplication.setRoot("primary");
              }else{
                  setLabelText("Wrong password!","red");
              }
@@ -83,20 +79,6 @@ public class LoginController implements Initializable {
                 passwordInput.clear();
             }
         }
-    }
-    private void setRootToFxml(String fxml, ActionEvent event){
-        fxmlLoader.setLocation(getClass().getResource("/fxml/"+fxml+".fxml"));
-        Parent root = null;
-        try {
-            root = fxmlLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("fxml/main.css");
-        stage.setScene(scene);
-        stage.show();
     }
 
     private boolean validateUsername(String username){

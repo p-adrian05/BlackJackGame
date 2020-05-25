@@ -2,14 +2,25 @@ package blackJack.results;
 
 import com.google.inject.persist.Transactional;
 import util.jpa.GenericJpaDao;
+
+import javax.persistence.Persistence;
 import java.util.Optional;
 
 /**
  * DAO class for the {@link User} entity.
  */
 public class UserDao extends GenericJpaDao<User> {
-    public UserDao() {
+    private UserDao() {
         super(User.class);
+    }
+    private static UserDao instance;
+
+    public static UserDao getInstance() {
+        if (instance == null) {
+            instance = new UserDao();
+            instance.setEntityManager(Persistence.createEntityManagerFactory("blackJackGame").createEntityManager());
+        }
+        return instance;
     }
     /**
      * Returns a {@link User} entity instance with the specified username from the
@@ -20,7 +31,6 @@ public class UserDao extends GenericJpaDao<User> {
      * @return an {@link Optional} object wrapping the {@link User} instance with
      * the specified primary key
      */
-    @Transactional
     public Optional<User> findByUsername(String username) {
         try {
             return Optional.of(entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)

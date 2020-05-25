@@ -1,5 +1,6 @@
 package blackJack.javafx.controller;
 
+import blackJack.javafx.BlackJackApplication;
 import blackJack.model.Model;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -32,9 +33,6 @@ public class StatController implements Initializable {
     @FXML
     private Label totalProfitLabel;
 
-    @Inject
-    private FXMLLoader fxmlLoader;
-
     Model model = Model.getInstance();
 
     public void initData(){
@@ -64,18 +62,11 @@ public class StatController implements Initializable {
     }
     public void backGameBtnClicked(ActionEvent actionEvent) {
         log.info("Back to game button clicked");
-        fxmlLoader.setLocation(getClass().getResource("/fxml/primary.fxml"));
-        Parent root = null;
         try {
-            root = fxmlLoader.load();
+            BlackJackApplication.setRoot("primary");
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add("fxml/main.css");
-        stage.setScene(scene);
-        stage.show();
     }
 
     @Override
