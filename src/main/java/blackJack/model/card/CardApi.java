@@ -1,11 +1,13 @@
 package blackJack.model.card;
 
+import java.util.Optional;
+
 /**
  * The CardApi interface provides to get an implementation of {@link Deck} interface.
  */
 
 public interface CardApi {
 
-     Deck getDeck();
+     Optional<Deck> getDeck();
 
 }

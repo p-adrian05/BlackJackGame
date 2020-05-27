@@ -4,10 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import org.apache.commons.io.IOUtils;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -16,7 +14,7 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 
 /**
  * Class represents an implementation of {@link CardApi} interface,
@@ -33,8 +31,6 @@ public class FranceCardApi implements CardApi{
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    private final InputStream cardsData = getClass().getClassLoader().getResourceAsStream("cards.json");
-
     /**
      * Returns a {@link DeckFranceCards} implementation of {@link Deck} interface uses the
      * api service if it is successfully returns, otherwise read the data from a local
@@ -43,7 +39,7 @@ public class FranceCardApi implements CardApi{
      * @return {@link DeckFranceCards} object
      */
     @Override
-    public Deck getDeck(){
+    public Optional<Deck> getDeck(){
         DeckFranceCards deck = null;
         String cardsRes;
         try {
@@ -52,14 +48,16 @@ public class FranceCardApi implements CardApi{
             if(requestIsSuccess(cardsRes)){
                 deck = GSON.fromJson(cardsRes, DeckFranceCards.class);
             }else{
-                deck = GSON.fromJson(new InputStreamReader(cardsData), DeckFranceCards.class);
+                deck = GSON.fromJson(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("cards.json")), DeckFranceCards.class);
             }
         } catch (IOException e) {
-            deck = GSON.fromJson(new InputStreamReader(cardsData), DeckFranceCards.class);
+            deck = GSON.fromJson(new InputStreamReader(getClass().getClassLoader().getResourceAsStream("cards.json")), DeckFranceCards.class);
             e.printStackTrace();
         }
-        Collections.shuffle(deck.getDeckCards());
-        return deck;
+        if(deck!=null){
+            Collections.shuffle(deck.getDeckCards());
+        }
+        return Optional.ofNullable(deck);
     }
     /**
      * Returns a {@code String} data used the {@value #DECK_URI} URI to get the service ID

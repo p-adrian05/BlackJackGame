@@ -433,19 +433,25 @@ public class GameController implements Initializable {
     private void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
-        for(int i = 0; i<amount;i++) {
-            card = model.getDeck().getCard();
-            log.debug("Card object: {}",card.toString());
-            try{
-                imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
-                log.info("Card image URL: {}",imageView.getImage().getUrl());
-                placetoLoad.getChildren().add(imageView);
-            }catch (Exception ex){
-                log.error(ex.getMessage(),ex);
-                showWarningPopUp("Failed to load image");
-                placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),card.getCode()));
+        if(model.getDeck()!=null){
+            for(int i = 0; i<amount;i++) {
+                card = model.getDeck().getCard();
+                log.debug("Card object: {}",card.toString());
+                try{
+                    imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
+                    log.info("Card image URL: {}",imageView.getImage().getUrl());
+                    placetoLoad.getChildren().add(imageView);
+                }catch (Exception ex){
+                    log.error(ex.getMessage(),ex);
+                    showWarningPopUp("Failed to load image");
+                    placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),card.getCode()));
+                }
+                person.addCard(card);
             }
-            person.addCard(card);
+        }
+        else{
+            showWarningPopUp("Failed to load cards data");
+            log.error("Failed to load cards data");
         }
     }
     private Label madeLabel(double xLayout,String msg){

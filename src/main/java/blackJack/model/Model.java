@@ -6,10 +6,12 @@ import blackJack.model.card.FranceCardApi;
 import blackJack.model.game.*;
 import blackJack.results.User;
 import blackJack.results.UserDao;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Class collects all objects needed the game and provides game related functions.
  */
+@Slf4j
 public class Model {
 
     /**
@@ -32,7 +34,11 @@ public class Model {
         this.dealer = new Dealer();
         this.cardApi = new FranceCardApi();
         this.gameUtils = new GameUtils();
-        this.deck = cardApi.getDeck();
+        if(cardApi.getDeck().isPresent()){
+            this.deck = cardApi.getDeck().get();
+        }else{
+            log.error("Failed to load cards data from json file.");
+        }
     }
 
     public Player getPlayer() {
@@ -70,8 +76,8 @@ public class Model {
     public void resetGame(){
         this.player = new Player();
         this.dealer = new Dealer();
-        if(deck.getDeckCards().size()<20){
-            this.deck = cardApi.getDeck();
+        if(deck!= null && deck.getDeckCards().size()<20){
+            this.deck = cardApi.getDeck().get();
         }
     }
     /**
