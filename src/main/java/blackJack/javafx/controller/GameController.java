@@ -3,6 +3,9 @@ package blackJack.javafx.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import blackJack.javafx.BlackJackApplication;
 import blackJack.model.card.Card;
@@ -12,6 +15,7 @@ import blackJack.model.game.Result;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
@@ -85,12 +89,15 @@ public class GameController implements Initializable {
     private VBox newGamePopUpContainer;
     @FXML
     private AnchorPane mainContainer;
+    @FXML
+    private ProgressIndicator progressIndicator;
+
 
     Model model = Model.getInstance();
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
 
-    private static final Integer DURATIONTIME = 5;
+    private static final Integer DURATIONTIME = 15;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(DURATIONTIME);
     private Timeline timeline;
 
@@ -143,14 +150,11 @@ public class GameController implements Initializable {
         log.info("Stand button clicked.");
         if((splitEnabled && standButtonClicked) ||
                 (splitEnabled && model.getPlayer().getCardsSumValues()>=21) || !splitEnabled){
-            disableFundAndBetInput(false);
-            hitBtn.setDisable(true);
             loadDealerCards();
             madeResult();
         }else{
             standButtonClicked = true;
         }
-
     }
     @FXML
     public void hitBtnClicked(ActionEvent actionEvent) {
@@ -329,21 +333,34 @@ public class GameController implements Initializable {
         }
     }
     private void madeResult(){
+        progressIndicator.setVisible(true);
+        disableFundAndBetInput(true);
+        disableAllBtn(true);
         timeline.stop();
         timerLabel.textProperty().unbind();
         timerLabel.setText("");
         Result[] results = model.getResults();
         int[] prizes = model.getPrizes(results);
-        if(prizes.length==2){
-            showResultPopUp(model.getGameUtils().madeStringResult(results), prizes[0] + " and " +prizes[1]);
-        }else{
-            showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prizes[0]));
-        }
         fundInput.textProperty().setValue((String.valueOf(model.getPlayer().getFund())));
         model.saveUser();
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
+        new Thread(() -> {
+            try {
+                Thread.sleep(2000);
+                Platform.runLater(()->{
+                if(prizes.length==2){
+                    showResultPopUp(model.getGameUtils().madeStringResult(results), prizes[0] + " and " +prizes[1]);
+                }else{
+                    showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prizes[0]));
+                }
+                progressIndicator.setVisible(false);
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
     private void makeNewRound(){
         imgContainerDealer.getChildren().remove(1,imgContainerDealer.getChildren().size());
@@ -353,6 +370,7 @@ public class GameController implements Initializable {
             imgContainerPlayer2.getChildren().remove(1,imgContainerPlayer2.getChildren().size());
         }
         model.resetGame();
+        disableFundAndBetInput(false);
         setScoreLabelDealer();
         setScoreLabelPlayer();
         betLabel.setText("0");
@@ -433,6 +451,7 @@ public class GameController implements Initializable {
     private void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
+
         if(model.getDeck()!=null){
             for(int i = 0; i<amount;i++) {
                 card = model.getDeck().getCard();

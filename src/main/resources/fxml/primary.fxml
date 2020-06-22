@@ -96,6 +96,7 @@
                                     </Pane>
                                  </children>
                               </Group>
+                              <ProgressIndicator fx:id="progressIndicator" blendMode="COLOR_DODGE" cache="true" cacheHint="QUALITY" layoutX="487.0" layoutY="244.0" prefHeight="400.0" prefWidth="72.0" visible="false" />
                            </children>
                         </Pane>
                         <HBox alignment="TOP_CENTER" layoutX="151.0" layoutY="590.0" prefHeight="48.0" prefWidth="818.0">
