@@ -148,5 +148,6 @@ public class Model {
             user.setWonMoney(user.getWonMoney() + profit);
             user.setWonCount(user.getWonCount() + 1);
         }
+        userDao.update(user);
     }
 }
