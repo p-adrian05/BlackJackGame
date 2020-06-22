@@ -3,6 +3,8 @@ package blackJack.model.game;
 import blackJack.model.Model;
 import blackJack.model.card.Card;
 import blackJack.model.card.Deck;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
@@ -17,7 +19,8 @@ import java.util.List;
 @Data
 public class Player extends Person{
 
-    private int fund;
+    @Setter(AccessLevel.NONE)
+    private final IntegerProperty fund;
 
     @Setter(AccessLevel.NONE)
     private int bet;
@@ -32,7 +35,7 @@ public class Player extends Person{
      * Creates a {@code Player} object, initialize attributes.
      */
     public Player() {
-        fund = 0;
+        fund = new SimpleIntegerProperty(0);
         bet = 0;
         cards = new LinkedList<>();
         splitCards = new LinkedList<>();
@@ -52,10 +55,10 @@ public class Player extends Person{
      */
     public void addBetFromFund(int bet) {
         this.bet += bet;
-        this.fund -= bet;
+        this.fund.set(fund.subtract(bet).get());
     }
     public void addFund(int fund) {
-        this.fund += fund;
+        this.fund.set(this.fund.add(bet).get());
     }
     private void addCardSplit(Card card){
         splitCards.add(card);

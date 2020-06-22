@@ -29,6 +29,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import javafx.util.converter.NumberStringConverter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -341,8 +342,6 @@ public class GameController implements Initializable {
         timerLabel.setText("");
         Result[] results = model.getResults();
         int[] prizes = model.getPrizes(results);
-        fundInput.textProperty().setValue((String.valueOf(model.getPlayer().getFund())));
-        model.saveUser();
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
@@ -355,6 +354,7 @@ public class GameController implements Initializable {
                 }else{
                     showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prizes[0]));
                 }
+                model.saveUser();
                 progressIndicator.setVisible(false);
                 });
             } catch (InterruptedException e) {
@@ -370,12 +370,12 @@ public class GameController implements Initializable {
             imgContainerPlayer2.getChildren().remove(1,imgContainerPlayer2.getChildren().size());
         }
         model.resetGame();
+        model.getPlayer().getFund().set(model.getUser().getFunds());
+        fundInput.textProperty().bindBidirectional(model.getPlayer().getFund(),new NumberStringConverter());
         disableFundAndBetInput(false);
         setScoreLabelDealer();
         setScoreLabelPlayer();
         betLabel.setText("0");
-        fundInput.textProperty().setValue(String.valueOf(model.getUser().getFunds()));
-        model.getPlayer().setFund(model.getUser().getFunds());
         enableSplitLayout(false);
         splitEnabled = false;
         disableAllBtn(true);
@@ -428,17 +428,15 @@ public class GameController implements Initializable {
             if (!newText.matches("\\d*")) {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
             }else if(!fundInput.textProperty().getValue().equals("")){
-                model.getPlayer().setFund(Integer.parseInt(fundInput.textProperty().getValue()));
-
+                model.getPlayer().getFund().set(Integer.parseInt(fundInput.textProperty().getValue()));
             }
         });
     }
     private boolean manageBet(int value){
-        if(model.getGameUtils().validateBet(value,model.getPlayer().getFund())){
+        if(model.getGameUtils().validateBet(value,model.getPlayer().getFund().intValue())){
             log.info("Player's valid bet: {}",value);
             model.getPlayer().addBetFromFund(value);
             betLabel.setText(String.valueOf(model.getPlayer().getBet()));
-            fundInput.textProperty().setValue(String.valueOf(model.getPlayer().getFund()));
             dealBtn.setDisable(false);
             return true;
         }
@@ -529,7 +527,8 @@ public class GameController implements Initializable {
         readInFundInputListener();
         disableAllBtn(true);
         playerNameLabel.setText(model.getUser().getUsername());
-        fundInput.textProperty().setValue(String.valueOf(model.getUser().getFunds()));
+        model.getPlayer().getFund().set(model.getUser().getFunds());
+        fundInput.textProperty().bindBidirectional(model.getPlayer().getFund(),new NumberStringConverter());
         log.info("INIT game controller");
     }
 }

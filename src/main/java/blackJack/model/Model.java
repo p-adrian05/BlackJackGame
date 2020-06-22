@@ -74,7 +74,7 @@ public class Model {
      * for making a new game.
      */
     public void resetGame(){
-        this.player = new Player();
+       this.player = new Player();
         this.dealer = new Dealer();
         if(deck!= null && deck.getDeckCards().size()<20){
             this.deck = cardApi.getDeck().get();
@@ -137,7 +137,8 @@ public class Model {
     public void saveUser(){
         int[] prizes = getPrizes(getResults());
         int profit = gameUtils.calcProfit(prizes,player.getBet());
-        user.setFunds(gameUtils.calculateFund(prizes,player.getFund()));
+        user.setFunds(gameUtils.calculateFund(prizes,player.getFund().intValue()));
+        player.getFund().set(user.getFunds());
         if(player.getBet()>user.getMaxBet()){
             user.setMaxBet(player.getBet());
         }
