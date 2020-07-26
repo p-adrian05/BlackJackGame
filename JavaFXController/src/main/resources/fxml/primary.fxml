@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="CENTER" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.GameController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="819.0" prefWidth="1076.0" style="-fx-background-color: green;">
+         <children>
+            <AnchorPane prefHeight="878.0" prefWidth="1075.0">
+               <children>
+                  <AnchorPane id="mainContainer" fx:id="mainContainer" prefHeight="902.0" prefWidth="1113.0" style="-fx-background-color: lightgreen;" styleClass="container">
+                     <children>
+                        <Pane id="mainPane" layoutX="48.0" layoutY="39.0" prefHeight="538.0" prefWidth="1025.0" style="-fx-background-color: green;">
+                           <children>
+                              <Group layoutX="470.0" layoutY="28.0">
+                                 <children>
+                                    <Group layoutY="80.0">
+                                       <children>
+                                          <Pane fx:id="imgContainerDealer" layoutX="7.0" prefHeight="85.0" prefWidth="72.0" styleClass="imgContainerDealer">
+                                             <children>
+                                                <Circle fill="#ededed00" layoutX="36.0" layoutY="43.0" radius="42.0" stroke="#fff600" strokeWidth="2.0" styleClass="ring" />
+                                             </children>
+                                             </Pane>
+                                       </children>
+                                    </Group>
+                                    <Group layoutX="11.0">
+                                       <children>
+                                          <Label layoutX="-6.0" layoutY="1.0" text="Dealer" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="21.0" />
+                                             </font>
+                                          </Label>
+                                          <Label id="dealerScore" fx:id="dealerScore" layoutX="26.0" layoutY="31.0" text="0" textFill="WHITE">
+                                             <font>
+                                                <Font size="22.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                 </children>
+                              </Group>
+                              <Group id="playerGroup" fx:id="playerGroup" layoutX="470.0" layoutY="379.0">
+                                 <children>
+                                    <Pane fx:id="imgContainerPlayer" layoutX="7.0" prefHeight="85.0" prefWidth="72.0" styleClass="imgContainerPlayer">
+                                       <children>
+                                          <Circle id="ring" fx:id="ring" fill="#ededed00" layoutX="36.0" layoutY="43.0" radius="42.0" stroke="#fff600" strokeWidth="2.0" styleClass="ring" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Group>
+                              <Group layoutX="481.0" layoutY="299.0">
+                                 <children>
+                                    <Label fx:id="playerNameLabel" alignment="CENTER" layoutX="-100.0" layoutY="-5.0" prefHeight="31.0" prefWidth="266.0" text="Player" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="21.0" />
+                                       </font>
+                                    </Label>
+                                    <Label id="playerScore" fx:id="playerScore" layoutX="26.0" layoutY="31.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Group>
+                              <Line endX="140.0" layoutX="565.0" layoutY="269.0" startX="-244.0" stroke="#1aff12" strokeLineCap="ROUND" strokeWidth="2.0" />
+                              <Group fx:id="playerGroup1" layoutX="276.0" layoutY="329.0" visible="false">
+                                 <children>
+                                    <Label fx:id="playerScore1" alignment="CENTER" contentDisplay="CENTER" layoutX="-20.0" layoutY="-4.0" prefHeight="32.0" prefWidth="128.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane id="imgContainerPlayer1" fx:id="imgContainerPlayer1" layoutX="4.0" layoutY="51.0" prefHeight="88.0" prefWidth="80.0" styleClass="imgContainerPlayer">
+                                       <children>
+                                          <Circle fill="#ededed00" layoutX="40.0" layoutY="44.0" radius="43.0" stroke="#fff600" strokeWidth="2.0" styleClass="ring" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Group>
+                              <Group fx:id="playerGroup2" layoutX="662.0" layoutY="329.0" visible="false">
+                                 <children>
+                                    <Label fx:id="playerScore2" alignment="CENTER" contentDisplay="CENTER" layoutX="-22.0" layoutY="-6.0" prefHeight="32.0" prefWidth="132.0" text="0" textAlignment="CENTER" textFill="WHITE">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Pane id="imgContainerPlayer1" fx:id="imgContainerPlayer2" layoutX="4.0" layoutY="51.0" prefHeight="88.0" prefWidth="80.0" styleClass="imgContainerPlayer">
+                                       <children>
+                                          <Circle fill="#ededed00" layoutX="40.0" layoutY="44.0" radius="43.0" stroke="#fff600" strokeWidth="2.0" styleClass="ring" />
+                                       </children>
+                                    </Pane>
+                                 </children>
+                              </Group>
+                              <ProgressIndicator fx:id="progressIndicator" blendMode="COLOR_DODGE" cache="true" cacheHint="QUALITY" layoutX="487.0" layoutY="244.0" prefHeight="400.0" prefWidth="72.0" visible="false" />
+                           </children>
+                        </Pane>
+                        <HBox alignment="TOP_CENTER" layoutX="151.0" layoutY="590.0" prefHeight="48.0" prefWidth="818.0">
+                           <children>
+                              <Button fx:id="dealBtn" alignment="CENTER" mnemonicParsing="false" onAction="#dealBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="DEAL">
+                                 <HBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="doubleBtn" fx:id="doubleBtn" alignment="CENTER" layoutX="85.0" layoutY="10.0" mnemonicParsing="false" onAction="#doubleBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="DOUBLE">
+                                 <HBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="hitBtn" alignment="CENTER" layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#hitBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="HIT">
+                                 <HBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button id="splitBtn" fx:id="splitBtn" alignment="CENTER" layoutX="358.0" layoutY="10.0" mnemonicParsing="false" onAction="#splitBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="SPLIT">
+                                 <HBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="standBtn" alignment="CENTER" layoutX="297.0" layoutY="10.0" mnemonicParsing="false" onAction="#standBtnClicked" prefHeight="35.0" prefWidth="122.0" styleClass="btn" text="STAND">
+                                 <HBox.margin>
+                                    <Insets left="30.0" right="30.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
+                        <Group layoutX="94.0" layoutY="626.0" />
+                        <HBox fx:id="betCoinsContainer" alignment="CENTER" layoutX="162.0" layoutY="660.0" prefHeight="100.0" prefWidth="796.0">
+                           <children>
+                              <Pane onMouseClicked="#coin10Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                                 <HBox.margin>
+                                    <Insets right="100.0" />
+                                 </HBox.margin>
+                                 <padding>
+                                    <Insets right="30.0" />
+                                 </padding>
+                                 <children>
+                                    <Button fx:id="coin10" layoutX="29.0" layoutY="27.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" styleClass="coinBtn" text="10" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                 </children>
+                              </Pane>
+                              <Pane onMouseClicked="#coin20Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                                 <children>
+                                    <Button fx:id="coin20" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: blue;" styleClass="coinBtn" text="20" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="100.0" />
+                                 </HBox.margin>
+                              </Pane>
+                              <Pane layoutX="190.0" layoutY="10.0" onMouseClicked="#coin40Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                                 <children>
+                                    <Button fx:id="coin40" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: orange;" styleClass="coinBtn" text="40" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets right="100.0" />
+                                 </HBox.margin>
+                              </Pane>
+                              <Pane layoutX="543.0" layoutY="10.0" onMouseClicked="#coin80Clicked" prefHeight="90.0" prefWidth="90.0" styleClass="coin">
+                                 <children>
+                                    <Button fx:id="coin80" layoutX="29.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="33.0" style="-fx-background-color: red;" styleClass="coinBtn" text="80" textFill="WHITE">
+                                       <font>
+                                          <Font size="10.0" />
+                                       </font></Button>
+                                 </children>
+                              </Pane>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </HBox>
+                        <HBox alignment="CENTER" layoutX="143.0" layoutY="796.0" prefHeight="71.0" prefWidth="834.0">
+                           <children>
+                              <Pane id="moneyContainer" prefHeight="71.0" prefWidth="174.0" styleClass="container">
+                                 <children>
+                                    <Label layoutX="37.0" layoutY="20.0" prefHeight="32.0" prefWidth="61.0" text="Bet" textFill="WHITE">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <Label id="betLabel" fx:id="betLabel" layoutX="99.0" layoutY="16.0" prefHeight="40.0" prefWidth="72.0" text="0" textFill="WHITE">
+                                       <font>
+                                          <Font size="21.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                              </Pane>
+                              <Pane id="moneyContainer" layoutX="10.0" layoutY="10.0" prefHeight="71.0" prefWidth="260.0" styleClass="container">
+                                 <children>
+                                    <Label layoutX="37.0" layoutY="20.0" prefHeight="32.0" prefWidth="61.0" text="Funds" textFill="WHITE">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField id="fundInput" fx:id="fundInput" layoutX="130.0" layoutY="20.0" prefHeight="32.0" prefWidth="115.0" text="0" />
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <HBox.margin>
+                                    <Insets left="100.0" />
+                                 </HBox.margin>
+                              </Pane>
+                           </children>
+                        </HBox>
+                        <MenuBar fx:id="menuBar" layoutX="21.0" layoutY="2.0">
+                          <menus>
+                            <Menu mnemonicParsing="false" styleClass="menu" text="Menu">
+                              <items>
+                                    <MenuItem id="gameStatistic" fx:id="gameStatistic" mnemonicParsing="false" onAction="#gameStatisticClick" text="Game Statistic" />
+                                    <MenuItem id="logOutItem" fx:id="logOutItem" mnemonicParsing="false" onAction="#logOutClick" text="Logout" />
+                              </items>
+                            </Menu>
+                          </menus>
+                        </MenuBar>
+                        <Label fx:id="timerLabel" alignment="CENTER" layoutX="514.0" layoutY="10.0" prefHeight="25.0" prefWidth="86.0" textAlignment="CENTER" textFill="RED">
+                           <font>
+                              <Font size="21.0" />
+                           </font></Label>
+                     </children>
+                  </AnchorPane>
+                  <VBox id="popUpContainer" fx:id="resultPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="307.0" layoutY="554.0" prefHeight="206.0" prefWidth="503.0" visible="false">
+                     <children>
+                        <Label id="resultLabel" fx:id="resultLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="71.0" prefWidth="517.0" text="RESULT" textFill="WHITE">
+                           <font>
+                              <Font size="44.0" />
+                           </font>
+                             <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label id="prizeLabel" fx:id="prizeLabel" alignment="CENTER" prefHeight="36.0" prefWidth="435.0" text="prize" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                        </Label>
+                        <Button id="okBtn" fx:id="okBtn" mnemonicParsing="false" onAction="#okResultBtnClicked" prefHeight="40.0" prefWidth="86.0" styleClass="btn" text="OK">
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox id="warningPopUpContainer" fx:id="warningPopUpContainer" alignment="TOP_CENTER" disable="true" layoutX="364.0" layoutY="348.0" prefHeight="206.0" prefWidth="386.0" visible="false">
+                     <children>
+                        <Label id="warningLabel" fx:id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="385.0" text="TEXT" textAlignment="CENTER" textFill="#510000">
+                           <font>
+                              <Font size="29.0" />
+                           </font></Label>
+                        <Button id="okWarningBtn" fx:id="okWarningBtn" mnemonicParsing="false" onAction="#okWarningBtnClicked" prefHeight="40.0" prefWidth="86.0" styleClass="btn" text="OK">
+                           <VBox.margin>
+                              <Insets top="40.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  <VBox id="newGamePopUpContainer" fx:id="newGamePopUpContainer" alignment="TOP_CENTER" cacheShape="false" disable="true" layoutX="419.0" layoutY="536.0" prefHeight="174.0" prefWidth="280.0" visible="false">
+                     <children>
+                        <Label id="warningLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="97.0" prefWidth="385.0" text="New Game?" textAlignment="CENTER" textFill="#3a9406">
+                           <font>
+                              <Font size="37.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" spacing="80.0">
+                           <children>
+                              <Button id="newGameYesBtn" fx:id="newGameYesBtn" mnemonicParsing="false" onAction="#newGameYesBtnClicked" prefHeight="40.0" prefWidth="86.0" styleClass="btn" text="YES" />
+                              <Button id="newGameNoBtn" fx:id="newGameNoBtn" mnemonicParsing="false" onAction="#newGameNoBtnClicked" prefHeight="40.0" prefWidth="86.0" styleClass="btn" text="NO" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>

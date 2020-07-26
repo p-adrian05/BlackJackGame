@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<HBox alignment="CENTER" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafx.controller.StatController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="731.0" prefWidth="1002.0" spacing="20.0" style="-fx-background-color: green;">
+          <padding>
+              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </padding>
+         <children>
+            <AnchorPane prefHeight="643.0" prefWidth="962.0" styleClass="container">
+               <children>
+                  <PieChart id="pieLoseWinCount" fx:id="pieLoseWinCount" layoutX="54.0" layoutY="95.0" prefHeight="389.0" prefWidth="401.0" />
+                  <Button id="backGameBtn" fx:id="backGameBtn" layoutX="435.0" layoutY="604.0" mnemonicParsing="false" onAction="#backGameBtnClicked" styleClass="btn" text="Back to game" />
+                  <PieChart id="pieLoseWinMoney" fx:id="pieLoseWinMoney" layoutX="514.0" layoutY="95.0" prefHeight="389.0" prefWidth="401.0" />
+                  <HBox alignment="TOP_CENTER" layoutX="-2.0" layoutY="531.0" prefHeight="62.0" prefWidth="962.0" spacing="400.0">
+                     <children>
+                        <Group>
+                           <children>
+                              <Label prefHeight="62.0" prefWidth="133.0" text="Highest bet: ">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="maxBetLabel" layoutX="121.0" prefHeight="62.0" prefWidth="83.0" text="0">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </Group>
+                        <Group layoutX="10.0" layoutY="10.0">
+                           <children>
+                              <Label prefHeight="62.0" prefWidth="121.0" text="Total profit:">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="totalProfitLabel" layoutX="121.0" prefHeight="62.0" prefWidth="76.0" text="0">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Group>
+                     </children>
+                  </HBox>
+               </children></AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</HBox>
