@@ -1,8 +1,7 @@
 package game;
 
-import blackJack.model.game.GameUtils;
-import blackJack.model.game.Result;
-import org.junit.jupiter.api.Assertions;
+import com.company.blackJack.game.GameUtils;
+import com.company.blackJack.game.Result;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
