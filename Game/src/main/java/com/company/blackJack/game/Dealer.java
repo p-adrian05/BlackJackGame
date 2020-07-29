@@ -11,7 +11,6 @@ import java.util.List;
 /**
  * Class representing a kind of {@link Person} object.
  */
-@Component
 public class Dealer implements Person{
 
     private final List<Card> cards;

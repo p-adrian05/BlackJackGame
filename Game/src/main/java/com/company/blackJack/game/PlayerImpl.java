@@ -17,7 +17,6 @@ import java.util.List;
 /**
  * Class representing a kind of {@link Person} object and add more functionality beyond it.
  */
-@Component
 public class PlayerImpl implements Player {
 
     private final IntegerProperty fund;

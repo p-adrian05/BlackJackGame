@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,7 +22,7 @@ import java.util.Optional;
  * obtaining {@link Card} objects and made an implementation {@link Deck} interface.
  * The class uses the <a href = "https://deckofcardsapi.com">deckofcardsapi.com</a> service.
  */
-
+@Service
 public class FranceCardApi implements CardApi{
 
     /**

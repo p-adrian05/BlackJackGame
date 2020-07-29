@@ -1,5 +1,7 @@
 package com.company.config;
 
+import com.company.blackJack.game.Player;
+import com.company.blackJack.game.PlayerImpl;
 import com.company.javafx.controller.GameController;
 import com.company.javafx.controller.LoginController;
 import com.company.javafx.controller.StatController;
@@ -41,6 +43,5 @@ public class AppConfig {
     public StatController statController() {
         return new StatController();
     }
-
 
 }

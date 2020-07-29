@@ -18,32 +18,28 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class GameService {
-
-    /**
-     * Make a {@code static final Model} object instance as singleton pattern requires.
-     */
-
-    @Autowired
-    private UserDao userDao;
-    @Autowired
+    
+    private final UserDao userDao;
     private Player player;
-    @Autowired
     private Person dealer;
-    private CardApi cardApi;
-    @Autowired
-    private GameUtils gameUtils;
+    private final CardApi cardApi;
+    private final GameUtils gameUtils;
     private Deck deck;
     private User user;
 
-    public GameService() {
-        this.cardApi = new FranceCardApi();
+    @Autowired
+    public GameService(UserDao userDao,CardApi cardApi,GameUtils gameUtils) {
+        this.userDao = userDao;
+        this.gameUtils = gameUtils;
+        this.cardApi = cardApi;
+        this.player = new PlayerImpl();
+        this.dealer = new Dealer();
         if(cardApi.getDeck().isPresent()){
             this.deck = cardApi.getDeck().get();
         }else{
             log.error("Failed to load cards data from json file.");
         }
     }
-
 
     public Player getPlayer() {
         return player;
