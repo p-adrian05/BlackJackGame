@@ -1,15 +1,8 @@
 package com.company.blackJack.game;
 
 import com.company.blackJack.card.Card;
-import com.company.blackJack.card.DeckFranceCards;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import lombok.AccessLevel;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -74,16 +67,6 @@ public class PlayerImpl implements Player {
         this.fund.set(this.fund.add(bet).get());
     }
     /**
-     * Returns the summary value of the {@link #splitCards} list
-     * calling the {@link DeckFranceCards#calcCardsSumValue(List)} function.
-     *
-     * @return a summary value
-     */
-    @Override
-    public int getCardsSumValuesSplit(){
-        return DeckFranceCards.calcCardsSumValue(this.splitCards);
-    }
-    /**
      * Returns whether it is possible to split cards.
      *
      * @return {@code true} if two cards has in the {@link #cards} list
@@ -119,17 +102,6 @@ public class PlayerImpl implements Player {
         }else{
             cards.add(card);
         }
-    }
-
-    /**
-     * Returns the summary value of the {@link Card} objects list
-     * calling the {@link DeckFranceCards#calcCardsSumValue(List)} function.
-     *
-     * @return a summary value
-     */
-    @Override
-    public int getCardsSumValues() {
-        return DeckFranceCards.calcCardsSumValue(cards);
     }
 
     @Override

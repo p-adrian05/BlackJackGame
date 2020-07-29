@@ -41,7 +41,8 @@ public class DeckFranceCards implements Deck{
      * @param cards {@inheritDoc}
      * @return {@inheritDoc}
      */
-    public static int calcCardsSumValue(List<Card> cards) {
+    @Override
+    public int calcCardsSumValue(List<Card> cards) {
         int sum = 0;
         for (Card card : cards) {
             if (card.getValue().equals("ACE") && sum > 10) {

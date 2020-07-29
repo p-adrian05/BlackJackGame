@@ -12,14 +12,6 @@ import java.util.List;
 public interface Person {
 
      void addCard(Card card);
-    /**
-     * Returns the summary value of the {@link Card} objects list
-     * calling the {@link DeckFranceCards#calcCardsSumValue(List)} function.
-     *
-     * @return a summary value
-     */
-     int getCardsSumValues();
-
      List<Card> getCards();
 
 }

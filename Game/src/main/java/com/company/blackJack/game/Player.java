@@ -9,7 +9,6 @@ public interface Player extends Person{
 
     void addBetFromFund(int bet);
     void addFund(int fund);
-    int getCardsSumValuesSplit();
     boolean isEnableSplitCards();
     void madeSplitCards();
     void madeSecondHand();

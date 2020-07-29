@@ -1,5 +1,6 @@
 package com.company.blackJack;
 
+import com.company.blackJack.card.Card;
 import com.company.blackJack.card.CardApi;
 import com.company.blackJack.card.Deck;
 import com.company.blackJack.card.FranceCardApi;
@@ -12,13 +13,15 @@ import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Class collects all objects needed the game and provides game related functions.
  */
 @Slf4j
 @Service
 public class GameService {
-    
+
     private final UserDao userDao;
     private Player player;
     private Person dealer;
@@ -83,9 +86,9 @@ public class GameService {
      * @return {@code true} if the {@link PlayerImpl} score(s) pass a specified value, {@code false} otherwise
      */
     public boolean isGameOver(){
-        boolean pass1 = player.getCardsSumValues()>21;
-        if(player.getCardsSumValuesSplit()>0){
-            boolean pass2 = player.getCardsSumValuesSplit()>21;
+        boolean pass1 = getPlayerCardsValue()>21;
+        if(getPlayerSplitCardsValue()>0){
+            boolean pass2 = getPlayerSplitCardsValue()>21;
             return pass1 && pass2;
         }
         else{
@@ -99,9 +102,9 @@ public class GameService {
      * @return {@code true} if the {@link PlayerImpl} first score not pass 21 value and the second pass 21, {@code false} otherwise
      */
     public boolean isSplitGameOver(){
-        if(player.getCardsSumValuesSplit()>0){
-            boolean pass1 = player.getCardsSumValues()>21;
-            boolean pass2 = player.getCardsSumValuesSplit()>21;
+        if(getPlayerSplitCardsValue()>0){
+            boolean pass1 = getPlayerCardsValue()>21;
+            boolean pass2 = getPlayerSplitCardsValue()>21;
             return !pass1 && pass2;
         }
         return false;
@@ -113,9 +116,9 @@ public class GameService {
      * @return an array of {@link Result} enum values
      */
     public Result[] getResults(){
-        return gameUtils.calculateResult(player.getCardsSumValues(),
-                player.getCardsSumValuesSplit(),
-                dealer.getCardsSumValues());
+        return gameUtils.calculateResult(getPlayerCardsValue(),
+                getPlayerSplitCardsValue(),
+                getDealerCardsValue());
     }
 
     /**
@@ -147,5 +150,34 @@ public class GameService {
             user.setWonCount(user.getWonCount() + 1);
         }
         userDao.update(user);
+    }
+    /**
+     * Returns the summary value of the {@link Player }{@link Card} objects list
+     * calling the {@link Deck#calcCardsSumValue(List)} function.
+     *
+     * @return a summary value
+     */
+    public int getPlayerCardsValue(){
+        return deck.calcCardsSumValue(player.getCards());
+    }
+    /**
+     * Returns the summary value of the {@link Player } {@link Card} objects list,
+     * which contains the split cards,
+     * calling the {@link Deck#calcCardsSumValue(List)} function.
+     *
+     * @return a summary value
+     */
+    public int getPlayerSplitCardsValue(){
+        return deck.calcCardsSumValue(player.getSplitCards());
+    }
+    /**
+     * Returns the summary value of the {@link Dealer } {@link Card} objects list,
+     * which contains the split cards,
+     * calling the {@link Deck#calcCardsSumValue(List)} function.
+     *
+     * @return a summary value
+     */
+    public int getDealerCardsValue(){
+        return deck.calcCardsSumValue(dealer.getCards());
     }
 }

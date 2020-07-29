@@ -151,7 +151,7 @@ public class GameController implements Initializable {
         timeline.stop();
         log.info("Stand button clicked.");
         if((splitEnabled && standButtonClicked) ||
-                (splitEnabled && gameService.getPlayer().getCardsSumValues()>=21) || !splitEnabled){
+                (splitEnabled && gameService.getPlayerCardsValue()>=21) || !splitEnabled){
             loadDealerCards();
             madeResult();
 
@@ -192,8 +192,8 @@ public class GameController implements Initializable {
             gameService.getPlayer().madeSplitCards();
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
             imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
-            playerScore1.setText(String.valueOf(gameService.getPlayer().getCardsSumValues()));
-            playerScore2.setText(String.valueOf(gameService.getPlayer().getCardsSumValuesSplit()));
+            playerScore1.setText(String.valueOf(gameService.getPlayerCardsValue()));
+            playerScore2.setText(String.valueOf(gameService.getPlayerSplitCardsValue()));
             splitEnabled = true;
             doubleBtn.setDisable(true);
         }else{
@@ -204,15 +204,15 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
     }
     public void hitBtnClickedInSplitMode(){
-        if(standButtonClicked || gameService.getPlayer().getCardsSumValues()>=21){
+        if(standButtonClicked || gameService.getPlayerCardsValue()>=21){
             gameService.getPlayer().madeSecondHand();
             loadCardToPerson(1,imgContainerPlayer2, gameService.getPlayer());
-            playerScore2.setText(String.valueOf(gameService.getPlayer().getCardsSumValuesSplit()));
+            playerScore2.setText(String.valueOf(gameService.getPlayerSplitCardsValue()));
             log.info("Player score 2: {}",playerScore2);
         }
         else{
             loadCardToPerson(1,imgContainerPlayer1, gameService.getPlayer());
-            playerScore1.setText(String.valueOf(gameService.getPlayer().getCardsSumValues()));
+            playerScore1.setText(String.valueOf(gameService.getPlayerCardsValue()));
             log.info("Player score 1: {}",playerScore1);
         }
         checkGameOver();
@@ -294,12 +294,14 @@ public class GameController implements Initializable {
         newGamePopUpContainer.setDisable(true);
     }
     private void setScoreLabelPlayer(){
-        playerScore.setText(String.valueOf(gameService.getPlayer().getCardsSumValues()));
-        log.debug("Player score: {}", gameService.getPlayer().getCardsSumValues());
+        int cardsValue = gameService.getPlayerCardsValue();
+        playerScore.setText(String.valueOf(cardsValue));
+        log.debug("Player score: {}", cardsValue);
     }
     private void setScoreLabelDealer(){
-        dealerScore.setText(String.valueOf(gameService.getDealer().getCardsSumValues()));
-        log.debug("Dealer score: {}", gameService.getDealer().getCardsSumValues());
+        int cardsValue = gameService.getDealerCardsValue();
+        dealerScore.setText(String.valueOf(cardsValue));
+        log.debug("Dealer score: {}", cardsValue);
     }
     private void disableFundAndBetInput(boolean bool){
         fundInput.setDisable(bool);
@@ -387,7 +389,7 @@ public class GameController implements Initializable {
     private void loadDealerCards(){
         log.info("Dealer getting cards: ");
         imgContainerDealer.getChildren().remove(2);
-        while(gameService.getDealer().getCardsSumValues()<17){
+        while(gameService.getDealerCardsValue()<17){
             loadCardToPerson(1,imgContainerDealer, gameService.getDealer());
             setScoreLabelDealer();
         }
@@ -404,9 +406,9 @@ public class GameController implements Initializable {
     }
     private void checkBlackJack(){
         log.info("Checking BlackJack has happened...");
-        boolean isBjNumber = gameService.getPlayer().getCardsSumValues()==21;
+        boolean isBjNumber = gameService.getPlayerCardsValue()==21;
         if(splitEnabled){
-            boolean isBjNumber2 = gameService.getPlayer().getCardsSumValuesSplit()==21;
+            boolean isBjNumber2 = gameService.getPlayerSplitCardsValue()==21;
             if(isBjNumber){
                 playerScore1.setText("BLACKJACK");
             }
