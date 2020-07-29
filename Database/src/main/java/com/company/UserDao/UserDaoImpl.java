@@ -3,14 +3,12 @@ package com.company.UserDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
 public class UserDaoImpl implements UserDao{
 
     @PersistenceContext
@@ -22,13 +20,13 @@ public class UserDaoImpl implements UserDao{
             return Optional.of(entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
                     .setParameter("username", username).getSingleResult());
         } catch (Exception e) {
-            e.printStackTrace();
             return Optional.empty();
         }
     }
 
     @Override
-    public long persist(User entity) {
+    @Transactional
+    public Long persist(User entity) {
         entityManager.persist(entity);
         return entity.getId();
     }
@@ -46,19 +44,14 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    @Transactional
     public void update(User entity) {
-        entityManager.createQuery("UPDATE User u SET u.funds = :funds WHERE u.id = :id")
-                .setParameter("funds",entity.getFunds())
-                .setParameter("id",entity.getId())
-                .executeUpdate();
+        entityManager.merge(entity);
     }
 
     @Override
+    @Transactional
     public void remove(User entity) {
         entityManager.remove(entity);
-    }
-
-    public void clear(){
-        entityManager.clear();
     }
 }

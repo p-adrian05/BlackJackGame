@@ -151,6 +151,7 @@ public class GameController implements Initializable {
                 (splitEnabled && model.getPlayer().getCardsSumValues()>=21) || !splitEnabled){
             loadDealerCards();
             madeResult();
+
         }else{
             standButtonClicked = true;
         }
@@ -340,7 +341,6 @@ public class GameController implements Initializable {
         timerLabel.setText("");
         Result[] results = model.getResults();
         int[] prizes = model.getPrizes(results);
-        model.saveUser();
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
@@ -359,6 +359,7 @@ public class GameController implements Initializable {
                 e.printStackTrace();
             }
         }).start();
+        model.saveUser();
 
     }
     private void makeNewRound(){

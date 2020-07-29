@@ -42,10 +42,6 @@ public class User {
     @Column(nullable = false)
     private int maxBet;
 
-    @Version
-    @Setter(AccessLevel.NONE)
-    private long version;
-
     @Column(nullable = false)
     private ZonedDateTime created;
 

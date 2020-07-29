@@ -19,5 +19,4 @@ public interface UserDao extends GenericJpaDao<User>{
      * the specified primary key
      */
     Optional<User> findByUsername(String username);
-    void clear();
 }
