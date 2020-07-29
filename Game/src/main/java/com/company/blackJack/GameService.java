@@ -8,6 +8,7 @@ import com.company.blackJack.game.*;
 import com.company.UserDao.User;
 import com.company.UserDao.UserDao;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,8 +25,9 @@ public class GameService {
 
     @Autowired
     private UserDao userDao;
-
+    @Autowired
     private Player player;
+    @Autowired
     private Person dealer;
     private CardApi cardApi;
     @Autowired
@@ -34,8 +36,6 @@ public class GameService {
     private User user;
 
     public GameService() {
-        this.player = new Player();
-        this.dealer = new Dealer();
         this.cardApi = new FranceCardApi();
         if(cardApi.getDeck().isPresent()){
             this.deck = cardApi.getDeck().get();
@@ -70,11 +70,11 @@ public class GameService {
     }
 
     /**
-     * Makes new instances of {@link Player}, {@link Dealer} and {@link Deck} objects
+     * Makes new instances of {@link PlayerImpl}, {@link Dealer} and {@link Deck} objects
      * for making a new game.
      */
     public void resetGame(){
-        player = new Player();
+        player = new PlayerImpl();
         dealer = new Dealer();
         setPlayerFund(user.getFunds());
         if(deck!= null && deck.getDeckCards().size()<20){
@@ -84,7 +84,7 @@ public class GameService {
     /**
      * Returns whether the actual game is over checking the scores.
      *
-     * @return {@code true} if the {@link Player} score(s) pass a specified value, {@code false} otherwise
+     * @return {@code true} if the {@link PlayerImpl} score(s) pass a specified value, {@code false} otherwise
      */
     public boolean isGameOver(){
         boolean pass1 = player.getCardsSumValues()>21;
@@ -98,9 +98,9 @@ public class GameService {
     }
 
     /**
-     * Returns whether the actual game is over in {@link Player#isEnableSplitCards()} case.
+     * Returns whether the actual game is over in {@link PlayerImpl#isEnableSplitCards()} case.
      *
-     * @return {@code true} if the {@link Player} first score not pass 21 value and the second pass 21, {@code false} otherwise
+     * @return {@code true} if the {@link PlayerImpl} first score not pass 21 value and the second pass 21, {@code false} otherwise
      */
     public boolean isSplitGameOver(){
         if(player.getCardsSumValuesSplit()>0){

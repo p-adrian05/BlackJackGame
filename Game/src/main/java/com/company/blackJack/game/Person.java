@@ -9,25 +9,17 @@ import java.util.List;
  * Person abstract class representing a person who play in the game.
  */
 
-public abstract class Person {
+public interface Person {
 
-    protected List<Card> cards;
-
-    public void addCard(Card card) {
-        cards.add(card);
-    }
-
+     void addCard(Card card);
     /**
-     * Returns the summary value of the {@link #cards} list
+     * Returns the summary value of the {@link Card} objects list
      * calling the {@link DeckFranceCards#calcCardsSumValue(List)} function.
      *
      * @return a summary value
      */
-    public int getCardsSumValues(){
-       return DeckFranceCards.calcCardsSumValue(this.cards);
-    }
+     int getCardsSumValues();
 
-    public List<Card> getCards() {
-        return this.cards;
-    }
+     List<Card> getCards();
+
 }

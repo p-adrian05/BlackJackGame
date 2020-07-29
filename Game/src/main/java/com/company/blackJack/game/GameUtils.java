@@ -100,9 +100,9 @@ public class GameUtils {
 
     /**
      * Returns a value which represents a profit
-     * for specified prizes and the actual {@link Player}'s bet.
+     * for specified prizes and the actual {@link PlayerImpl}'s bet.
      * @param prizes array of int values
-     * @param bet the given {@link Player}'s bet.
+     * @param bet the given {@link PlayerImpl}'s bet.
      * @return an int value which means a profit
      */
     public int calcProfit(int[] prizes,int bet){
