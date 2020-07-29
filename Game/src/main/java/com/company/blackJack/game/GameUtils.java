@@ -1,9 +1,11 @@
 package com.company.blackJack.game;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Class representing the logic of the game.
  */
-
+@Component
 public class GameUtils {
 
     /**

@@ -28,11 +28,11 @@ public class LoginController implements Initializable {
     @FXML
     private Label loginLabel;
     @Autowired
-    GameService gameService;
+    private GameService gameService;
     @Autowired
     private UserDao userDao;
-    String username;
-    String password;
+    private String username;
+    private String password;
 
     @FXML
     public void loginBtnClicked(ActionEvent actionEvent) throws IOException {

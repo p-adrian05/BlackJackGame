@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import com.company.blackJack.GameService;
 import com.company.blackJack.card.Card;
+import com.company.blackJack.game.GameUtils;
 import com.company.blackJack.game.Person;
 import com.company.blackJack.game.Result;
 import com.company.javafx.BlackJackApplication;
@@ -92,7 +93,9 @@ public class GameController implements Initializable {
     private ProgressIndicator progressIndicator;
 
     @Autowired
-    GameService gameService;
+    private GameService gameService;
+    @Autowired
+    private GameUtils gameUtils;
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
 
@@ -349,9 +352,9 @@ public class GameController implements Initializable {
                 Thread.sleep(2000);
                 Platform.runLater(()->{
                 if(prizes.length==2){
-                    showResultPopUp(gameService.getGameUtils().madeStringResult(results), prizes[0] + " and " +prizes[1]);
+                    showResultPopUp(gameUtils.madeStringResult(results), prizes[0] + " and " +prizes[1]);
                 }else{
-                    showResultPopUp(gameService.getGameUtils().madeStringResult(results), String.valueOf(prizes[0]));
+                    showResultPopUp(gameUtils.madeStringResult(results), String.valueOf(prizes[0]));
                 }
                 progressIndicator.setVisible(false);
                 });
@@ -432,7 +435,7 @@ public class GameController implements Initializable {
         });
     }
     private boolean manageBet(int value){
-        if(gameService.getGameUtils().validateBet(value, gameService.getPlayer().getFund().intValue())){
+        if(gameUtils.validateBet(value, gameService.getPlayer().getFund().intValue())){
             log.info("Player's valid bet: {}",value);
             gameService.getPlayer().addBetFromFund(value);
             betLabel.setText(String.valueOf(gameService.getPlayer().getBet()));

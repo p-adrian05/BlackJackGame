@@ -28,6 +28,7 @@ public class GameService {
     private Player player;
     private Person dealer;
     private CardApi cardApi;
+    @Autowired
     private GameUtils gameUtils;
     private Deck deck;
     private User user;
@@ -36,7 +37,6 @@ public class GameService {
         this.player = new Player();
         this.dealer = new Dealer();
         this.cardApi = new FranceCardApi();
-        this.gameUtils = new GameUtils();
         if(cardApi.getDeck().isPresent()){
             this.deck = cardApi.getDeck().get();
         }else{
@@ -55,11 +55,6 @@ public class GameService {
 
     public Deck getDeck() {
         return deck;
-    }
-
-
-    public GameUtils getGameUtils() {
-        return gameUtils;
     }
 
     public void setUser(User user){

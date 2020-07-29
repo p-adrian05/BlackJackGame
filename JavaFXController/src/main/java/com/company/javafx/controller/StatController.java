@@ -29,7 +29,7 @@ public class StatController implements Initializable {
     private Label totalProfitLabel;
 
     @Autowired
-    GameService gameService;
+    private GameService gameService;
 
     public void initData(){
         madePie(new int[]{gameService.getUser().getWonCount(),
