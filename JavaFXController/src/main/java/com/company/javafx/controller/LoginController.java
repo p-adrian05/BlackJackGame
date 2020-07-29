@@ -1,6 +1,6 @@
 package com.company.javafx.controller;
 
-import com.company.blackJack.Model;
+import com.company.blackJack.GameService;
 import com.company.UserDao.User;
 import com.company.UserDao.UserDao;
 import com.company.javafx.BlackJackApplication;
@@ -13,8 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,7 +28,7 @@ public class LoginController implements Initializable {
     @FXML
     private Label loginLabel;
     @Autowired
-    Model model;
+    GameService gameService;
     @Autowired
     private UserDao userDao;
     String username;
@@ -50,8 +48,8 @@ public class LoginController implements Initializable {
              if(user.get().getPassword().equals(password) && user.get().getUsername().equals(username)){
                  setLabelText("Successful login!","green");
                  log.info("Successful login!");
-                 model.resetGame();
-                 model.setUser(user.get());
+                 gameService.setUser(user.get());
+                 gameService.resetGame();
                  log.info("Loading primary screen...");
                  BlackJackApplication.setRoot("primary");
              }else{

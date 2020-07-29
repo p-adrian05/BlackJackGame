@@ -1,8 +1,6 @@
 package com.company.blackJack.game;
 
-import com.company.blackJack.Model;
 import com.company.blackJack.card.Card;
-import com.company.blackJack.card.Deck;
 import com.company.blackJack.card.DeckFranceCards;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -10,8 +8,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;

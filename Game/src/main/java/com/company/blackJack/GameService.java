@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class Model {
+public class GameService {
 
     /**
      * Make a {@code static final Model} object instance as singleton pattern requires.
@@ -32,7 +32,7 @@ public class Model {
     private Deck deck;
     private User user;
 
-    public Model() {
+    public GameService() {
         this.player = new Player();
         this.dealer = new Dealer();
         this.cardApi = new FranceCardApi();
@@ -70,13 +70,18 @@ public class Model {
         return this.user;
     }
 
+    public void setPlayerFund(int fund){
+        player.getFund().set(fund);
+    }
+
     /**
      * Makes new instances of {@link Player}, {@link Dealer} and {@link Deck} objects
      * for making a new game.
      */
     public void resetGame(){
-       this.player = new Player();
-        this.dealer = new Dealer();
+        player = new Player();
+        dealer = new Dealer();
+        setPlayerFund(user.getFunds());
         if(deck!= null && deck.getDeckCards().size()<20){
             this.deck = cardApi.getDeck().get();
         }

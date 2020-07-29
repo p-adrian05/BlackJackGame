@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.company.blackJack.Model;
+import com.company.blackJack.GameService;
 import com.company.blackJack.card.Card;
 import com.company.blackJack.game.Person;
 import com.company.blackJack.game.Result;
@@ -92,7 +92,7 @@ public class GameController implements Initializable {
     private ProgressIndicator progressIndicator;
 
     @Autowired
-    Model model;
+    GameService gameService;
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
 
@@ -134,8 +134,8 @@ public class GameController implements Initializable {
         disableFundAndBetInput(true);
         disableAllBtn(false);
         dealBtn.setDisable(true);
-        loadCardToPerson(2,imgContainerPlayer,model.getPlayer());
-        loadCardToPerson(1,imgContainerDealer,model.getDealer());
+        loadCardToPerson(2,imgContainerPlayer, gameService.getPlayer());
+        loadCardToPerson(1,imgContainerDealer, gameService.getDealer());
         loadCardToPane(getClass().getResource("/images/card-back.png").toExternalForm(),imgContainerDealer);
         setScoreLabelDealer();
         setScoreLabelPlayer();
@@ -148,7 +148,7 @@ public class GameController implements Initializable {
         timeline.stop();
         log.info("Stand button clicked.");
         if((splitEnabled && standButtonClicked) ||
-                (splitEnabled && model.getPlayer().getCardsSumValues()>=21) || !splitEnabled){
+                (splitEnabled && gameService.getPlayer().getCardsSumValues()>=21) || !splitEnabled){
             loadDealerCards();
             madeResult();
 
@@ -164,7 +164,7 @@ public class GameController implements Initializable {
             hitBtnClickedInSplitMode();
         }
         else{
-            loadCardToPerson(1,imgContainerPlayer,model.getPlayer());
+            loadCardToPerson(1,imgContainerPlayer, gameService.getPlayer());
             setScoreLabelPlayer();
             checkGameOver();
         }
@@ -173,8 +173,8 @@ public class GameController implements Initializable {
     @FXML
     public void doubleBtnClicked(ActionEvent actionEvent) {
         log.info("Double button clicked");
-        if(model.getPlayer().getCards().size()==2){
-            manageBet(model.getPlayer().getBet());
+        if(gameService.getPlayer().getCards().size()==2){
+            manageBet(gameService.getPlayer().getBet());
             dealBtn.setDisable(true);
         }else{
             showWarningPopUp("Double not allowed!");
@@ -184,13 +184,13 @@ public class GameController implements Initializable {
     @FXML
     public void splitBtnClicked(ActionEvent actionEvent) {
         log.info("Split button clicked");
-        if(model.getPlayer().isEnableSplitCards() && manageBet(model.getPlayer().getBet())){
+        if(gameService.getPlayer().isEnableSplitCards() && manageBet(gameService.getPlayer().getBet())){
             enableSplitLayout(true);
-            model.getPlayer().madeSplitCards();
+            gameService.getPlayer().madeSplitCards();
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
             imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
-            playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
-            playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
+            playerScore1.setText(String.valueOf(gameService.getPlayer().getCardsSumValues()));
+            playerScore2.setText(String.valueOf(gameService.getPlayer().getCardsSumValuesSplit()));
             splitEnabled = true;
             doubleBtn.setDisable(true);
         }else{
@@ -201,15 +201,15 @@ public class GameController implements Initializable {
         dealBtn.setDisable(true);
     }
     public void hitBtnClickedInSplitMode(){
-        if(standButtonClicked || model.getPlayer().getCardsSumValues()>=21){
-            model.getPlayer().madeSecondHand();
-            loadCardToPerson(1,imgContainerPlayer2,model.getPlayer());
-            playerScore2.setText(String.valueOf(model.getPlayer().getCardsSumValuesSplit()));
+        if(standButtonClicked || gameService.getPlayer().getCardsSumValues()>=21){
+            gameService.getPlayer().madeSecondHand();
+            loadCardToPerson(1,imgContainerPlayer2, gameService.getPlayer());
+            playerScore2.setText(String.valueOf(gameService.getPlayer().getCardsSumValuesSplit()));
             log.info("Player score 2: {}",playerScore2);
         }
         else{
-            loadCardToPerson(1,imgContainerPlayer1,model.getPlayer());
-            playerScore1.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
+            loadCardToPerson(1,imgContainerPlayer1, gameService.getPlayer());
+            playerScore1.setText(String.valueOf(gameService.getPlayer().getCardsSumValues()));
             log.info("Player score 1: {}",playerScore1);
         }
         checkGameOver();
@@ -291,12 +291,12 @@ public class GameController implements Initializable {
         newGamePopUpContainer.setDisable(true);
     }
     private void setScoreLabelPlayer(){
-        playerScore.setText(String.valueOf(model.getPlayer().getCardsSumValues()));
-        log.debug("Player score: {}", model.getPlayer().getCardsSumValues());
+        playerScore.setText(String.valueOf(gameService.getPlayer().getCardsSumValues()));
+        log.debug("Player score: {}", gameService.getPlayer().getCardsSumValues());
     }
     private void setScoreLabelDealer(){
-        dealerScore.setText(String.valueOf(model.getDealer().getCardsSumValues()));
-        log.debug("Dealer score: {}", model.getDealer().getCardsSumValues());
+        dealerScore.setText(String.valueOf(gameService.getDealer().getCardsSumValues()));
+        log.debug("Dealer score: {}", gameService.getDealer().getCardsSumValues());
     }
     private void disableFundAndBetInput(boolean bool){
         fundInput.setDisable(bool);
@@ -324,7 +324,7 @@ public class GameController implements Initializable {
     }
     private void checkSplitEnable(){
         log.info("Checking split button allowing...");
-        if(model.getPlayer().isEnableSplitCards()){
+        if(gameService.getPlayer().isEnableSplitCards()){
             activateBtn(splitBtn);
             log.info("Split button allowed.");
         }else{
@@ -339,8 +339,8 @@ public class GameController implements Initializable {
         timeline.stop();
         timerLabel.textProperty().unbind();
         timerLabel.setText("");
-        Result[] results = model.getResults();
-        int[] prizes = model.getPrizes(results);
+        Result[] results = gameService.getResults();
+        int[] prizes = gameService.getPrizes(results);
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
@@ -349,9 +349,9 @@ public class GameController implements Initializable {
                 Thread.sleep(2000);
                 Platform.runLater(()->{
                 if(prizes.length==2){
-                    showResultPopUp(model.getGameUtils().madeStringResult(results), prizes[0] + " and " +prizes[1]);
+                    showResultPopUp(gameService.getGameUtils().madeStringResult(results), prizes[0] + " and " +prizes[1]);
                 }else{
-                    showResultPopUp(model.getGameUtils().madeStringResult(results), String.valueOf(prizes[0]));
+                    showResultPopUp(gameService.getGameUtils().madeStringResult(results), String.valueOf(prizes[0]));
                 }
                 progressIndicator.setVisible(false);
                 });
@@ -359,7 +359,7 @@ public class GameController implements Initializable {
                 e.printStackTrace();
             }
         }).start();
-        model.saveUser();
+        gameService.saveUser();
 
     }
     private void makeNewRound(){
@@ -369,9 +369,8 @@ public class GameController implements Initializable {
             imgContainerPlayer1.getChildren().remove(1,imgContainerPlayer1.getChildren().size());
             imgContainerPlayer2.getChildren().remove(1,imgContainerPlayer2.getChildren().size());
         }
-        model.resetGame();
-        model.getPlayer().getFund().set(model.getUser().getFunds());
-        fundInput.textProperty().bindBidirectional(model.getPlayer().getFund(),new NumberStringConverter());
+        gameService.resetGame();
+        fundInput.textProperty().bindBidirectional(gameService.getPlayer().getFund(),new NumberStringConverter());
         disableFundAndBetInput(false);
         setScoreLabelDealer();
         setScoreLabelPlayer();
@@ -385,26 +384,26 @@ public class GameController implements Initializable {
     private void loadDealerCards(){
         log.info("Dealer getting cards: ");
         imgContainerDealer.getChildren().remove(2);
-        while(model.getDealer().getCardsSumValues()<17){
-            loadCardToPerson(1,imgContainerDealer,model.getDealer());
+        while(gameService.getDealer().getCardsSumValues()<17){
+            loadCardToPerson(1,imgContainerDealer, gameService.getDealer());
             setScoreLabelDealer();
         }
     }
     private void checkGameOver(){
         log.info("Checking game over...");
-        if (model.isGameOver()) {
+        if (gameService.isGameOver()) {
             madeResult();
         }
-        if(splitEnabled && model.isSplitGameOver()){
+        if(splitEnabled && gameService.isSplitGameOver()){
             loadDealerCards();
             madeResult();
         }
     }
     private void checkBlackJack(){
         log.info("Checking BlackJack has happened...");
-        boolean isBjNumber = model.getPlayer().getCardsSumValues()==21;
+        boolean isBjNumber = gameService.getPlayer().getCardsSumValues()==21;
         if(splitEnabled){
-            boolean isBjNumber2 = model.getPlayer().getCardsSumValuesSplit()==21;
+            boolean isBjNumber2 = gameService.getPlayer().getCardsSumValuesSplit()==21;
             if(isBjNumber){
                 playerScore1.setText("BLACKJACK");
             }
@@ -428,15 +427,15 @@ public class GameController implements Initializable {
             if (!newText.matches("\\d*")) {
                 fundInput.setText(newText.replaceAll("[^\\d]", ""));
             }else if(!fundInput.textProperty().getValue().equals("")){
-                model.getPlayer().getFund().set(Integer.parseInt(fundInput.textProperty().getValue()));
+                gameService.setPlayerFund(Integer.parseInt(fundInput.textProperty().getValue()));
             }
         });
     }
     private boolean manageBet(int value){
-        if(model.getGameUtils().validateBet(value,model.getPlayer().getFund().intValue())){
+        if(gameService.getGameUtils().validateBet(value, gameService.getPlayer().getFund().intValue())){
             log.info("Player's valid bet: {}",value);
-            model.getPlayer().addBetFromFund(value);
-            betLabel.setText(String.valueOf(model.getPlayer().getBet()));
+            gameService.getPlayer().addBetFromFund(value);
+            betLabel.setText(String.valueOf(gameService.getPlayer().getBet()));
             dealBtn.setDisable(false);
             return true;
         }
@@ -450,9 +449,9 @@ public class GameController implements Initializable {
         ImageView imageView;
         Card card;
 
-        if(model.getDeck()!=null){
+        if(gameService.getDeck()!=null){
             for(int i = 0; i<amount;i++) {
-                card = model.getDeck().getCard();
+                card = gameService.getDeck().getCard();
                 log.debug("Card object: {}",card.toString());
                 try{
                     imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
@@ -526,9 +525,9 @@ public class GameController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readInFundInputListener();
         disableAllBtn(true);
-        playerNameLabel.setText(model.getUser().getUsername());
-        model.getPlayer().getFund().set(model.getUser().getFunds());
-        fundInput.textProperty().bindBidirectional(model.getPlayer().getFund(),new NumberStringConverter());
+        playerNameLabel.setText(gameService.getUser().getUsername());
+        gameService.setPlayerFund(gameService.getUser().getFunds());
+        fundInput.textProperty().bindBidirectional(gameService.getPlayer().getFund(),new NumberStringConverter());
         log.info("INIT game controller");
     }
 }
