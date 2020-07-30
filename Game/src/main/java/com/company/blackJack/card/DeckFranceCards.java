@@ -10,13 +10,11 @@ import java.util.List;
  */
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class DeckFranceCards implements Deck{
 
     /**
      * The list of {@link FranceCard} objects.
      */
-    @Getter(AccessLevel.NONE)
     private LinkedList<FranceCard> cards;
 
     @Override

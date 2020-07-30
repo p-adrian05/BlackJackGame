@@ -1,15 +1,17 @@
 package game;
 
 import com.company.blackJack.game.GameUtils;
+import com.company.blackJack.game.GameUtilsImpl;
 import com.company.blackJack.game.Result;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GameUtilsTest {
 
+
     @Test
     void testCalculateResult() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertEquals(Result.WON,gu.calculateResult(18,23));
         assertEquals(Result.WON,gu.calculateResult(19,18));
         assertEquals(Result.LOST,gu.calculateResult(22,19));
@@ -28,7 +30,7 @@ class GameUtilsTest {
 
     @Test
     void testCalculateResult2() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertArrayEquals(new Result[]{Result.WON,Result.WON},gu.calculateResult(18,17,23));
         assertArrayEquals(new Result[]{Result.WON,Result.WON},gu.calculateResult(16,19,23));
         assertArrayEquals(new Result[]{Result.WON,Result.WON},gu.calculateResult(19,20,17));
@@ -76,7 +78,7 @@ class GameUtilsTest {
 
     @Test
     void testCalculatePrize() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertEquals(20,gu.calculatePrize(10,Result.WON));
         assertEquals(-10,gu.calculatePrize(10,Result.LOST));
         assertEquals(10,gu.calculatePrize(10,Result.PUSH));
@@ -85,7 +87,7 @@ class GameUtilsTest {
 
     @Test
     void testCalculatePrizes() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertArrayEquals(new int[]{25,25},gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.BLACKJACK}));
         assertArrayEquals(new int[]{25,20},gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.WON}));
         assertArrayEquals(new int[]{25,-10},gu.calculatePrizes(20,new Result[]{Result.BLACKJACK,Result.LOST}));
@@ -101,7 +103,7 @@ class GameUtilsTest {
     }
     @Test
     void testCalcProfit() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertEquals(25,gu.calcProfit(new int[]{25,20},20));
         assertEquals(0,gu.calcProfit(new int[]{20,-10},20));
         assertEquals(0,gu.calcProfit(new int[]{10,10},20));
@@ -113,7 +115,7 @@ class GameUtilsTest {
 
     @Test
     void testValidateBet() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertTrue(gu.validateBet(10,100));
         assertTrue(gu.validateBet(100,100));
         assertFalse(gu.validateBet(105,100));
@@ -121,7 +123,7 @@ class GameUtilsTest {
 
     @Test
     void testConvertIntResult() {
-        GameUtils gu = new GameUtils();
+        GameUtilsImpl gu = new GameUtilsImpl();
         assertEquals(Result.WON,gu.convertIntResult(1));
         assertEquals(Result.LOST,gu.convertIntResult(-1));
         assertEquals(Result.PUSH,gu.convertIntResult(0));
@@ -130,7 +132,7 @@ class GameUtilsTest {
     }
     @Test
     void testMadeStringResult() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertEquals("PUSH and LOST", gu.madeStringResult(new Result[]{Result.PUSH, Result.LOST}));
         assertEquals("BLACKJACK and WON", gu.madeStringResult(new Result[]{Result.BLACKJACK, Result.WON}));
         assertEquals("BLACKJACK", gu.madeStringResult(new Result[]{Result.BLACKJACK}));
@@ -140,7 +142,7 @@ class GameUtilsTest {
 
     @Test
     void calculateFund() {
-        GameUtils gu = new GameUtils();
+        GameUtils gu = new GameUtilsImpl();
         assertEquals(110,gu.calculateFund(new int[]{10,-10},100));
         assertEquals(100,gu.calculateFund(new int[]{10,20},70));
         assertEquals(70,gu.calculateFund(new int[]{-10,-20},70));

@@ -1,13 +1,9 @@
 package com.company.blackJack.game;
 
-import org.springframework.stereotype.Component;
-
 /**
- * Class representing the logic of the game.
+ * Interface representing the logic of the game.
  */
-@Component
-public class GameUtils {
-
+public interface GameUtils {
     /**
      * Creates the final result to the player.
      *
@@ -15,24 +11,7 @@ public class GameUtils {
      * @param dealerScore the final summary score of the dealer
      * @return a {@code Result} enum value which represents the result
      */
-    public Result calculateResult(int playerScore,int dealerScore){
-        final int gameValue = 21;
-
-        if(playerScore<0 || dealerScore<0){
-            throw new IllegalArgumentException("Wrong arguments, must be > 0");
-        }else{
-            if(playerScore==gameValue && dealerScore!=21){
-                return Result.BLACKJACK;
-            }
-            else if(playerScore<=gameValue && dealerScore<=gameValue){
-                return convertIntResult(Integer.compare(playerScore,dealerScore));
-            }
-            else if(playerScore<=gameValue && dealerScore>gameValue){
-                return Result.WON;
-            }
-            return Result.LOST;
-        }
-    }
+    Result calculateResult(int playerScore,int dealerScore);
 
     /**
      * Creates the final result to the player with two player scores.
@@ -43,22 +22,7 @@ public class GameUtils {
      * @return an array of {@link Result} enums, which contains maximum two values
      *  and minimum one
      */
-    public Result[] calculateResult(int playerScore, int playerScore2, int dealerScore) {
-        Result[] results;
-        if (playerScore < 0 || playerScore2 < 0 || dealerScore < 0) {
-            throw new IllegalArgumentException("Wrong arguments, must be > 0");
-        } else {
-            if (playerScore2 > 0) {
-                results = new Result[2];
-                results[0] = calculateResult(playerScore, dealerScore);
-                results[1] = calculateResult(playerScore2, dealerScore);
-            } else {
-                results = new Result[1];
-                results[0] = calculateResult(playerScore, dealerScore);
-            }
-            return results;
-        }
-    }
+     Result[] calculateResult(int playerScore, int playerScore2, int dealerScore);
 
     /**
      * Calculates the prize to the player.
@@ -67,18 +31,7 @@ public class GameUtils {
      * @param result an {@link Result} enum value which represents the result of the game
      * @return the int value of the prize
      */
-    public int calculatePrize(int bet,Result result){
-        switch (result){
-            case WON:
-                return bet*2;
-            case PUSH:
-                return bet;
-            case BLACKJACK:
-                return (int)(bet*2.5);
-            default:
-                return -bet;
-        }
-     }
+     int calculatePrize(int bet,Result result);
 
     /**
      * Calculates the prizes to the player.
@@ -88,16 +41,7 @@ public class GameUtils {
      * @return an array of the prizes, the length equals to the given results array
      * @throws IllegalArgumentException if the given array contains 0 or more than 2 values
      */
-    public int[] calculatePrizes(int bet,Result[] results){
-        if(results.length == 2){
-            bet = bet/2;
-            return new int[]{calculatePrize(bet,results[0]),calculatePrize(bet,results[1])};
-        }else if(results.length == 1){
-            return new int[]{calculatePrize(bet,results[0])};
-        }
-        throw new IllegalArgumentException("Results argument must contains 2 enum values.");
-    }
-
+     int[] calculatePrizes(int bet,Result[] results);
     /**
      * Returns a value which represents a profit
      * for specified prizes and the actual {@link PlayerImpl}'s bet.
@@ -105,20 +49,7 @@ public class GameUtils {
      * @param bet the given {@link PlayerImpl}'s bet.
      * @return an int value which means a profit
      */
-    public int calcProfit(int[] prizes,int bet){
-        int profit = 0;
-        if(prizes.length==2){
-            bet = bet/2;
-        }
-        for (int prize : prizes) {
-            if (prize < 0) {
-                profit += prize;
-            } else {
-                profit += prize - bet;
-            }
-        }
-        return profit;
-    }
+     int calcProfit(int[] prizes,int bet);
 
     /**
      * Calculates the fund value for specified prizes. Only positive prizes add to funds.
@@ -127,20 +58,7 @@ public class GameUtils {
      * @param fund the fund to calculate
      * @return a calculated fund value
      */
-    public int calculateFund(int[] prizes,int fund){
-        int prize1 = prizes[0];
-        int prize2 = 0;
-        if(prizes.length == 2){
-            prize2 = prizes[1];
-        }
-        if(prize1>0){
-            fund += prize1;
-        }
-        if(prize2>0){
-            fund += prize2;
-        }
-        return fund;
-    }
+     int calculateFund(int[] prizes,int fund);
 
     /**
      * Returns whether the bet is possible to given from the player.
@@ -150,28 +68,7 @@ public class GameUtils {
      * @return {@code true} if the player have enough funds to subtract the bet,
      * {@code false} otherwise
      */
-    public boolean validateBet(int bet,int funds){
-        return funds - bet >= 0;
-    }
-    /**
-     * Converts an {@code int} result to a {@link Result} enum value.
-     *
-     * @param result must be 1, 0 or -1
-     * @return {@link Result} enum value
-     * @throws IllegalArgumentException if the given int value not 1, 0 or -1
-     */
-    public Result convertIntResult(int result){
-        switch (result){
-            case 1 :
-                return Result.WON;
-            case 0 :
-                return Result.PUSH;
-            case -1:
-                return Result.LOST;
-            default: throw new IllegalArgumentException("Wrong argument: " + result);
-        }
-    }
-
+     boolean validateBet(int bet,int funds);
     /**
      * Made a {@code String} object from an array of {@link Result} enum values.
      *
@@ -179,13 +76,5 @@ public class GameUtils {
      * @return a {@code String} object
      * @throws IllegalArgumentException if the given array contains 0 or more than 2 values
      */
-    public String madeStringResult(Result[] results){
-        if(results.length== 2){
-            return results[0]+" and "+results[1];
-        }
-        else if(results.length==1){
-            return String.valueOf(results[0]);
-        }
-        throw new IllegalArgumentException("Results argument must contains 2 or 1 enum values.");
-    }
+     String madeStringResult(Result[] results);
 }

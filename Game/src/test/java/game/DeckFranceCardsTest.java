@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class deckTest {
+class DeckTest {
 
     @Test
     void testCalcCardsSumValue() throws MalformedURLException {

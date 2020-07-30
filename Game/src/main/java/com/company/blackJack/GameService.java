@@ -8,6 +8,8 @@ import com.company.blackJack.game.*;
 
 import com.company.domain.User;
 import com.company.UserDao.UserDao;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.util.List;
  */
 @Slf4j
 @Service
+@Getter
 public class GameService {
 
     private final UserDao userDao;
@@ -27,10 +30,11 @@ public class GameService {
     private final CardApi cardApi;
     private final GameUtils gameUtils;
     private Deck deck;
+    @Setter
     private User user;
 
     @Autowired
-    public GameService(UserDao userDao,CardApi cardApi,GameUtils gameUtils) {
+    public GameService(UserDao userDao, CardApi cardApi, GameUtils gameUtils) {
         this.userDao = userDao;
         this.gameUtils = gameUtils;
         this.cardApi = cardApi;
@@ -41,26 +45,6 @@ public class GameService {
         }else{
             log.error("Failed to load cards data from json file.");
         }
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Person getDealer() {
-        return dealer;
-    }
-
-    public Deck getDeck() {
-        return deck;
-    }
-
-    public void setUser(User user){
-        this.user = user;
-    }
-
-    public User getUser(){
-        return this.user;
     }
 
     public void setPlayerFund(int fund){
@@ -110,7 +94,7 @@ public class GameService {
     }
 
     /**
-     * Returns the final results of the game using {@link GameUtils#calculateResult(int, int, int)} function.
+     * Returns the final results of the game using {@link GameUtilsImpl#calculateResult(int, int, int)} function.
      *
      * @return an array of {@link Result} enum values
      */
@@ -121,7 +105,7 @@ public class GameService {
     }
 
     /**
-     * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])}.
+     * Returns the final prize of the player using {@link GameUtilsImpl#calculatePrizes(int, Result[])}.
      *
      * @param results an array of {@link Result} enum values
      * @return an array of int prizes

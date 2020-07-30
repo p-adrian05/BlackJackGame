@@ -1,9 +1,7 @@
 package com.company.blackJack.card;
 
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.net.URL;
 
@@ -18,6 +16,7 @@ public class FranceCard implements Card {
     private String value;
     private String code;
     private String suit;
+    @Getter(AccessLevel.NONE)
     private URL image;
 
     /**
@@ -37,18 +36,8 @@ public class FranceCard implements Card {
             return Integer.parseInt(value);
         }
     }
-
-    @Override
-    public String getValue() { return value; }
-
-    @Override
-    public String getCode() {
-        return code;
-    }
-
     @Override
     public URL getImageUrl() {
         return image;
     }
-
 }

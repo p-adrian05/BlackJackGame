@@ -3,6 +3,8 @@ package com.company.blackJack.game;
 import com.company.blackJack.card.Card;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import lombok.AccessLevel;
+import lombok.Getter;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,12 +12,14 @@ import java.util.List;
 /**
  * Class representing a kind of {@link Person} object and add more functionality beyond it.
  */
+@Getter
 public class PlayerImpl implements Player {
 
     private final IntegerProperty fund;
     private int bet;
     private final List<Card> splitCards;
     private final List<Card> cards;
+    @Getter(AccessLevel.NONE)
     private int hands;
 
     /**
@@ -36,21 +40,6 @@ public class PlayerImpl implements Player {
     @Override
     public void madeSecondHand(){
         this.hands = 2;
-    }
-
-    @Override
-    public IntegerProperty getFund() {
-        return this.fund;
-    }
-
-    @Override
-    public int getBet() {
-        return this.bet;
-    }
-
-    @Override
-    public List<Card> getSplitCards() {
-        return this.splitCards;
     }
 
     /**
@@ -102,10 +91,5 @@ public class PlayerImpl implements Player {
         }else{
             cards.add(card);
         }
-    }
-
-    @Override
-    public List<Card> getCards() {
-        return this.cards;
     }
 }
