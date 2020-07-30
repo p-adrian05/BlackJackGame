@@ -5,6 +5,7 @@ import com.company.blackJack.game.PlayerImpl;
 import com.company.javafx.controller.GameController;
 import com.company.javafx.controller.LoginController;
 import com.company.javafx.controller.StatController;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
@@ -20,7 +21,18 @@ import java.util.Random;
 @Configuration
 @ComponentScan(basePackages = {"com.company"})
 @EnableTransactionManagement
+@PropertySource("classpath:config/game.properties")
 public class AppConfig {
+
+    @Value("${game.timerDuration:10}")
+    private int timerDuration;
+
+    @Bean
+    @TimerDuration
+    public int timerDuration(){
+        return timerDuration;
+    }
+
     @Bean
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean localEmfBean = new LocalEntityManagerFactoryBean();

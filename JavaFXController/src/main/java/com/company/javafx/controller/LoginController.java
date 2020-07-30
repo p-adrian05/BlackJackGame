@@ -34,6 +34,7 @@ public class LoginController {
     private String username;
     private String password;
 
+
     @FXML
     public void loginBtnClicked() throws IOException {
          log.info("Login button clicked.");

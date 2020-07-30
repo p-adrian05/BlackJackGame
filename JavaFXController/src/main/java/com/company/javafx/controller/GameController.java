@@ -9,6 +9,7 @@ import com.company.blackJack.card.Card;
 import com.company.blackJack.game.GameUtils;
 import com.company.blackJack.game.Person;
 import com.company.blackJack.game.Result;
+import com.company.config.TimerDuration;
 import com.company.javafx.BlackJackApplication;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -99,7 +100,9 @@ public class GameController implements Initializable {
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
 
-    private static final Integer DURATIONTIME = 15;
+    @Autowired
+    @TimerDuration
+    private int DURATIONTIME;
     private final IntegerProperty timeSeconds = new SimpleIntegerProperty(DURATIONTIME);
     private Timeline timeline;
 
