@@ -2,8 +2,6 @@ package com.company.blackJack.game;
 
 
 import com.company.blackJack.card.Card;
-import com.company.blackJack.card.DeckFranceCards;
-import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;

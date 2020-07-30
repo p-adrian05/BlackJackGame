@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import java.security.SecureRandom;
-import java.util.Random;
 
 @Configuration
 @ComponentScan(basePackages = {"com.company"})

@@ -17,14 +17,12 @@ import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -107,7 +105,7 @@ public class GameController implements Initializable {
     private Timeline timeline;
 
     @FXML
-    public void okResultBtnClicked(ActionEvent actionEvent) {
+    public void okResultBtnClicked() {
         mainContainer.setDisable(false);
         resultPopUpContainer.setDisable(true);
         resultPopUpContainer.setVisible(false);
@@ -115,27 +113,27 @@ public class GameController implements Initializable {
         log.info("OK button clicked on result pop up.");
     }
     @FXML
-    public void okWarningBtnClicked(ActionEvent actionEvent) {
+    public void okWarningBtnClicked() {
         mainContainer.setDisable(false);
         warningPopUpContainer.setDisable(true);
         warningPopUpContainer.setVisible(false);
         log.info("OK button clicked on warning pop up.");
     }
     @FXML
-    public void newGameYesBtnClicked(ActionEvent actionEvent) {
+    public void newGameYesBtnClicked() {
         disableNewGamePopUp();
         makeNewRound();
         disableFundAndBetInput(false);
         log.info("Yes button clicked on new game pop up.");
     }
     @FXML
-    public void newGameNoBtnClicked(ActionEvent actionEvent) throws IOException {
+    public void newGameNoBtnClicked() throws IOException {
         disableNewGamePopUp();
         BlackJackApplication.setRoot("login");
         log.info("No button clicked on new game pop up.");
     }
     @FXML
-    public void dealBtnClicked(ActionEvent actionEvent) {
+    public void dealBtnClicked() {
         log.info("Deal button clicked.");
         disableFundAndBetInput(true);
         disableAllBtn(false);
@@ -163,7 +161,7 @@ public class GameController implements Initializable {
         }
     }
     @FXML
-    public void hitBtnClicked(ActionEvent actionEvent) {
+    public void hitBtnClicked() {
         log.info("Hit button clicked.");
         madeTimer(timerLabel);
         if(splitEnabled){
@@ -177,7 +175,7 @@ public class GameController implements Initializable {
         checkBlackJack();
     }
     @FXML
-    public void doubleBtnClicked(ActionEvent actionEvent) {
+    public void doubleBtnClicked() {
         log.info("Double button clicked");
         if(gameService.getPlayer().getCards().size()==2){
             manageBet(gameService.getPlayer().getBet());
@@ -188,7 +186,7 @@ public class GameController implements Initializable {
         doubleBtn.setDisable(true);
     }
     @FXML
-    public void splitBtnClicked(ActionEvent actionEvent) {
+    public void splitBtnClicked() {
         log.info("Split button clicked");
         if(gameService.getPlayer().isEnableSplitCards() && manageBet(gameService.getPlayer().getBet())){
             enableSplitLayout(true);
@@ -222,7 +220,7 @@ public class GameController implements Initializable {
         checkBlackJack();
     }
     @FXML
-    public void logOutClick(ActionEvent actionEvent) {
+    public void logOutClick() {
         log.info("Log out has happened.");
         try {
             BlackJackApplication.setRoot("login");
@@ -232,7 +230,7 @@ public class GameController implements Initializable {
         makeNewRound();
     }
     @FXML
-    public void gameStatisticClick(ActionEvent actionEvent) {
+    public void gameStatisticClick() {
         log.info("Game statistic button clicked");
         try {
             BlackJackApplication.setRoot("stat");
@@ -241,19 +239,19 @@ public class GameController implements Initializable {
         }
     }
     @FXML
-    public void coin80Clicked(MouseEvent mouseEvent) {
+    public void coin80Clicked() {
         manageBet(80);
     }
     @FXML
-    public void coin40Clicked(MouseEvent mouseEvent) {
+    public void coin40Clicked() {
         manageBet(40);
     }
     @FXML
-    public void coin20Clicked(MouseEvent mouseEvent) {
+    public void coin20Clicked() {
         manageBet(20);
     }
     @FXML
-    public void coin10Clicked(MouseEvent mouseEvent) {
+    public void coin10Clicked() {
         manageBet(10);
     }
 

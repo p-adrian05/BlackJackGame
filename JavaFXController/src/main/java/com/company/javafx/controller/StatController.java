@@ -6,7 +6,6 @@ import com.company.javafx.BlackJackApplication;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
@@ -58,7 +57,7 @@ public class StatController implements Initializable {
         pie.setData(pieChartData);
         pie.setTitle(title);
     }
-    public void backGameBtnClicked(ActionEvent actionEvent) {
+    public void backGameBtnClicked() {
         log.info("Back to game button clicked");
         try {
             BlackJackApplication.setRoot("primary");
