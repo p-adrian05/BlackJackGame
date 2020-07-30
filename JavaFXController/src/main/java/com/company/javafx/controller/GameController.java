@@ -447,7 +447,7 @@ public class GameController implements Initializable {
         }
         else{
             showWarningPopUp("Not have enough funds!");
-            log.info("Player's not valid bet: ",value);
+            log.info("Player's not valid bet: {} ",value);
             return false;
         }
     }
