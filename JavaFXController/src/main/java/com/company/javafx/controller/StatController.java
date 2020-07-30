@@ -1,7 +1,7 @@
 package com.company.javafx.controller;
 
-import com.company.domain.GameData;
 import com.company.blackJack.GameService;
+import com.company.domain.GameData;
 import com.company.javafx.BlackJackApplication;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;

@@ -1,149 +1,64 @@
 package com.company.blackJack;
 
-import com.company.domain.GameData;
 import com.company.blackJack.card.Card;
 import com.company.blackJack.card.CardApi;
 import com.company.blackJack.card.Deck;
 import com.company.blackJack.game.*;
-
 import com.company.domain.User;
-import com.company.UserDao.UserDao;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * Class collects all objects needed the game and provides game related functions.
- */
-@Slf4j
-@Service
-@Getter
-public class GameService {
-
-    private final UserDao userDao;
-    private Player player;
-    private Person dealer;
-    private final CardApi cardApi;
-    private final GameUtils gameUtils;
-    private Deck deck;
-    @Setter
-    private User user;
-
-    @Autowired
-    public GameService(UserDao userDao, CardApi cardApi, GameUtils gameUtils) {
-        this.userDao = userDao;
-        this.gameUtils = gameUtils;
-        this.cardApi = cardApi;
-        this.player = new PlayerImpl();
-        this.dealer = new Dealer();
-        if(cardApi.getDeck().isPresent()){
-            this.deck = cardApi.getDeck().get();
-        }else{
-            log.error("Failed to load cards data from json file.");
-        }
-    }
-
-    public void setPlayerFund(int fund){
-        player.getFund().set(fund);
-    }
+public interface GameService {
+     /**
+      * Set the value of funds in a{@link Player} object.
+      */
+     void setPlayerFund(int fund);
 
     /**
-     * Makes new instances of {@link PlayerImpl}, {@link Dealer} and {@link Deck} objects
+     * Makes new instances of {@link Player}, {@link Dealer} and {@link Deck} objects
      * for making a new game.
      */
-    public void resetGame(){
-        player = new PlayerImpl();
-        dealer = new Dealer();
-        setPlayerFund(user.getGameData().getFunds());
-        if(deck!= null && deck.getDeckCards().size()<20){
-            this.deck = cardApi.getDeck().get();
-        }
-    }
+     void resetGame();
     /**
      * Returns whether the actual game is over checking the scores.
      *
-     * @return {@code true} if the {@link PlayerImpl} score(s) pass a specified value, {@code false} otherwise
+     * @return {@code true} if the {@link Player} score(s) pass a specified value, {@code false} otherwise
      */
-    public boolean isGameOver(){
-        boolean pass1 = getPlayerCardsValue()>21;
-        if(getPlayerSplitCardsValue()>0){
-            boolean pass2 = getPlayerSplitCardsValue()>21;
-            return pass1 && pass2;
-        }
-        else{
-            return pass1;
-        }
-    }
+     boolean isGameOver();
 
     /**
-     * Returns whether the actual game is over in {@link PlayerImpl#isEnableSplitCards()} case.
+     * Returns whether the actual game is over in {@link Player#isEnableSplitCards()} case.
      *
-     * @return {@code true} if the {@link PlayerImpl} first score not pass 21 value and the second pass 21, {@code false} otherwise
+     * @return {@code true} if the {@link Player} first score not pass 21 value and the second pass 21, {@code false} otherwise
      */
-    public boolean isSplitGameOver(){
-        if(getPlayerSplitCardsValue()>0){
-            boolean pass1 = getPlayerCardsValue()>21;
-            boolean pass2 = getPlayerSplitCardsValue()>21;
-            return !pass1 && pass2;
-        }
-        return false;
-    }
+     boolean isSplitGameOver();
 
     /**
-     * Returns the final results of the game using {@link GameUtilsImpl#calculateResult(int, int, int)} function.
+     * Returns the final results of the game using {@link GameUtils#calculateResult(int, int, int)} function.
      *
      * @return an array of {@link Result} enum values
      */
-    public Result[] getResults(){
-        return gameUtils.calculateResult(getPlayerCardsValue(),
-                getPlayerSplitCardsValue(),
-                getDealerCardsValue());
-    }
+     Result[] getResults();
 
     /**
-     * Returns the final prize of the player using {@link GameUtilsImpl#calculatePrizes(int, Result[])}.
+     * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])}.
      *
      * @param results an array of {@link Result} enum values
      * @return an array of int prizes
      */
-    public int[] getPrizes(Result[] results){
-        return gameUtils.calculatePrizes(player.getBet(),results);
-    }
+     int[] getPrizes(Result[] results);
 
     /**
      * Sets user entity's attributes and save it to the database.
      */
-    public void saveUser(){
-        GameData gameData = user.getGameData();
-        int[] prizes = getPrizes(getResults());
-        int profit = gameUtils.calcProfit(prizes,player.getBet());
-        gameData.setFunds(gameUtils.calculateFund(prizes,player.getFund().intValue()));
-        player.getFund().set(gameData.getFunds());
-        if(player.getBet()>gameData.getMaxBet()){
-            gameData.setMaxBet(player.getBet());
-        }
-        if(profit<0){
-            gameData.setLostMoney(gameData.getLostMoney() + profit);
-            gameData.setLoseCount(gameData.getLoseCount() + 1);
-        }else if(profit>0){
-            gameData.setWonMoney(gameData.getWonMoney() + profit);
-            gameData.setWonCount(gameData.getWonCount() + 1);
-        }
-        userDao.update(user);
-    }
+     void saveUser();
     /**
      * Returns the summary value of the {@link Player }{@link Card} objects list
      * calling the {@link Deck#calcCardsSumValue(List)} function.
      *
      * @return a summary value
      */
-    public int getPlayerCardsValue(){
-        return deck.calcCardsSumValue(player.getCards());
-    }
+     int getPlayerCardsValue();
     /**
      * Returns the summary value of the {@link Player } {@link Card} objects list,
      * which contains the split cards,
@@ -151,9 +66,7 @@ public class GameService {
      *
      * @return a summary value
      */
-    public int getPlayerSplitCardsValue(){
-        return deck.calcCardsSumValue(player.getSplitCards());
-    }
+     int getPlayerSplitCardsValue();
     /**
      * Returns the summary value of the {@link Dealer } {@link Card} objects list,
      * which contains the split cards,
@@ -161,7 +74,16 @@ public class GameService {
      *
      * @return a summary value
      */
-    public int getDealerCardsValue(){
-        return deck.calcCardsSumValue(dealer.getCards());
-    }
+     int getDealerCardsValue();
+
+     Player getPlayer();
+
+     Person getDealer();
+
+     Deck getDeck();
+
+     User getUser();
+
+     void setUser(User user);
+
 }
