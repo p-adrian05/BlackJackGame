@@ -1,5 +1,6 @@
 package com.company.javafx.controller;
 
+import com.company.domain.GameData;
 import com.company.blackJack.GameService;
 import com.company.javafx.BlackJackApplication;
 import javafx.beans.binding.Bindings;
@@ -32,12 +33,13 @@ public class StatController implements Initializable {
     private GameService gameService;
 
     public void initData(){
-        madePie(new int[]{gameService.getUser().getWonCount(),
-                gameService.getUser().getLoseCount()},"Won/Lost rate",pieLoseWinCount);
-        madePie(new int[]{gameService.getUser().getWonMoney(),
-                gameService.getUser().getLostMoney()},"Won/Lost money rate",pieLoseWinMoney);
-        maxBetLabel.setText(String.valueOf(gameService.getUser().getMaxBet()));
-        totalProfitLabel.setText(String.valueOf(gameService.getUser().getWonMoney() + gameService.getUser().getLostMoney()));
+        GameData gameData = gameService.getUser().getGameData();
+        madePie(new int[]{gameData.getWonCount(),
+                gameData.getLoseCount()},"Won/Lost rate",pieLoseWinCount);
+        madePie(new int[]{gameData.getWonMoney(),
+                gameData.getLostMoney()},"Won/Lost money rate",pieLoseWinMoney);
+        maxBetLabel.setText(String.valueOf(gameData.getMaxBet()));
+        totalProfitLabel.setText(String.valueOf(gameData.getWonMoney() + gameData.getLostMoney()));
     }
     public void madePie(int[] data, String title, PieChart pie ) {
         log.info("Setting pie: "+title);

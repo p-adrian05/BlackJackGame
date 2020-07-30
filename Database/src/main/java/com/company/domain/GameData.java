@@ -1,28 +1,20 @@
-package com.company.UserDao;
+package com.company.domain;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import javax.persistence.*;
-import java.time.ZonedDateTime;
-
 /**
- * Class representing a User played the game.
+ * Class representing a the actual {@link User} data in the game.
  */
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
-public class User {
+public class GameData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(nullable = false,  unique=true)
-    private String username;
-
-    @Column(nullable = false)
-    private String password;
 
     @Column(nullable = false)
     private int funds;
@@ -42,11 +34,15 @@ public class User {
     @Column(nullable = false)
     private int maxBet;
 
-    @Column(nullable = false)
-    private ZonedDateTime created;
+    @OneToOne(mappedBy = "gameData")
+    private User user;
 
-    @PrePersist
-    protected void onPersist() {
-        created = ZonedDateTime.now();
+    public GameData(){
+        funds = 0;
+        lostMoney = 0;
+        wonMoney = 0;
+        loseCount = 0;
+        wonCount = 0;
+        maxBet = 0;
     }
 }

@@ -1,12 +1,11 @@
 package com.company.javafx.controller;
 
+import com.company.domain.GameData;
 import com.company.blackJack.GameService;
-import com.company.UserDao.User;
+import com.company.domain.User;
 import com.company.UserDao.UserDao;
 import com.company.javafx.BlackJackApplication;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -16,12 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 
 @Slf4j
-public class LoginController implements Initializable {
+public class LoginController {
     @FXML
     private TextField userNameInput;
     @FXML
@@ -38,7 +35,7 @@ public class LoginController implements Initializable {
     private String password;
 
     @FXML
-    public void loginBtnClicked(ActionEvent actionEvent) throws IOException {
+    public void loginBtnClicked() throws IOException {
          log.info("Login button clicked.");
          username = userNameInput.getText();
          password = passwordInput.getText();
@@ -61,7 +58,7 @@ public class LoginController implements Initializable {
          }
     }
     @FXML
-    public void registerBtnClicked(ActionEvent actionEvent) {
+    public void registerBtnClicked() {
          log.info("Register button clicked.");
          username = userNameInput.getText();
          password = passwordInput.getText();
@@ -105,20 +102,8 @@ public class LoginController implements Initializable {
     }
 
     private User createUser(String username, String password){
-        return User.builder()
-                .username(username)
-                .password(password)
-                .funds(0)
-                .lostMoney(0)
-                .wonMoney(0)
-                .wonCount(0)
-                .loseCount(0)
-                .build();
+        return new User(username,password,new GameData());
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
 }
 

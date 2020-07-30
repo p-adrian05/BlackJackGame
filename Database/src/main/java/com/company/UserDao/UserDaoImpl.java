@@ -1,5 +1,6 @@
 package com.company.UserDao;
 
+import com.company.domain.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

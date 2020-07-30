@@ -1,15 +1,14 @@
 package com.company.blackJack;
 
+import com.company.domain.GameData;
 import com.company.blackJack.card.Card;
 import com.company.blackJack.card.CardApi;
 import com.company.blackJack.card.Deck;
-import com.company.blackJack.card.FranceCardApi;
 import com.company.blackJack.game.*;
 
-import com.company.UserDao.User;
+import com.company.domain.User;
 import com.company.UserDao.UserDao;
 import lombok.extern.slf4j.Slf4j;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -75,7 +74,7 @@ public class GameService {
     public void resetGame(){
         player = new PlayerImpl();
         dealer = new Dealer();
-        setPlayerFund(user.getFunds());
+        setPlayerFund(user.getGameData().getFunds());
         if(deck!= null && deck.getDeckCards().size()<20){
             this.deck = cardApi.getDeck().get();
         }
@@ -135,19 +134,20 @@ public class GameService {
      * Sets user entity's attributes and save it to the database.
      */
     public void saveUser(){
+        GameData gameData = user.getGameData();
         int[] prizes = getPrizes(getResults());
         int profit = gameUtils.calcProfit(prizes,player.getBet());
-        user.setFunds(gameUtils.calculateFund(prizes,player.getFund().intValue()));
-        player.getFund().set(user.getFunds());
-        if(player.getBet()>user.getMaxBet()){
-            user.setMaxBet(player.getBet());
+        gameData.setFunds(gameUtils.calculateFund(prizes,player.getFund().intValue()));
+        player.getFund().set(gameData.getFunds());
+        if(player.getBet()>gameData.getMaxBet()){
+            gameData.setMaxBet(player.getBet());
         }
         if(profit<0){
-            user.setLostMoney(user.getLostMoney() + profit);
-            user.setLoseCount(user.getLoseCount() + 1);
+            gameData.setLostMoney(gameData.getLostMoney() + profit);
+            gameData.setLoseCount(gameData.getLoseCount() + 1);
         }else if(profit>0){
-            user.setWonMoney(user.getWonMoney() + profit);
-            user.setWonCount(user.getWonCount() + 1);
+            gameData.setWonMoney(gameData.getWonMoney() + profit);
+            gameData.setWonCount(gameData.getWonCount() + 1);
         }
         userDao.update(user);
     }

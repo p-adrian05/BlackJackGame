@@ -531,7 +531,7 @@ public class GameController implements Initializable {
         readInFundInputListener();
         disableAllBtn(true);
         playerNameLabel.setText(gameService.getUser().getUsername());
-        gameService.setPlayerFund(gameService.getUser().getFunds());
+        gameService.setPlayerFund(gameService.getUser().getGameData().getFunds());
         fundInput.textProperty().bindBidirectional(gameService.getPlayer().getFund(),new NumberStringConverter());
         log.info("INIT game controller");
     }

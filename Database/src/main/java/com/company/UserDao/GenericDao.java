@@ -1,4 +1,4 @@
-package com.company.jpa;
+package com.company.UserDao;
 
 import java.util.List;
 import java.util.Optional;
@@ -9,7 +9,7 @@ import java.util.Optional;
  *
  * @param <T> the type of the entity class
  */
-public interface GenericJpaDao<T> {
+public interface GenericDao<T> {
 
     /**
      * Persists the specified entity instance in the database.

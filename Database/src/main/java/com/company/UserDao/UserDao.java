@@ -1,14 +1,14 @@
 package com.company.UserDao;
 
 
-import com.company.jpa.GenericJpaDao;
+import com.company.domain.User;
 
 import java.util.Optional;
 
 /**
  * DAO interface for the {@link User} entity.
  */
-public interface UserDao extends GenericJpaDao<User>{
+public interface UserDao extends GenericDao<User> {
     /**
      * Returns a {@link User} entity instance with the specified username from the
      * database. The method returns an empty {@link Optional} object when
