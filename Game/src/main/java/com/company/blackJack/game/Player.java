@@ -4,7 +4,9 @@ import com.company.blackJack.card.Card;
 import javafx.beans.property.IntegerProperty;
 
 import java.util.List;
-
+/**
+ * Person interface class representing a player int the game.
+ */
 public interface Player extends Person{
 
     void addBetFromFund(int bet);

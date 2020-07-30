@@ -6,9 +6,8 @@ import com.company.blackJack.card.DeckFranceCards;
 import java.util.List;
 
 /**
- * Person abstract class representing a person who play in the game.
+ * Person interface class representing a person int the game.
  */
-
 public interface Person {
 
      void addCard(Card card);
