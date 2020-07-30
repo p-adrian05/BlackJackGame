@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Paint;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +32,8 @@ public class LoginController implements Initializable {
     private GameService gameService;
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private PasswordEncoder encoder;
     private String username;
     private String password;
 
@@ -45,7 +48,7 @@ public class LoginController implements Initializable {
          if(user.isEmpty()){
              setLabelText("User not found!","red");
          }else{
-             if(user.get().getPassword().equals(password) && user.get().getUsername().equals(username)){
+             if(encoder.matches(password,user.get().getPassword()) && user.get().getUsername().equals(username)){
                  setLabelText("Successful login!","green");
                  log.info("Successful login!");
                  gameService.setUser(user.get());
@@ -53,7 +56,7 @@ public class LoginController implements Initializable {
                  log.info("Loading primary screen...");
                  BlackJackApplication.setRoot("primary");
              }else{
-                 setLabelText("Wrong password!","red");
+                 setLabelText("Wrong password or username!","red");
              }
          }
     }
@@ -68,7 +71,7 @@ public class LoginController implements Initializable {
             if(userDao.findByUsername(username).isPresent()){
                 setLabelText("Name is already taken!","red");
             }else{
-                userDao.persist(createUser(username,password));
+                userDao.persist(createUser(username,encoder.encode(password)));
                 log.info("Successful registering!");
                 setLabelText("Successful registering!","green");
                 userNameInput.clear();

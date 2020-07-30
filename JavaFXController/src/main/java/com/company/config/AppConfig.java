@@ -8,10 +8,14 @@ import com.company.javafx.controller.StatController;
 import org.springframework.context.annotation.*;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
+import java.security.SecureRandom;
+import java.util.Random;
 
 @Configuration
 @ComponentScan(basePackages = {"com.company"})
@@ -42,6 +46,11 @@ public class AppConfig {
     @Scope("prototype")
     public StatController statController() {
         return new StatController();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+       return new BCryptPasswordEncoder(12,new SecureRandom());
     }
 
 }
