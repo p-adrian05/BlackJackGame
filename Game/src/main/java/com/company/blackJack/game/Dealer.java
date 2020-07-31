@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Class representing a kind of {@link Person} object.
  */
+
 public class Dealer implements Person{
 
     @Getter

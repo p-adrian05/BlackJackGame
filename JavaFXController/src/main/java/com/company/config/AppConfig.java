@@ -1,5 +1,7 @@
 package com.company.config;
 
+import com.company.blackJack.game.Dealer;
+import com.company.blackJack.game.Person;
 import com.company.blackJack.game.Player;
 import com.company.blackJack.game.PlayerImpl;
 import com.company.javafx.controller.GameController;
@@ -62,6 +64,17 @@ public class AppConfig {
     @Bean
     public PasswordEncoder passwordEncoder(){
        return new BCryptPasswordEncoder(12,new SecureRandom());
+    }
+
+    @Bean
+    @Scope("prototype")
+    public Player player(){
+        return new PlayerImpl();
+    }
+    @Bean(name = "dealer")
+    @Scope("prototype")
+    public Person dealer(){
+        return new Dealer();
     }
 
 }

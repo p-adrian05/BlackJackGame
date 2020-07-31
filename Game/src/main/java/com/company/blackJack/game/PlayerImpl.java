@@ -5,6 +5,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;

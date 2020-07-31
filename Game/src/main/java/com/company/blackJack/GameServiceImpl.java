@@ -1,5 +1,6 @@
 package com.company.blackJack;
 
+import com.company.SpringContext;
 import com.company.domain.GameData;
 import com.company.blackJack.card.CardApi;
 import com.company.blackJack.card.Deck;
@@ -12,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 
@@ -35,18 +37,29 @@ public class GameServiceImpl implements GameService {
     @Setter
     private User user;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    private ApplicationContext appContext = SpringContext.getApplicationContext();
+
     @Autowired
     public GameServiceImpl(UserDao userDao, CardApi cardApi, GameUtils gameUtils) {
         this.userDao = userDao;
         this.gameUtils = gameUtils;
         this.cardApi = cardApi;
-        this.player = new PlayerImpl();
-        this.dealer = new Dealer();
         if(cardApi.getDeck().isPresent()){
             this.deck = cardApi.getDeck().get();
         }else{
             log.error("Failed to load cards data from json file.");
         }
+    }
+
+    @Autowired
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    @Autowired
+    public void setDealer(Person dealer) {
+        this.dealer = dealer;
     }
 
     @Override
@@ -55,10 +68,10 @@ public class GameServiceImpl implements GameService {
     }
     @Override
     public void resetGame(){
-        player = new PlayerImpl();
-        dealer = new Dealer();
+        player = appContext.getBean(Player.class);
+        dealer = appContext.getBean("dealer",Person.class);
         setPlayerFund(user.getGameData().getFunds());
-        if(deck!= null && deck.getDeckCards().size()<20){
+        if(deck.getDeckCards().size()<20){
             this.deck = cardApi.getDeck().get();
         }
     }
