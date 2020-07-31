@@ -1,5 +1,6 @@
 package com.company.blackJack.game;
 
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 /**
@@ -47,7 +48,7 @@ public class GameUtilsImpl implements GameUtils {
     }
 
     @Override
-    public int calculatePrize(int bet,Result result){
+    public int calculatePrize(int bet,@NonNull Result result){
         switch (result){
             case WON:
                 return bet*2;

@@ -3,6 +3,7 @@ package com.company.blackJack.game;
 
 import com.company.blackJack.card.Card;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -21,7 +22,7 @@ public class Dealer implements Person{
     }
 
     @Override
-    public void addCard(Card card) {
+    public void addCard(@NonNull Card card) {
         cards.add(card);
     }
 

@@ -4,6 +4,7 @@ import com.company.blackJack.card.Card;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -92,7 +93,7 @@ public class PlayerImpl implements Player {
      *                         if card splitting enabled
      */
     @Override
-    public void addCard(Card card) {
+    public void addCard(@NonNull Card card) {
         if(this.hands==2){
                 splitCards.add(card);
         }else{
