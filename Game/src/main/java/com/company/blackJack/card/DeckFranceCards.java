@@ -2,6 +2,7 @@ package com.company.blackJack.card;
 
 import lombok.*;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class DeckFranceCards implements Deck{
 
     @Override
     public List<Card> getDeckCards() {
-        return new LinkedList<>(this.cards);
+        return Collections.unmodifiableList(this.cards);
     }
 
     /**
@@ -50,6 +51,11 @@ public class DeckFranceCards implements Deck{
             }
         }
         return sum;
+    }
+
+    @Override
+    public void shuffle() {
+        Collections.shuffle(this.cards);
     }
 }
 

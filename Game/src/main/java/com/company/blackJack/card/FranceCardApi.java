@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.apache.commons.io.IOUtils;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,7 +13,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -41,7 +39,7 @@ public class FranceCardApi implements CardApi{
      */
     @Override
     public Optional<Deck> getDeck(){
-        DeckFranceCards deck = null;
+        DeckFranceCards deck;
         String cardsRes;
         try {
             URL CARDS_URL = makeCardsUrl(getDeckID());
@@ -56,7 +54,7 @@ public class FranceCardApi implements CardApi{
             e.printStackTrace();
         }
         if(deck!=null){
-            Collections.shuffle(deck.getDeckCards());
+            deck.shuffle();
         }
         return Optional.ofNullable(deck);
     }

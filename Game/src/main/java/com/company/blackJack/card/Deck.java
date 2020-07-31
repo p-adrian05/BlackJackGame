@@ -13,4 +13,5 @@ public interface Deck {
     List<Card> getDeckCards();
     Card getCard();
     int calcCardsSumValue(List<Card> cards);
+    void shuffle();
 }

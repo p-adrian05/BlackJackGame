@@ -4,6 +4,7 @@ package com.company.blackJack.game;
 import com.company.blackJack.card.Card;
 import lombok.Getter;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import java.util.List;
 
 public class Dealer implements Person{
 
-    @Getter
     private final List<Card> cards;
 
     public Dealer() {
@@ -25,4 +25,8 @@ public class Dealer implements Person{
         cards.add(card);
     }
 
+    @Override
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
+    }
 }

@@ -3,10 +3,9 @@ package com.company.blackJack.game;
 import com.company.blackJack.card.Card;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import lombok.AccessLevel;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,7 +19,6 @@ public class PlayerImpl implements Player {
     private int bet;
     private final List<Card> splitCards;
     private final List<Card> cards;
-    @Getter(AccessLevel.NONE)
     private int hands;
 
     /**
@@ -32,6 +30,14 @@ public class PlayerImpl implements Player {
         cards = new LinkedList<>();
         splitCards = new LinkedList<>();
         hands = 1;
+    }
+
+    public List<Card> getSplitCards() {
+        return Collections.unmodifiableList(splitCards);
+    }
+
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(cards);
     }
 
     /**
