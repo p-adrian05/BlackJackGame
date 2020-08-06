@@ -1,10 +1,8 @@
 package com.company.blackJack;
 
 import com.company.blackJack.card.Card;
-import com.company.blackJack.card.CardApi;
 import com.company.blackJack.card.Deck;
 import com.company.blackJack.game.*;
-import com.company.domain.User;
 
 import java.util.List;
 
@@ -82,8 +80,11 @@ public interface GameService {
 
      Deck getDeck();
 
-     User getUser();
+    void setGameDataId(Long id);
 
-     void setUser(User user);
+    String getUsername();
 
+    void setUsername(String username);
+
+    Long getGameDataId();
 }

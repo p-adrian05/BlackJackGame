@@ -1,5 +1,6 @@
 package com.company.UserDao;
 
+import com.company.domain.GameData;
 import com.company.domain.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,16 @@ public class UserDaoImpl implements UserDao{
         try {
             return Optional.of(entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username", User.class)
                     .setParameter("username", username).getSingleResult());
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<GameData> getGameDataById(Long id) {
+        try {
+            return Optional.of(entityManager.createQuery("SELECT g FROM GameData g WHERE g.id = :id", GameData.class)
+                    .setParameter("id", id).getSingleResult());
         } catch (Exception e) {
             return Optional.empty();
         }
@@ -49,6 +60,13 @@ public class UserDaoImpl implements UserDao{
     public void update(User entity) {
         entityManager.merge(entity);
     }
+    @Override
+    @Transactional
+    public void updateGameData(GameData entity) {
+        entityManager.merge(entity);
+    }
+
+
 
     @Override
     @Transactional

@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 
 /**
  * Class collects all objects needed the game and provides game related functions.
@@ -34,25 +36,29 @@ public class GameServiceImpl implements GameService {
     @Getter(AccessLevel.NONE)
     private final GameUtils gameUtils;
     private Deck deck;
-    @Setter
-    private User user;
-
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     private ApplicationContext appContext = SpringContext.getApplicationContext();
+    @Setter
+    private Long gameDataId;
+    @Setter
+    private String username;
 
     @Autowired
     public GameServiceImpl(UserDao userDao, CardApi cardApi, GameUtils gameUtils) {
         this.userDao = userDao;
         this.gameUtils = gameUtils;
         this.cardApi = cardApi;
+    }
+
+    @PostConstruct
+    public void init(){
         if(cardApi.getDeck().isPresent()){
             this.deck = cardApi.getDeck().get();
         }else{
             log.error("Failed to load cards data from json file.");
         }
     }
-
     @Autowired
     public void setPlayer(Player player) {
         this.player = player;
@@ -70,7 +76,7 @@ public class GameServiceImpl implements GameService {
     public void resetGame(){
         player = appContext.getBean(Player.class);
         dealer = appContext.getBean("dealer",Person.class);
-        setPlayerFund(user.getGameData().getFunds());
+        setPlayerFund(userDao.getGameDataById(gameDataId).get().getFunds());
         if(deck.getDeckCards().size()<20){
             this.deck = cardApi.getDeck().get();
         }
@@ -107,11 +113,10 @@ public class GameServiceImpl implements GameService {
     }
     @Override
     public void saveUser(){
-        GameData gameData = user.getGameData();
+        GameData gameData = userDao.getGameDataById(gameDataId).get();
         int[] prizes = getPrizes(getResults());
         int profit = gameUtils.calcProfit(prizes,player.getBet());
         gameData.setFunds(gameUtils.calculateFund(prizes,player.getFund().intValue()));
-        player.getFund().set(gameData.getFunds());
         if(player.getBet()>gameData.getMaxBet()){
             gameData.setMaxBet(player.getBet());
         }
@@ -122,7 +127,7 @@ public class GameServiceImpl implements GameService {
             gameData.setWonMoney(gameData.getWonMoney() + profit);
             gameData.setWonCount(gameData.getWonCount() + 1);
         }
-        userDao.update(user);
+        userDao.updateGameData(gameData);
     }
     @Override
     public int getPlayerCardsValue(){

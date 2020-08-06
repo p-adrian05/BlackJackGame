@@ -1,5 +1,6 @@
 package com.company.javafx.controller;
 
+import com.company.UserDao.UserDao;
 import com.company.blackJack.GameService;
 import com.company.domain.GameData;
 import com.company.javafx.BlackJackApplication;
@@ -29,10 +30,12 @@ public class StatController implements Initializable {
     private Label totalProfitLabel;
 
     @Autowired
+    private UserDao userDao;
+    @Autowired
     private GameService gameService;
 
     public void initData(){
-        GameData gameData = gameService.getUser().getGameData();
+        GameData gameData = userDao.getGameDataById(gameService.getGameDataId()).get();
         madePie(new int[]{gameData.getWonCount(),
                 gameData.getLoseCount()},"Won/Lost rate",pieLoseWinCount);
         madePie(new int[]{gameData.getWonMoney(),

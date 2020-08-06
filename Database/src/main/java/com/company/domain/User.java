@@ -23,7 +23,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL,optional = false)
+    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL,optional = false)
     @JoinColumn(name = "gamedata_id",referencedColumnName = "id",nullable = false)
     private GameData gameData;
 

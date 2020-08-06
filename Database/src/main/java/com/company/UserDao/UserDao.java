@@ -1,6 +1,7 @@
 package com.company.UserDao;
 
 
+import com.company.domain.GameData;
 import com.company.domain.User;
 
 import java.util.Optional;
@@ -19,4 +20,7 @@ public interface UserDao extends GenericDao<User> {
      * the specified primary key
      */
     Optional<User> findByUsername(String username);
+
+    Optional<GameData> getGameDataById(Long id);
+    void updateGameData(GameData entity);
 }

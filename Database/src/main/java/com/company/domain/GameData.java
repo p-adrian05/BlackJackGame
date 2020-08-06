@@ -34,7 +34,7 @@ public class GameData {
     @Column(nullable = false)
     private int maxBet;
 
-    @OneToOne(mappedBy = "gameData")
+    @OneToOne(mappedBy = "gameData",fetch = FetchType.LAZY )
     private User user;
 
     public GameData(){

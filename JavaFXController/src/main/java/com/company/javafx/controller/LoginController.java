@@ -49,7 +49,8 @@ public class LoginController {
              if(encoder.matches(password,user.get().getPassword()) && user.get().getUsername().equals(username)){
                  setLabelText("Successful login!","green");
                  log.info("Successful login!");
-                 gameService.setUser(user.get());
+                 gameService.setGameDataId(user.get().getGameData().getId());
+                 gameService.setUsername(user.get().getUsername());
                  gameService.resetGame();
                  log.info("Loading primary screen...");
                  BlackJackApplication.setRoot("primary");
