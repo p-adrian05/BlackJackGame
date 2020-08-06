@@ -78,13 +78,13 @@ public interface GameService {
 
      Person getDealer();
 
-     Deck getDeck();
+     void setGameDataId(Long id);
 
-    void setGameDataId(Long id);
+     String getUsername();
 
-    String getUsername();
+     void setUsername(String username);
 
-    void setUsername(String username);
+     Long getGameDataId();
 
-    Long getGameDataId();
+     Card getCard();
 }

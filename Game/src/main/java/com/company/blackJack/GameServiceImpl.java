@@ -1,6 +1,7 @@
 package com.company.blackJack;
 
 import com.company.SpringContext;
+import com.company.blackJack.card.Card;
 import com.company.domain.GameData;
 import com.company.blackJack.card.CardApi;
 import com.company.blackJack.card.Deck;
@@ -17,6 +18,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.util.NoSuchElementException;
 
 
 /**
@@ -24,24 +26,23 @@ import javax.annotation.PostConstruct;
  */
 @Slf4j
 @Service
-@Getter
 public class GameServiceImpl implements GameService {
 
-    @Getter(AccessLevel.NONE)
-    private final UserDao userDao;
-    private Player player;
-    private Person dealer;
-    @Getter(AccessLevel.NONE)
     private final CardApi cardApi;
-    @Getter(AccessLevel.NONE)
     private final GameUtils gameUtils;
     private Deck deck;
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     private ApplicationContext appContext = SpringContext.getApplicationContext();
+    private final UserDao userDao;
+
+    @Getter
+    private Player player;
+    @Getter
+    private Person dealer;
     @Setter
+    @Getter
     private Long gameDataId;
     @Setter
+    @Getter
     private String username;
 
     @Autowired
@@ -52,7 +53,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @PostConstruct
-    public void init(){
+    public void initDeck(){
         if(cardApi.getDeck().isPresent()){
             this.deck = cardApi.getDeck().get();
         }else{
@@ -73,13 +74,20 @@ public class GameServiceImpl implements GameService {
         player.getFund().set(fund);
     }
     @Override
+    public Card getCard(){
+        if(deck.getDeckCards().size()<10){
+            initDeck();
+        }
+        if(deck!=null){
+            return deck.getCard();
+        }
+        return null;
+    }
+    @Override
     public void resetGame(){
         player = appContext.getBean(Player.class);
         dealer = appContext.getBean("dealer",Person.class);
         setPlayerFund(userDao.getGameDataById(gameDataId).get().getFunds());
-        if(deck.getDeckCards().size()<20){
-            this.deck = cardApi.getDeck().get();
-        }
     }
     @Override
     public boolean isGameOver(){

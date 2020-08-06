@@ -6,9 +6,7 @@ import java.util.ResourceBundle;
 
 import com.company.blackJack.GameService;
 import com.company.blackJack.card.Card;
-import com.company.blackJack.game.GameUtils;
-import com.company.blackJack.game.Person;
-import com.company.blackJack.game.Result;
+import com.company.blackJack.game.*;
 import com.company.config.TimerDuration;
 import com.company.javafx.BlackJackApplication;
 import javafx.animation.KeyFrame;
@@ -29,6 +27,8 @@ import javafx.util.Duration;
 import javafx.util.converter.NumberStringConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
 
 @Slf4j
 public class GameController implements Initializable {
@@ -97,6 +97,15 @@ public class GameController implements Initializable {
     private GameUtils gameUtils;
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
+
+    private Player player;
+    private Person dealer;
+
+    @PostConstruct
+    public void init(){
+        player = gameService.getPlayer();
+        dealer = gameService.getDealer();
+    }
 
     @Autowired
     @TimerDuration
@@ -438,10 +447,10 @@ public class GameController implements Initializable {
         });
     }
     private boolean manageBet(int value){
-        if(gameUtils.validateBet(value, gameService.getPlayer().getFund().intValue())){
+        if(gameUtils.validateBet(value, player.getFund().intValue())){
             log.info("Player's valid bet: {}",value);
             gameService.getPlayer().addBetFromFund(value);
-            betLabel.setText(String.valueOf(gameService.getPlayer().getBet()));
+            betLabel.setText(String.valueOf(player.getBet()));
             dealBtn.setDisable(false);
             return true;
         }
@@ -454,27 +463,26 @@ public class GameController implements Initializable {
     private void loadCardToPerson(int amount, Pane placetoLoad, Person person){
         ImageView imageView;
         Card card;
-
-        if(gameService.getDeck()!=null){
-            for(int i = 0; i<amount;i++) {
-                card = gameService.getDeck().getCard();
-                log.debug("Card object: {}",card.toString());
-                try{
-                    imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
-                    log.info("Card image URL: {}",imageView.getImage().getUrl());
-                    placetoLoad.getChildren().add(imageView);
-                }catch (Exception ex){
-                    log.error(ex.getMessage(),ex);
-                    showWarningPopUp("Failed to load image");
-                    placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),card.getCode()));
-                }
-                person.addCard(card);
+        for(int i = 0; i<amount;i++) {
+          card = gameService.getCard();
+          if(card != null){
+              log.debug("Card object: {}",card.toString());
+              try{
+                  imageView = madeImageViewFromUrl(card.getImageUrl().toString(), getLastChildXLayout(placetoLoad) + 25);
+                  log.info("Card image URL: {}",imageView.getImage().getUrl());
+                  placetoLoad.getChildren().add(imageView);
+              }catch (Exception ex){
+                  log.error(ex.getMessage(),ex);
+                  showWarningPopUp("Failed to load image, no connection");
+                  placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),card.getCode()));
+              }
+              person.addCard(card);
+          }else{
+              showWarningPopUp("Failed to load card data");
+              log.error("Failed to load card data");
+              break;
             }
-        }
-        else{
-            showWarningPopUp("Failed to load cards data");
-            log.error("Failed to load cards data");
-        }
+       }
     }
     private Label madeLabel(double xLayout,String msg){
         Label label = new Label();
@@ -532,7 +540,7 @@ public class GameController implements Initializable {
         readInFundInputListener();
         disableAllBtn(true);
         playerNameLabel.setText(gameService.getUsername());
-        fundInput.textProperty().bindBidirectional(gameService.getPlayer().getFund(),new NumberStringConverter());
+        fundInput.textProperty().bindBidirectional(player.getFund(),new NumberStringConverter());
         log.info("INIT game controller");
     }
 }
