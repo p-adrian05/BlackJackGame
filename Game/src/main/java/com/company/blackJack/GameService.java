@@ -3,6 +3,7 @@ package com.company.blackJack;
 import com.company.blackJack.card.Card;
 import com.company.blackJack.card.Deck;
 import com.company.blackJack.game.*;
+import javafx.beans.property.IntegerProperty;
 
 import java.util.List;
 
@@ -74,10 +75,6 @@ public interface GameService {
      */
      int getDealerCardsValue();
 
-     Player getPlayer();
-
-     Person getDealer();
-
      void setGameDataId(Long id);
 
      String getUsername();
@@ -86,5 +83,11 @@ public interface GameService {
 
      Long getGameDataId();
 
-     Card getCard();
+     Card loadCardToPerson(Class<? extends Person> person);
+
+     boolean enablePlayerSplitCards();
+     boolean addPlayerBetFromFund(int funds);
+     boolean addSecondHandToPlayer();
+     IntegerProperty getPlayerFund();
+     boolean isDoubleEnable();
 }

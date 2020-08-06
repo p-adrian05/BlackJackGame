@@ -97,16 +97,6 @@ public class GameController implements Initializable {
     private GameUtils gameUtils;
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
-
-    private Player player;
-    private Person dealer;
-
-    @PostConstruct
-    public void init(){
-        player = gameService.getPlayer();
-        dealer = gameService.getDealer();
-    }
-
     @Autowired
     @TimerDuration
     private int DURATIONTIME;
@@ -147,14 +137,13 @@ public class GameController implements Initializable {
         disableFundAndBetInput(true);
         disableAllBtn(false);
         dealBtn.setDisable(true);
-        loadCardToPerson(2,imgContainerPlayer, gameService.getPlayer());
-        loadCardToPerson(1,imgContainerDealer, gameService.getDealer());
+        loadCardToPerson(2,imgContainerPlayer, Player.class);
+        loadCardToPerson(1,imgContainerDealer, Person.class);
         loadCardToPane(getClass().getResource("/images/card-back.png").toExternalForm(),imgContainerDealer);
         setScoreLabelDealer();
         setScoreLabelPlayer();
         madeTimer(timerLabel);
         checkBlackJack();
-        checkSplitEnable();
     }
     @FXML
     public void standBtnClicked() {
@@ -177,7 +166,7 @@ public class GameController implements Initializable {
             hitBtnClickedInSplitMode();
         }
         else{
-            loadCardToPerson(1,imgContainerPlayer, gameService.getPlayer());
+            loadCardToPerson(1,imgContainerPlayer, Player.class);
             setScoreLabelPlayer();
             checkGameOver();
         }
@@ -186,8 +175,7 @@ public class GameController implements Initializable {
     @FXML
     public void doubleBtnClicked() {
         log.info("Double button clicked");
-        if(gameService.getPlayer().getCards().size()==2){
-            manageBet(gameService.getPlayer().getBet());
+        if(gameService.isDoubleEnable()){
             dealBtn.setDisable(true);
         }else{
             showWarningPopUp("Double not allowed!");
@@ -197,9 +185,8 @@ public class GameController implements Initializable {
     @FXML
     public void splitBtnClicked() {
         log.info("Split button clicked");
-        if(gameService.getPlayer().isEnableSplitCards() && manageBet(gameService.getPlayer().getBet())){
+        if(gameService.enablePlayerSplitCards()){
             enableSplitLayout(true);
-            gameService.getPlayer().madeSplitCards();
             imgContainerPlayer1.getChildren().add(imgContainerPlayer.getChildren().get(1));
             imgContainerPlayer2.getChildren().add(imgContainerPlayer.getChildren().get(1));
             playerScore1.setText(String.valueOf(gameService.getPlayerCardsValue()));
@@ -215,13 +202,14 @@ public class GameController implements Initializable {
     }
     public void hitBtnClickedInSplitMode(){
         if(standButtonClicked || gameService.getPlayerCardsValue()>=21){
-            gameService.getPlayer().madeSecondHand();
-            loadCardToPerson(1,imgContainerPlayer2, gameService.getPlayer());
-            playerScore2.setText(String.valueOf(gameService.getPlayerSplitCardsValue()));
-            log.info("Player score 2: {}",playerScore2);
+            if(gameService.addSecondHandToPlayer()){
+                loadCardToPerson(1,imgContainerPlayer2, Player.class);
+                playerScore2.setText(String.valueOf(gameService.getPlayerSplitCardsValue()));
+                log.info("Player score 2: {}",playerScore2);
+            }
         }
         else{
-            loadCardToPerson(1,imgContainerPlayer1, gameService.getPlayer());
+            loadCardToPerson(1,imgContainerPlayer1, Player.class);
             playerScore1.setText(String.valueOf(gameService.getPlayerCardsValue()));
             log.info("Player score 1: {}",playerScore1);
         }
@@ -337,16 +325,16 @@ public class GameController implements Initializable {
         doubleBtn.setDisable(bool);
         standBtn.setDisable(bool);
     }
-    private void checkSplitEnable(){
-        log.info("Checking split button allowing...");
-        if(gameService.getPlayer().isEnableSplitCards()){
-            activateBtn(splitBtn);
-            log.info("Split button allowed.");
-        }else{
-            deactivateBtn(splitBtn);
-            log.info("Split button not allowed.");
-        }
-    }
+//    private void checkSplitEnable(){
+//        log.info("Checking split button allowing...");
+//        if(player.isEnableSplitCards()){
+//            activateBtn(splitBtn);
+//            log.info("Split button allowed.");
+//        }else{
+//            deactivateBtn(splitBtn);
+//            log.info("Split button not allowed.");
+//        }
+//    }
     private void madeResult(){
         progressIndicator.setVisible(true);
         disableFundAndBetInput(true);
@@ -385,7 +373,7 @@ public class GameController implements Initializable {
             imgContainerPlayer2.getChildren().remove(1,imgContainerPlayer2.getChildren().size());
         }
         gameService.resetGame();
-        fundInput.textProperty().bindBidirectional(gameService.getPlayer().getFund(),new NumberStringConverter());
+        fundInput.textProperty().bindBidirectional(gameService.getPlayerFund(),new NumberStringConverter());
         disableFundAndBetInput(false);
         setScoreLabelDealer();
         setScoreLabelPlayer();
@@ -400,7 +388,7 @@ public class GameController implements Initializable {
         log.info("Dealer getting cards: ");
         imgContainerDealer.getChildren().remove(2);
         while(gameService.getDealerCardsValue()<17){
-            loadCardToPerson(1,imgContainerDealer, gameService.getDealer());
+            loadCardToPerson(1,imgContainerDealer, Person.class);
             setScoreLabelDealer();
         }
     }
@@ -446,25 +434,24 @@ public class GameController implements Initializable {
             }
         });
     }
-    private boolean manageBet(int value){
-        if(gameUtils.validateBet(value, player.getFund().intValue())){
-            log.info("Player's valid bet: {}",value);
-            gameService.getPlayer().addBetFromFund(value);
-            betLabel.setText(String.valueOf(player.getBet()));
+    private boolean manageBet(int bet){
+        if(gameService.addPlayerBetFromFund(bet)){
+            log.info("Player's valid bet: {}",bet);
+            betLabel.setText(String.valueOf(Integer.parseInt(betLabel.getText())+bet));
             dealBtn.setDisable(false);
             return true;
         }
         else{
             showWarningPopUp("Not have enough funds!");
-            log.info("Player's not valid bet: {} ",value);
+            log.info("Player's not valid bet: {} ",bet);
             return false;
         }
     }
-    private void loadCardToPerson(int amount, Pane placetoLoad, Person person){
+    private void loadCardToPerson(int amount, Pane placetoLoad, Class<? extends Person> personClass){
         ImageView imageView;
         Card card;
         for(int i = 0; i<amount;i++) {
-          card = gameService.getCard();
+          card = gameService.loadCardToPerson(personClass);
           if(card != null){
               log.debug("Card object: {}",card.toString());
               try{
@@ -476,7 +463,6 @@ public class GameController implements Initializable {
                   showWarningPopUp("Failed to load image, no connection");
                   placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),card.getCode()));
               }
-              person.addCard(card);
           }else{
               showWarningPopUp("Failed to load card data");
               log.error("Failed to load card data");
@@ -540,7 +526,7 @@ public class GameController implements Initializable {
         readInFundInputListener();
         disableAllBtn(true);
         playerNameLabel.setText(gameService.getUsername());
-        fundInput.textProperty().bindBidirectional(player.getFund(),new NumberStringConverter());
+        fundInput.textProperty().bindBidirectional(gameService.getPlayerFund(),new NumberStringConverter());
         log.info("INIT game controller");
     }
 }

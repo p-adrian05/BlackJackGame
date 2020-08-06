@@ -7,9 +7,8 @@ import com.company.blackJack.card.CardApi;
 import com.company.blackJack.card.Deck;
 import com.company.blackJack.game.*;
 
-import com.company.domain.User;
 import com.company.UserDao.UserDao;
-import lombok.AccessLevel;
+import javafx.beans.property.IntegerProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.NoSuchElementException;
 
 
 /**
@@ -34,9 +32,7 @@ public class GameServiceImpl implements GameService {
     private ApplicationContext appContext = SpringContext.getApplicationContext();
     private final UserDao userDao;
 
-    @Getter
     private Player player;
-    @Getter
     private Person dealer;
     @Setter
     @Getter
@@ -74,12 +70,18 @@ public class GameServiceImpl implements GameService {
         player.getFund().set(fund);
     }
     @Override
-    public Card getCard(){
+    public Card loadCardToPerson(Class<? extends Person> personClass){
         if(deck.getDeckCards().size()<10){
             initDeck();
         }
         if(deck!=null){
-            return deck.getCard();
+            Card card = deck.getCard();
+            if(personClass.getName().equals(Player.class.getName())){
+                player.addCard(card);
+            }else{
+                dealer.addCard(card);
+            }
+            return card;
         }
         return null;
     }
@@ -149,4 +151,39 @@ public class GameServiceImpl implements GameService {
     public int getDealerCardsValue(){
         return deck.calcCardsSumValue(dealer.getCards());
     }
+    @Override
+    public boolean enablePlayerSplitCards(){
+        if(player.isEnableSplitCards() && addPlayerBetFromFund(player.getBet())){
+            player.madeSplitCards();
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean addPlayerBetFromFund(int bet){
+        if(gameUtils.validateBet(bet,player.getFund().getValue())){
+            player.addBetFromFund(bet);
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean addSecondHandToPlayer(){
+        player.madeSecondHand();
+        return true;
+    }
+    @Override
+    public IntegerProperty getPlayerFund(){
+        return player.getFund();
+    }
+    @Override
+    public boolean isDoubleEnable(){
+        if(player.getCards().size()==2 &&
+                gameUtils.validateBet(player.getBet(),player.getFund().getValue())){
+            return true;
+        }
+        return false;
+    }
+
+
 }
