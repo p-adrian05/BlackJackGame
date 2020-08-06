@@ -17,5 +17,4 @@ public interface Player extends Person{
     IntegerProperty getFund();
     int getBet();
     List<Card> getSplitCards();
-
 }

@@ -35,7 +35,7 @@ public class StatController implements Initializable {
     private GameService gameService;
 
     public void initData(){
-        GameData gameData = userDao.getGameDataById(gameService.getGameDataId()).get();
+        GameData gameData = userDao.getGameDataById(gameService.getGameDataId());
         madePie(new int[]{gameData.getWonCount(),
                 gameData.getLoseCount()},"Won/Lost rate",pieLoseWinCount);
         madePie(new int[]{gameData.getWonMoney(),

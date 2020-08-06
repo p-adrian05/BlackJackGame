@@ -21,6 +21,6 @@ public interface UserDao extends GenericDao<User> {
      */
     Optional<User> findByUsername(String username);
 
-    Optional<GameData> getGameDataById(Long id);
+    GameData getGameDataById(Long id);
     void updateGameData(GameData entity);
 }

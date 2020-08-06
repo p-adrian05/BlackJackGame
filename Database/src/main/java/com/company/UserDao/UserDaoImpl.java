@@ -27,14 +27,11 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public Optional<GameData> getGameDataById(Long id) {
-        try {
-            return Optional.of(entityManager.createQuery("SELECT g FROM GameData g WHERE g.id = :id", GameData.class)
-                    .setParameter("id", id).getSingleResult());
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+    public GameData getGameDataById(Long id) {
+        return entityManager.createQuery("SELECT g FROM GameData g WHERE g.id = :id", GameData.class)
+                .setParameter("id", id).getSingleResult();
     }
+
 
     @Override
     @Transactional

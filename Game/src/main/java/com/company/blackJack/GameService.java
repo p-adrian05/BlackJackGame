@@ -37,7 +37,7 @@ public interface GameService {
      *
      * @return an array of {@link Result} enum values
      */
-     Result[] getResults();
+    String getResultsString();
 
     /**
      * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])}.
@@ -45,7 +45,7 @@ public interface GameService {
      * @param results an array of {@link Result} enum values
      * @return an array of int prizes
      */
-     int[] getPrizes(Result[] results);
+     int[] getPrizes();
 
     /**
      * Sets user entity's attributes and save it to the database.
@@ -87,7 +87,7 @@ public interface GameService {
 
      boolean enablePlayerSplitCards();
      boolean addPlayerBetFromFund(int funds);
-     boolean addSecondHandToPlayer();
+     void addSecondHandToPlayer();
      IntegerProperty getPlayerFund();
      boolean isDoubleEnable();
 }

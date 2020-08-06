@@ -26,14 +26,15 @@ import javax.annotation.PostConstruct;
 @Service
 public class GameServiceImpl implements GameService {
 
+    private final ApplicationContext appContext = SpringContext.getApplicationContext();
+
     private final CardApi cardApi;
     private final GameUtils gameUtils;
-    private Deck deck;
-    private ApplicationContext appContext = SpringContext.getApplicationContext();
     private final UserDao userDao;
-
+    private Deck deck;
     private Player player;
     private Person dealer;
+
     @Setter
     @Getter
     private Long gameDataId;
@@ -56,15 +57,6 @@ public class GameServiceImpl implements GameService {
             log.error("Failed to load cards data from json file.");
         }
     }
-    @Autowired
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-    @Autowired
-    public void setDealer(Person dealer) {
-        this.dealer = dealer;
-    }
-
     @Override
     public void setPlayerFund(int fund){
         player.getFund().set(fund);
@@ -89,7 +81,7 @@ public class GameServiceImpl implements GameService {
     public void resetGame(){
         player = appContext.getBean(Player.class);
         dealer = appContext.getBean("dealer",Person.class);
-        setPlayerFund(userDao.getGameDataById(gameDataId).get().getFunds());
+        setPlayerFund(userDao.getGameDataById(gameDataId).getFunds());
     }
     @Override
     public boolean isGameOver(){
@@ -112,19 +104,22 @@ public class GameServiceImpl implements GameService {
         return false;
     }
     @Override
-    public Result[] getResults(){
-        return gameUtils.calculateResult(getPlayerCardsValue(),
+    public String getResultsString(){
+        return gameUtils.madeStringResult(getResults());
+    }
+    @Override
+    public int[] getPrizes(){
+        return gameUtils.calculatePrizes(player.getBet(),getResults());
+    }
+    private Result[] getResults(){
+        return  gameUtils.calculateResult(getPlayerCardsValue(),
                 getPlayerSplitCardsValue(),
                 getDealerCardsValue());
     }
     @Override
-    public int[] getPrizes(Result[] results){
-        return gameUtils.calculatePrizes(player.getBet(),results);
-    }
-    @Override
     public void saveUser(){
-        GameData gameData = userDao.getGameDataById(gameDataId).get();
-        int[] prizes = getPrizes(getResults());
+        GameData gameData = userDao.getGameDataById(gameDataId);
+        int[] prizes = getPrizes();
         int profit = gameUtils.calcProfit(prizes,player.getBet());
         gameData.setFunds(gameUtils.calculateFund(prizes,player.getFund().intValue()));
         if(player.getBet()>gameData.getMaxBet()){
@@ -168,9 +163,8 @@ public class GameServiceImpl implements GameService {
         return false;
     }
     @Override
-    public boolean addSecondHandToPlayer(){
+    public void addSecondHandToPlayer(){
         player.madeSecondHand();
-        return true;
     }
     @Override
     public IntegerProperty getPlayerFund(){
@@ -178,11 +172,8 @@ public class GameServiceImpl implements GameService {
     }
     @Override
     public boolean isDoubleEnable(){
-        if(player.getCards().size()==2 &&
-                gameUtils.validateBet(player.getBet(),player.getFund().getValue())){
-            return true;
-        }
-        return false;
+        return player.getCards().size() == 2 &&
+                gameUtils.validateBet(player.getBet(), player.getFund().getValue());
     }
 
 

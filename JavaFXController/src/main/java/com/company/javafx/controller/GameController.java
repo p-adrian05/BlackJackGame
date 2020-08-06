@@ -93,10 +93,10 @@ public class GameController implements Initializable {
 
     @Autowired
     private GameService gameService;
-    @Autowired
-    private GameUtils gameUtils;
+
     boolean splitEnabled = false;
     boolean standButtonClicked = false;
+
     @Autowired
     @TimerDuration
     private int DURATIONTIME;
@@ -202,11 +202,10 @@ public class GameController implements Initializable {
     }
     public void hitBtnClickedInSplitMode(){
         if(standButtonClicked || gameService.getPlayerCardsValue()>=21){
-            if(gameService.addSecondHandToPlayer()){
-                loadCardToPerson(1,imgContainerPlayer2, Player.class);
-                playerScore2.setText(String.valueOf(gameService.getPlayerSplitCardsValue()));
-                log.info("Player score 2: {}",playerScore2);
-            }
+            gameService.addSecondHandToPlayer();
+            loadCardToPerson(1,imgContainerPlayer2, Player.class);
+            playerScore2.setText(String.valueOf(gameService.getPlayerSplitCardsValue()));
+            log.info("Player score 2: {}",playerScore2);
         }
         else{
             loadCardToPerson(1,imgContainerPlayer1, Player.class);
@@ -342,8 +341,7 @@ public class GameController implements Initializable {
         timeline.stop();
         timerLabel.textProperty().unbind();
         timerLabel.setText("");
-        Result[] results = gameService.getResults();
-        int[] prizes = gameService.getPrizes(results);
+        int[] prizes = gameService.getPrizes();
         log.info("RESULT: {}", resultLabel.getText());
         log.info("PRIZE: {}", prizeLabel.getText());
         log.info("Player fund: {}", fundInput.getText());
@@ -352,9 +350,9 @@ public class GameController implements Initializable {
                 Thread.sleep(2000);
                 Platform.runLater(()->{
                 if(prizes.length==2){
-                    showResultPopUp(gameUtils.madeStringResult(results), prizes[0] + " and " +prizes[1]);
+                    showResultPopUp(gameService.getResultsString(), prizes[0] + " and " +prizes[1]);
                 }else{
-                    showResultPopUp(gameUtils.madeStringResult(results), String.valueOf(prizes[0]));
+                    showResultPopUp(gameService.getResultsString(), String.valueOf(prizes[0]));
                 }
                 progressIndicator.setVisible(false);
                 });
@@ -512,14 +510,6 @@ public class GameController implements Initializable {
             placetoLoad.getChildren().add(madeLabel(getLastChildXLayout(placetoLoad),"err"));
             showWarningPopUp("Failed to load images");
         }
-    }
-    private void activateBtn(Button btn){
-        btn.getStyleClass().add("redBorder");
-        btn.setDisable(false);
-    }
-    private void deactivateBtn(Button btn){
-        btn.setDisable(true);
-        btn.getStyleClass().remove("redBorder");
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
