@@ -2,7 +2,6 @@ package com.company.blackJack.game;
 
 
 import com.company.blackJack.card.Card;
-import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.Collections;

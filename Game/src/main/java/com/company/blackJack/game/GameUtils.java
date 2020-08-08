@@ -1,7 +1,7 @@
 package com.company.blackJack.game;
 
 /**
- * Interface representing the logic of the game.
+ * Interface provides calculation functions for the game.
  */
 public interface GameUtils {
     /**

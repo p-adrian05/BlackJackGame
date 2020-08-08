@@ -28,14 +28,12 @@ import javafx.util.converter.NumberStringConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.PostConstruct;
-
 @Slf4j
 public class GameController implements Initializable {
     @FXML
-    public Pane imgContainerPlayer2;
+    private Pane imgContainerPlayer2;
     @FXML
-    public Pane imgContainerPlayer1;
+    private Pane imgContainerPlayer1;
     @FXML
     private Label betLabel;
     @FXML
@@ -176,6 +174,7 @@ public class GameController implements Initializable {
     public void doubleBtnClicked() {
         log.info("Double button clicked");
         if(gameService.isDoubleEnable()){
+            manageBet(Integer.parseInt(betLabel.getText()));
             dealBtn.setDisable(true);
         }else{
             showWarningPopUp("Double not allowed!");
@@ -324,16 +323,6 @@ public class GameController implements Initializable {
         doubleBtn.setDisable(bool);
         standBtn.setDisable(bool);
     }
-//    private void checkSplitEnable(){
-//        log.info("Checking split button allowing...");
-//        if(player.isEnableSplitCards()){
-//            activateBtn(splitBtn);
-//            log.info("Split button allowed.");
-//        }else{
-//            deactivateBtn(splitBtn);
-//            log.info("Split button not allowed.");
-//        }
-//    }
     private void madeResult(){
         progressIndicator.setVisible(true);
         disableFundAndBetInput(true);
@@ -433,7 +422,7 @@ public class GameController implements Initializable {
         });
     }
     private boolean manageBet(int bet){
-        if(gameService.addPlayerBetFromFund(bet)){
+        if(gameService.addPlayerBet(bet)){
             log.info("Player's valid bet: {}",bet);
             betLabel.setText(String.valueOf(Integer.parseInt(betLabel.getText())+bet));
             dealBtn.setDisable(false);

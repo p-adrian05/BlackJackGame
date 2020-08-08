@@ -1,6 +1,5 @@
 package com.company.blackJack;
 
-import com.company.SpringContext;
 import com.company.blackJack.card.Card;
 import com.company.domain.GameData;
 import com.company.blackJack.card.CardApi;
@@ -17,16 +16,15 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-
-
 /**
- * Class collects all objects needed the game and provides game related functions.
+ * Class implementation of {@link GameService} interface
  */
 @Slf4j
 @Service
 public class GameServiceImpl implements GameService {
 
-    private final ApplicationContext appContext = SpringContext.getApplicationContext();
+    @Autowired
+    private ApplicationContext appContext;
 
     private final CardApi cardApi;
     private final GameUtils gameUtils;
@@ -79,8 +77,8 @@ public class GameServiceImpl implements GameService {
     }
     @Override
     public void resetGame(){
-        player = appContext.getBean(Player.class);
-        dealer = appContext.getBean("dealer",Person.class);
+        this.player = appContext.getBean(Player.class);
+        this.dealer = appContext.getBean("dealer",Person.class);
         setPlayerFund(userDao.getGameDataById(gameDataId).getFunds());
     }
     @Override
@@ -148,14 +146,14 @@ public class GameServiceImpl implements GameService {
     }
     @Override
     public boolean enablePlayerSplitCards(){
-        if(player.isEnableSplitCards() && addPlayerBetFromFund(player.getBet())){
+        if(player.isEnableSplitCards() && addPlayerBet(player.getBet())){
             player.madeSplitCards();
             return true;
         }
         return false;
     }
     @Override
-    public boolean addPlayerBetFromFund(int bet){
+    public boolean addPlayerBet(int bet){
         if(gameUtils.validateBet(bet,player.getFund().getValue())){
             player.addBetFromFund(bet);
             return true;

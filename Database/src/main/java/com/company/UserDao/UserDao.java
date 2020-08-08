@@ -17,10 +17,23 @@ public interface UserDao extends GenericDao<User> {
      *
      * @param username the String name to look for
      * @return an {@link Optional} object wrapping the {@link User} instance with
-     * the specified primary key
+     * the specified username
      */
     Optional<User> findByUsername(String username);
 
+    /**
+     * Returns a {@link GameData} entity instance with the specified id from the
+     * database.
+     *
+     * @param id the id to look for
+     * @return Returns a {@link GameData} instance with
+     * the specified primary key
+     */
     GameData getGameDataById(Long id);
+    /**
+     * Updates the {@link GameData} entity instance in the database.
+     *
+     * @param entity the entity instance to be updated in the database
+     */
     void updateGameData(GameData entity);
 }

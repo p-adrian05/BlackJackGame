@@ -6,7 +6,9 @@ import com.company.blackJack.game.*;
 import javafx.beans.property.IntegerProperty;
 
 import java.util.List;
-
+/**
+ * Interface collects all functionality needed for the controllers.
+ */
 public interface GameService {
      /**
       * Set the value of funds in a{@link Player} object.
@@ -42,7 +44,6 @@ public interface GameService {
     /**
      * Returns the final prize of the player using {@link GameUtils#calculatePrizes(int, Result[])}.
      *
-     * @param results an array of {@link Result} enum values
      * @return an array of int prizes
      */
      int[] getPrizes();
@@ -83,11 +84,39 @@ public interface GameService {
 
      Long getGameDataId();
 
+     IntegerProperty getPlayerFund();
+
+    /**
+     * Add a {@link Card} object to a {@link Person} implementation class.
+     * @param person a class which implements {@link Person} interface.
+     * @return the {@link Card} object which has been added to the {@link Person} implementation class.
+     */
      Card loadCardToPerson(Class<? extends Person> person);
 
+    /**
+     * If available to made split cards in the {@link Player} class, enables it.
+     *
+     * @return {@code true} if If available to made split cards, {@code false} otherwise.
+     */
      boolean enablePlayerSplitCards();
-     boolean addPlayerBetFromFund(int funds);
+
+    /**
+     * Add the given param int value to a {@link Player} class.
+     * @param bet given int value which is added to {@link Player} class.
+     * @return {@code true} if the given param is valid, {@code false} otherwise.
+     */
+     boolean addPlayerBet(int bet);
+
+    /**
+     * Enables second hand mode to a {@link Player} implementation.
+     * For more details: {@link Player#madeSecondHand()}
+     */
      void addSecondHandToPlayer();
-     IntegerProperty getPlayerFund();
-     boolean isDoubleEnable();
+
+    /**
+     * Checks if double mode is enable in any state of the game. Means to double the {@link Player}'s bet.
+     * @return {@code true} if it is possible to double the bet values from the {@link Player} class,
+     * {@code false} otherwise.
+     */
+    boolean isDoubleEnable();
 }

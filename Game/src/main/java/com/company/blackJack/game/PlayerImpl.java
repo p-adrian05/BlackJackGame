@@ -59,10 +59,6 @@ public class PlayerImpl implements Player {
         this.bet += bet;
         this.fund.set(fund.subtract(bet).get());
     }
-    @Override
-    public void addFund(int fund) {
-        this.fund.set(this.fund.add(bet).get());
-    }
     /**
      * Returns whether it is possible to split cards.
      *

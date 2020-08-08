@@ -10,6 +10,9 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Implementation of {@link UserDao} interface.
+ */
 @Repository
 public class UserDaoImpl implements UserDao{
 
@@ -62,8 +65,6 @@ public class UserDaoImpl implements UserDao{
     public void updateGameData(GameData entity) {
         entityManager.merge(entity);
     }
-
-
 
     @Override
     @Transactional

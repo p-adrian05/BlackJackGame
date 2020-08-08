@@ -37,8 +37,8 @@ public class DeckFranceCards implements Deck{
      * Calculates the summary value of a list of {@link FranceCard} objects
      * implemented {@link Card} interface.
      *
-     * @param cards {@inheritDoc}
-     * @return {@inheritDoc}
+     * @param cards a list of {@link Card} objects.
+     * @return the summary value of {@link Card} objects.
      */
     @Override
     public int calcCardsSumValue(List<Card> cards) {

@@ -8,6 +8,10 @@ import java.util.Optional;
 
 public interface CardApi {
 
+     /**
+      * Provides a {@link Deck} object, which is made from an API call response.
+      * @return {@link Deck} object, wrapped in {@link Optional} object.
+      */
      Optional<Deck> getDeck();
 
 }
