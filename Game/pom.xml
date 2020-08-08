@@ -41,7 +41,7 @@
     <dependency>
         <artifactId>Database</artifactId>
         <groupId>hu.unideb.inf</groupId>
-        <version>1.0</version>
+        <version>${project.version}</version>
     </dependency>
     <dependency>
         <groupId>javax.annotation</groupId>

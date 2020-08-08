@@ -13,17 +13,17 @@
         <dependency>
             <groupId>hu.unideb.inf</groupId>
             <artifactId>JavaFXController</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>hu.unideb.inf</groupId>
             <artifactId>Game</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>hu.unideb.inf</groupId>
             <artifactId>Database</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
     <build>

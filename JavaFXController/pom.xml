@@ -25,7 +25,7 @@
         <dependency>
             <artifactId>Game</artifactId>
             <groupId>hu.unideb.inf</groupId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
