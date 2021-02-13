@@ -17,3 +17,10 @@ mvn clean site site:stage
 
 mvn package  
 java -jar ./FinalModule/target/FinalModule-1.0.jar
+
+
+### Gameplay images:
+<img src="./images/bj1.jpg" alt="img1" width="800px">
+<img src="./images/bj2.jpg" alt="img2" width="800px">
+<img src="./images/bj3.jpg" alt="img3" width="800px">
+<img src="./images/bj4.jpg" alt="img4" width="800px">
